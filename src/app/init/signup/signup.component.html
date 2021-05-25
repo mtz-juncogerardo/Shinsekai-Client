@@ -1,0 +1,26 @@
+<app-loader *ngIf="loading"></app-loader>
+<app-alert></app-alert>
+<div class="container mt-3">
+  <form [formGroup]="form">
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input formControlName="email" type="email" class="form-control" id="email" placeholder="tucorreo@hotmail.com">
+    </div>
+    <div class="form-group">
+      <label for="password">Contraseña:</label>
+      <input formControlName="password" type="password" class="form-control" id="password" placeholder="Password">
+      <small class="form-text text-muted">Tu contraseña debe ser mayor a 8 caracteres y contener al menos una mayuscula
+        y un simbolo</small>
+    </div>
+    <div class="form-group mb-5">
+      <label for="confirm-password">Confirma tu Contraseña</label>
+      <input formControlName="confirmPassword" type="password" class="form-control" id="confirm-password"
+             placeholder="Password">
+    </div>
+    <button (click)="submit()"
+            class="btn btn-primary"
+            [disabled]="form.invalid || this.form.get('confirmPassword')?.value !== this.form.get('password')?.value">
+      Registrarme
+    </button>
+  </form>
+</div>

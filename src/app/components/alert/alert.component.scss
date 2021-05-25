@@ -1,0 +1,12 @@
+div {
+  bottom: 1rem;
+  right: 1rem;
+  position: absolute;
+  width: fit-content;
+  transform: translateX(200%);
+  transition: 0.5s;
+
+  &.show {
+    transform: translateX(0);
+  }
+}

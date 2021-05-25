@@ -1,0 +1,22 @@
+<div class="container">
+  <h1>Welcome to Shinsekai Shop</h1>
+  <p *ngIf="user?.email">{{user?.email}}</p>
+  <h3 *ngIf="user?.admin">Eres Administrador</h3>
+
+  <div class="row">
+    <ng-container *ngIf="!this.user">
+      <div class="col-3">
+        <a routerLink="login">Login</a>
+      </div>
+      <div class="col-3">
+        <a routerLink="signup">Signup</a>
+      </div>
+      <div class="col-3">
+        <a routerLink="recover">Recover Account</a>
+      </div>
+    </ng-container>
+    <div *ngIf="this.user" class="col-3">
+      <a (click)="signOut()" href="#">Sign Out</a>
+    </div>
+  </div>
+</div>

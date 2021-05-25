@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./scss/variables/colors-theme-primary";
+@import "./scss/variables/layout";
+@import "./scss/variables/display";
+@import "./scss/variables/typography";
+
+
+body {
+  background-color: $color-white;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  text-decoration: none;
+  list-style: none;
+}
