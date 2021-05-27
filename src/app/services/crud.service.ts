@@ -47,8 +47,8 @@ export class CrudService {
       .pipe(
         retry(1),
         catchError((err: any) => {
-          console.log('error', err);
-          this.alertService.pushAlert({type: 'danger', message: err.error.error});
+          console.log('error', err.error.error);
+          this.alertService.pushAlert({type: 'danger', message: err.error.error ?? err});
           return err;
         })
       );
