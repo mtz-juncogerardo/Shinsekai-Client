@@ -8,14 +8,14 @@ import { LoaderComponent } from './loader/loader.component';
 @NgModule({
   declarations: [
     AlertComponent,
-    LoaderComponent
+    LoaderComponent,
   ],
   imports: [
     CommonModule
   ],
-    exports: [
-        AlertComponent,
-        LoaderComponent
-    ]
+  exports: [
+    AlertComponent,
+    LoaderComponent,
+  ]
 })
 export class ComponentsModule { }

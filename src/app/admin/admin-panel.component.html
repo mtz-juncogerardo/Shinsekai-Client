@@ -1,1 +1,22 @@
-<p>admin-panel works!</p>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <a class="navbar-brand">ADMIN PANEL</a>
+      <ul class="navbar-nav mr-auto">
+        <li *ngFor="let item of menuItems; let idx = index"
+            class="nav-item"
+            (click)="selectMenu(idx)">
+          <a class="nav-link" [class.active]="currentMenu === menuItems[idx]">{{item}}</a>
+        </li>
+      </ul>
+      <form *ngIf="search" class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>

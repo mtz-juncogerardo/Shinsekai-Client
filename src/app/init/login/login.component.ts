@@ -3,7 +3,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CrudService} from '../../services/crud.service';
 import {AlertService} from '../../services/alert.service';
 import {StorageService} from '../../services/storage.service';
-import {Route, Router} from '@angular/router';
+import {Router} from '@angular/router';
+import {LoaderService} from '../../services/loader.service';
 
 @Component({
   selector: 'app-login',
@@ -13,15 +14,14 @@ import {Route, Router} from '@angular/router';
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
-  loading: boolean;
 
   constructor(private formBuilder: FormBuilder,
               private crudService: CrudService,
               private alertService: AlertService,
               private storage: StorageService,
-              private router: Router) {
+              private router: Router,
+              private loader: LoaderService) {
     this.crudService.setEndpoint('auth/login');
-    this.loading = false;
     this.form = this.formBuilder.group({
       email: [
         null,
@@ -47,16 +47,18 @@ export class LoginComponent implements OnInit {
       this.alertService.pushAlert({type: 'danger', message: 'Credenciales incorrectas'});
     }
 
-    this.loading = true;
-    console.log(this.loading);
+    this.loader.beginLoad();
 
     await this.crudService.httpPost(this.form.value).toPromise()
       .then(res => {
-        this.storage.setKey(res.response);
-        this.alertService.pushAlert({type: 'success', message: 'Te has logeado correctamente'});
-        this.loading = false;
-        this.router.navigate(['/']);
+        if (res.response) {
+          this.storage.setKey(res.response);
+          this.alertService.pushAlert({type: 'success', message: 'Te has logeado correctamente'});
+          this.router.navigate(['/']);
+          return;
+        }
+        this.storage.deleteKey();
       })
-      .finally(() => this.loading = false);
+      .finally(() => this.loader.endLoad());
   }
 }

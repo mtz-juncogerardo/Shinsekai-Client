@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CrudService} from '../../services/crud.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AlertService} from '../../services/alert.service';
+import {LoaderService} from '../../services/loader.service';
 
 @Component({
   selector: 'app-signup',
@@ -12,15 +13,14 @@ import {AlertService} from '../../services/alert.service';
 export class SignupComponent implements OnInit {
 
   form: FormGroup;
-  loading: boolean;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private crudService: CrudService,
               private formBuilder: FormBuilder,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private loader: LoaderService) {
     this.crudService.setEndpoint('auth/signup');
-    this.loading = false;
     this.form = this.formBuilder.group({
       email: [
         null,
@@ -50,17 +50,19 @@ export class SignupComponent implements OnInit {
       return;
     }
 
-    this.loading = true;
+    this.loader.beginLoad();
 
     await this.crudService.httpPost(this.form.value).toPromise()
-      .then(() => {
-        this.alertService.pushAlert({
-          type: 'success',
-          message: 'Se ha enviado un correo al email proporcionado, abre el link para confirmar tu registro'
-        });
+      .then(res => {
+        if (res.response) {
+          this.alertService.pushAlert({
+            type: 'success',
+            message: 'Se ha enviado un correo al email proporcionado, abre el link para confirmar tu registro'
+          });
+        }
       });
 
     this.form.reset();
-    this.loading = false;
+    this.loader.endLoad();
   }
 }
