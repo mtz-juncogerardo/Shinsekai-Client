@@ -1,0 +1,73 @@
+@import "src/scss/variables/colors-theme-primary";
+
+.logo, .search, .options {
+  border: 1px solid $color-primary;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+}
+
+.search {
+  input, &_icon {
+    height: 4rem;
+    border-radius: 0.875rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 0 1.5rem;
+    font-size: 2rem;
+    border: none;
+    background: $light;
+    outline: none;
+
+    &:focus {
+      border-color: $dark;
+    }
+  }
+
+  &_icon {
+    background: $color-primary;
+    width: 4.5rem;
+  }
+}
+
+.options {
+  justify-content: space-around;
+
+  &_button {
+    background: $color-secondary;
+    color: $color-white;
+    border-radius: 0.2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 3rem;
+    box-shadow: 1px 4px 2px $dark;
+    cursor: pointer;
+    user-select: none;
+    width: 100%;
+    max-width: 12rem;
+
+    &:active {
+      box-shadow: none;
+    }
+
+    &_icon {
+      border: 1px solid white;
+      height: 2rem;
+      width: 2rem;
+    }
+  }
+
+  &_shopcart {
+    padding: 0 2rem;
+
+    &_icon {
+      height: 2rem;
+      width: 2rem;
+      border: 1px solid red;
+    }
+  }
+}

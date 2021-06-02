@@ -20,3 +20,8 @@
     </div>
   </div>
 </nav>
+
+<ng-container [ngSwitch]="currentMenu">
+  <app-articles *ngSwitchCase="menuItems[0]"></app-articles>
+  <h2>null</h2>
+</ng-container>
