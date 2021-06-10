@@ -42,7 +42,6 @@ export class LoginComponent implements OnInit {
   }
 
   async submit(): Promise<void> {
-    console.log(this.form.value);
     if (this.form.invalid) {
       this.alertService.pushAlert({type: 'danger', message: 'Credenciales incorrectas'});
     }

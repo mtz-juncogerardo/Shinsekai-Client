@@ -1,0 +1,7 @@
+<h1>Welcome:</h1>
+<p><strong>Name:</strong> {{user?.name || 'Sin Nombre'}}</p>
+<p><strong>Email:</strong>{{user?.email}}</p>
+<p><strong>City:</strong>{{user?.city || 'Sin Ciudad'}}</p>
+<p><strong>Address:</strong>{{user?.address || 'Sin Direccion'}}</p>
+<p><strong>Phone:</strong>{{user?.phone || 'Sin Telefono'}}</p>
+<button (click)="logout()" class="btn btn-danger">Cerrar Sesión</button>

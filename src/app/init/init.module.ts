@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {InitComponent} from './init.component';
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {SignupModule} from './signup/signup.module';
 import {ComponentsModule} from '../components/components.module';
 
 const routes: Routes = [
@@ -22,6 +21,10 @@ const routes: Routes = [
   {
     path: 'signup',
     loadChildren: () => import('./signup/signup.module').then(m => m.SignupModule)
+  },
+  {
+    path: 'account',
+    loadChildren: () => import('./account/account.module').then(m => m.AccountModule)
   }
 ];
 

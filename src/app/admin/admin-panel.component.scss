@@ -1,5 +1,8 @@
+@import 'src/scss/variables/colors-theme-primary';
+
 nav {
   padding: 0.5rem 1rem;
+  background: $light;
 }
 
 li {

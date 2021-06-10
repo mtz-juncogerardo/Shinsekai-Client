@@ -19,7 +19,13 @@ export class LoaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.loaderSub = this.loader.loading$.subscribe(loadFlag => this.loadFlag = loadFlag);
+    this.loaderSub = this.loader.loading$.subscribe(loadFlag => {
+      this.loadFlag = loadFlag;
+
+      if (this.loadFlag) {
+        setTimeout(() => this.loadFlag = false, 10000);
+      }
+    });
   }
 
   ngOnDestroy(): void {

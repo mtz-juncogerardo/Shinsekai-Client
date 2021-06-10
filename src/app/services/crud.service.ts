@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
 import {AlertService} from './alert.service';
 
@@ -34,11 +34,15 @@ export class CrudService {
     };
   }
 
-  httpGet(): Observable<any> {
-    return this.httpClient.get(this.path, this.httpHeaders)
+  httpGet(query: string = ''): Observable<any> {
+    return this.httpClient.get(this.path + query, this.httpHeaders)
       .pipe(
         retry(1),
-        catchError(err => this.processError(err))
+        catchError((err: any) => {
+          console.log('error', err?.error?.error ?? err);
+          this.alertService.pushAlert({type: 'danger', message: err?.error?.error ?? 'Ocurrio un Error desconocido'});
+          return err?.error?.error ?? err;
+        })
       );
   }
 
@@ -47,23 +51,41 @@ export class CrudService {
       .pipe(
         retry(1),
         catchError((err: any) => {
-          console.log('error', err.error.error ?? err);
-          this.alertService.pushAlert({type: 'danger', message: err.error.error ?? err});
-          return err.error.error ?? err;
+          console.log('error', err?.error?.error ?? err);
+          this.alertService.pushAlert({type: 'danger', message: err?.error?.error ?? 'Ocurrio un Error desconocido'});
+          return err?.error?.error ?? err;
         })
       );
+  }
+
+  httpUpload(data: FormData, token: string): Observable<any> {
+    return this.httpClient.post(this.path, data, {reportProgress: true, observe: 'events', headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      })});
   }
 
   httpPut(data: any): Observable<any> {
     return this.httpClient.put(this.path, JSON.stringify(data), this.httpHeaders)
       .pipe(
         retry(1),
-        catchError(this.processError)
+        catchError((err: any) => {
+          console.log('error', err?.error?.error ?? err);
+          this.alertService.pushAlert({type: 'danger', message: err?.error?.error ?? 'Ocurrio un Error desconocido'});
+          return err?.error?.error ?? err;
+        })
       );
   }
 
-  processError(httpError: HttpErrorResponse): Observable<any> {
-    const error = httpError.error;
-    return throwError(error);
+  httpDelete(query: string = ''): Observable<any> {
+    return this.httpClient.delete(this.path + '/delete/' + query, this.httpHeaders)
+      .pipe(
+        retry(1),
+        catchError((err: any) => {
+          console.log('error', err?.error?.error ?? err);
+          this.alertService.pushAlert({type: 'danger', message: err?.error?.error ?? 'Ocurrio un Error desconocido'});
+          return err?.error?.error ?? err;
+        })
+      );
   }
+
 }

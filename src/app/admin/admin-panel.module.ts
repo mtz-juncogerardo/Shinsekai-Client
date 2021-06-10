@@ -4,6 +4,7 @@ import { AdminPanelComponent } from './admin-panel.component';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from '../services/auth.guard';
 import { ArticlesComponent } from './articles/articles.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -18,9 +19,11 @@ const routes: Routes = [
     AdminPanelComponent,
     ArticlesComponent,
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-  ]
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        FormsModule,
+        ReactiveFormsModule,
+    ]
 })
 export class AdminPanelModule { }

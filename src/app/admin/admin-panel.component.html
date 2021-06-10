@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
             aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,15 +13,17 @@
           <a class="nav-link" [class.active]="currentMenu === menuItems[idx]">{{item}}</a>
         </li>
       </ul>
-      <form *ngIf="search" class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
     </div>
   </div>
 </nav>
 
 <ng-container [ngSwitch]="currentMenu">
-  <app-articles *ngSwitchCase="menuItems[0]"></app-articles>
-  <h2>null</h2>
+  <app-articles *ngSwitchCase="menuItems[0]"
+                [articles]="articleResponse.response"
+                [maxPage]="articleResponse.maxPage ? articleResponse.maxPage : 1"
+                [search]="search"
+                [page]="articleResponse.page ? articleResponse.page : 1"
+                (articleRefresh)="getArticles($event)"
+                (searchDetected)="saveSearch($event)"></app-articles>
+  <h2 *ngSwitchDefault>null</h2>
 </ng-container>

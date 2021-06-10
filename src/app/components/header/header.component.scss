@@ -48,26 +48,24 @@
     cursor: pointer;
     user-select: none;
     width: 100%;
-    max-width: 12rem;
+    margin: 0 0.5rem;
+    max-width: 10rem;
 
     &:active {
       box-shadow: none;
     }
 
-    &_icon {
-      border: 1px solid white;
-      height: 2rem;
-      width: 2rem;
+    i {
+      font-size: 1.5rem;
     }
   }
 
   &_shopcart {
+    cursor: pointer;
     padding: 0 2rem;
 
-    &_icon {
-      height: 2rem;
-      width: 2rem;
-      border: 1px solid red;
+    i {
+      font-size: 2rem;
     }
   }
 }

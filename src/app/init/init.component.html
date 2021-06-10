@@ -1,1 +1,7 @@
-<app-header></app-header>
+<div class="wrapper">
+  <app-header (cartClick)="toggleCart()"
+              (accountClick)="goToAccount()"
+              (adminClick)="goToAdminPanel()"
+              [showAdmin]="user?.admin || false"
+              [accountText]="user?.id ? 'Mi Cuenta' : 'Inicia Sesión'"></app-header>
+</div>

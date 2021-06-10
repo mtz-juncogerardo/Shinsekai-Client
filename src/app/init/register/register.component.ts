@@ -33,7 +33,6 @@ export class RegisterComponent implements OnInit {
         .then(res => {
           if (res.response) {
             const token = res.response;
-            console.log('tkk', res.response);
             this.storage.setKey(token);
             this.alertService.pushAlert({type: 'success', message: 'Tu registro se completo correctamente'});
           }

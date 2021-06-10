@@ -1,1 +1,256 @@
-<h1>ARTICULOS!</h1>
+<div class="wrapper">
+  <div class="header">
+    <input (keyup)="searchArticles($event)" [(ngModel)]="searchInput" placeholder="Buscar">
+    <button (click)="searchArticles()" class="btn btn-outline-success">Buscar</button>
+    <button (click)="getArticleCombos()" data-bs-toggle="modal" data-bs-target="#createModal"
+            class="btn btn-success add">
+      + Agregar Nuevo Articulo
+    </button>
+  </div>
+  <table id="articles" class="table table-striped">
+    <thead class="bg-info">
+    <tr>
+      <th>Nombre</th>
+      <th>Altura</th>
+      <th>Precio</th>
+      <th>Descuento</th>
+      <th>Stock</th>
+      <th>Es Original?</th>
+      <th>Descripción</th>
+      <th># de Compras</th>
+      <th>Imagen</th>
+      <th>Options</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let article of articles">
+      <td>{{article.name}}</td>
+      <td>{{article.height}} mts</td>
+      <td>${{article.price}} MXN</td>
+      <td>${{article.discountPrice}} MXN</td>
+      <td>{{article.stock}}</td>
+      <td>{{article.originalFlag ? 'Si' : 'No'}}</td>
+      <td>{{article.details}}</td>
+      <td>{{article.timesSold}}</td>
+      <td><img [src]="article.images && article.images.length > 0 ? article.images[0].path : ''" alt="figura"></td>
+      <td>
+        <div class="options">
+          <i (click)="readArticle(article.id, article.name)" data-bs-toggle="modal" data-bs-target="#readModal"
+             class="far fa-eye"></i>
+          <i class="fas fa-pen"></i>
+          <i (click)="selectArticle(article.id, article.name)" class="fas fa-trash" data-bs-toggle="modal"
+             data-bs-target="#deleteConfirm"></i>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    Pagina:
+    <input name="page"
+           type="number"
+           min="1"
+           [(ngModel)]="inputPage"
+           [max]="maxPage">
+    De: {{maxPage}}
+    <i (click)="nextPage()" class="fas fa-arrow-circle-right"></i>
+  </div>
+</div>
+
+<!-- DELETE Modal -->
+<div class="modal fade" id="deleteConfirm" tabindex="-1" aria-labelledby="delete" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="delete">¿Estas apunto de eliminar: {{selectedArticle.name}}?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Esta acción no se puede deshacer.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Quiero conservarlo</button>
+        <button (click)="delete(selectedArticle.id)" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          Si, Eliminalo!
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- READ Modal -->
+<div class="modal fade" id="readModal" tabindex="-1" aria-labelledby="read" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="read">{{selectedArticle.name}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <dl>
+          <dt>ID</dt>
+          <dd>{{selectedArticle.id}}</dd>
+          <dt>Fecha en que se agrego</dt>
+          <dd>{{dateAdded}}</dd>
+          <dt>Animes</dt>
+          <dd>{{animes.toString()}}</dd>
+          <dt>Lineas</dt>
+          <dd>{{lines.toString()}}</dd>
+          <dt>Materiales</dt>
+          <dd>{{materials.toString()}}</dd>
+          <dt>Marcas</dt>
+          <dd>{{brands.toString()}}</dd>
+          <dt>Id del articulo orignal</dt>
+          <dd>{{originalSerial}}</dd>
+        </dl>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Create Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="create">Nuevo Articulo</h5>
+        <button (click)="deleteImages()" type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form">
+          <div class="form-group">
+            <label for="name">Nombre:</label>
+            <input formControlName="name" type="text" class="form-control" id="name"
+                   placeholder="Naruto Uzumaki Figure">
+          </div>
+          <div class="form-group">
+            <label for="details">Descripción:</label>
+            <textarea formControlName="details" type="text" class="form-control" id="details" rows="8"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="height">Altura en metros:</label>
+            <input formControlName="height" type="number" class="form-control" id="height" step="0.01"
+                   placeholder="1.75">
+          </div>
+          <div class="form-group">
+            <label for="price">Precio en MXN:</label>
+            <input formControlName="price" type="number" class="form-control" id="price" step="0.01"
+                   placeholder="1500.00">
+          </div>
+          <div class="form-group">
+            <label for="discountPrice">Descuento:</label>
+            <input formControlName="discountPrice" type="number" class="form-control" id="discountPrice" step="0.1"
+                   placeholder="100.00">
+            <small>El total descrito aqui se descontara del total de precio</small>
+          </div>
+          <div class="form-group">
+            <label for="stock">Stock:</label>
+            <input formControlName="stock" type="number" class="form-control" id="stock" step="1" placeholder="1">
+          </div>
+          <div class="form-group pt-3 pb-3">
+            <label class="mr-5" for="originalFlag">Es original?</label>
+            <input formControlName="originalFlag" type="checkbox" id="originalFlag">
+          </div>
+          <div *ngIf="!form.get('originalFlag')?.value" class="form-group">
+            <label for="originalSerial">Selecciona el Original:</label> <br>
+            <select #originalSelect (change)="addOriginal(originalSelect.value)" name="original" id="originalSerial">
+              <option value="">---Sin Original---</option>
+              <option *ngFor="let original of originalArticles"
+                      [value]="original.id">{{original.name}}</option>
+            </select>
+            <small>Si no tiene un original dejar vacio</small>
+          </div>
+
+          <!--Animes-->
+          <div class="form-group">
+            <label for="animes">Animes:</label>
+            <input #anime (keyup)="createTag('anime', anime.value, $event)" type="text" autocomplete="off"
+                   class="form-control" id="animes">
+            <select #animeSelect (change)="addTag('anime', animeSelect.value)" name="anime" id="anime">
+              <option value="">---Selecciona uno para agregar---</option>
+              <option *ngFor="let anime of animes" [value]="anime.id + ',' + anime.name">{{anime.name}}</option>
+            </select>
+            <small>Escribe y presiona Enter para agregar un nuevo tag</small>
+            <div class="combo" *ngFor="let anime of this.selectedAnimes">
+              <span (click)="removeTag('anime', anime.id)" class="badge rounded-pill bg-primary">{{anime.name}}</span>
+            </div>
+          </div>
+
+          <!--Lines-->
+          <div class="form-group">
+            <label for="lines">Lineas:</label>
+            <input #line (keyup)="createTag('line', line.value, $event)" type="text" autocomplete="off"
+                   class="form-control" id="lines">
+            <select #lineSelect (change)="addTag('line', lineSelect.value)" name="line" id="line">
+              <option value="">---Selecciona uno para agregar---</option>
+              <option *ngFor="let line of lines" [value]="line.id + ',' + line.name">{{line.name}}</option>
+            </select>
+            <small>Escribe y presiona Enter para agregar un nuevo tag</small>
+            <div class="combo" *ngFor="let line of this.selectedLines">
+              <span (click)="removeTag('line', line.id)" class="badge rounded-pill bg-primary">{{line.name}}</span>
+            </div>
+          </div>
+
+          <!--Materials-->
+          <div class="form-group">
+            <label for="materials">Materials:</label>
+            <input #material (keyup)="createTag('material', material.value, $event)" type="text" autocomplete="off"
+                   class="form-control" id="materials">
+            <select #materialSelect (change)="addTag('material', materialSelect.value)" name="material" id="material">
+              <option value="">---Selecciona uno para agregar---</option>
+              <option (click)="addTag('material', material)" *ngFor="let material of materials"
+                      [value]="material.id + ',' + material.name">{{material.name}}</option>
+            </select>
+            <div class="combo" *ngFor="let material of this.selectedMaterials">
+              <span (click)="removeTag('material', material.id)"
+                    class="badge rounded-pill bg-primary">{{material.name}}</span>
+            </div>
+            <small>Escribe y presiona Enter para agregar un nuevo tag</small>
+          </div>
+
+          <!--Brands-->
+          <div class="form-group">
+            <label for="brands">Marcas:</label>
+            <input #brand (keyup)="createTag('brand', brand.value, $event)" type="text" autocomplete="off"
+                   class="form-control" id="brands">
+            <select #brandSelect (change)="addTag('brand', brandSelect.value)" name="brand" id="brand">
+              <option value="">---Selecciona uno para agregar---</option>
+              <option (click)="addTag('brand', brand)" *ngFor="let brand of brands"
+                      [value]="brand.id + ',' + brand.name">{{brand.name}}</option>
+            </select>
+            <div class="combo" *ngFor="let brand of this.selectedBrands">
+              <span (click)="removeTag('brand', brand.id)" class="badge rounded-pill bg-primary">{{brand.name}}</span>
+            </div>
+            <small>Escribe y presiona Enter para agregar un nuevo tag</small>
+          </div>
+
+          <div class="pt-3 pb-3 form-group">
+            <label for="images">Imagenes:</label>
+            <input (change)="loadImage($event)" id="images" type="file" name="myImage" accept="image/*"/>
+          </div>
+          <div class="d-flex">
+            <div *ngFor="let image of imagePaths" class="images" (click)="removeImagePath(image.path)">
+              <img [src]="image.path" alt="loading">
+              <i *ngIf="image.path !== loadingGif" class="fas fa-trash"></i>
+            </div>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button data-bs-dismiss="modal"
+                  (click)="submit()"
+                  class="btn btn-primary"
+                  [disabled]="form.invalid || blockButton">
+            Guardar
+          </button>
+          <button (click)="deleteImages()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

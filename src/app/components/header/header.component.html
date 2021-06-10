@@ -5,12 +5,15 @@
     <div class="search_icon"></div>
   </div>
   <div class="col-3 options">
-    <div class="options_button">
-      <div class="options_button_icon"></div>
-      Mi Cuenta
+    <div (click)="emitAccountPress()" class="options_button">
+      <i class="fas fa-user"></i>
+      {{accountText}}
     </div>
-    <div class="options_shopcart">
-      <div class="options_shopcart_icon"></div>
+    <div *ngIf="showAdmin" (click)="emitAdminPress()" class="options_button">
+      Admin Panel
+    </div>
+    <div (click)="emitCartPress()" class="options_shopcart">
+      <i class="fas fa-shopping-cart"></i>
     </div>
   </div>
 </div>
