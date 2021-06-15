@@ -24,11 +24,18 @@ export class ImageBlobService {
     return this.crud.httpUpload(formData, this.storage.getKey());
   }
 
-  deleteImages(images: IImage[]): void {
+  deleteImages(images: (IImage | undefined)[]): void {
+    if (images === undefined) {
+      return;
+    }
+
     this.crud.setEndpoint('images');
 
     images.forEach(item => {
-      this.crud.httpDelete(`?blob=${item.path}`).toPromise()
+      const imagePath = item?.path?.split('.');
+      const imageType = imagePath ? imagePath[imagePath.length - 1] : [];
+
+      this.crud.httpDelete(`?blob=${item?.id}.${imageType}`).toPromise()
         .then(res => console.log(res.response));
     });
   }

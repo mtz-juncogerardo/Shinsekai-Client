@@ -40,7 +40,6 @@ export class CrudService {
         retry(1),
         catchError((err: any) => {
           console.log('error', err?.error?.error ?? err);
-          this.alertService.pushAlert({type: 'danger', message: err?.error?.error ?? 'Ocurrio un Error desconocido'});
           return err?.error?.error ?? err;
         })
       );
@@ -52,7 +51,6 @@ export class CrudService {
         retry(1),
         catchError((err: any) => {
           console.log('error', err?.error?.error ?? err);
-          this.alertService.pushAlert({type: 'danger', message: err?.error?.error ?? 'Ocurrio un Error desconocido'});
           return err?.error?.error ?? err;
         })
       );

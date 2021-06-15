@@ -18,7 +18,6 @@
       <th>Es Original?</th>
       <th>Descripción</th>
       <th># de Compras</th>
-      <th>Imagen</th>
       <th>Options</th>
     </tr>
     </thead>
@@ -32,12 +31,12 @@
       <td>{{article.originalFlag ? 'Si' : 'No'}}</td>
       <td>{{article.details}}</td>
       <td>{{article.timesSold}}</td>
-      <td><img [src]="article.images && article.images.length > 0 ? article.images[0].path : ''" alt="figura"></td>
       <td>
         <div class="options">
           <i (click)="readArticle(article.id, article.name)" data-bs-toggle="modal" data-bs-target="#readModal"
              class="far fa-eye"></i>
-          <i class="fas fa-pen"></i>
+          <i (click)="getArticleCombos(article.id)" data-bs-toggle="modal" data-bs-target="#createModal"
+             class="fas fa-pen"></i>
           <i (click)="selectArticle(article.id, article.name)" class="fas fa-trash" data-bs-toggle="modal"
              data-bs-target="#deleteConfirm"></i>
         </div>
@@ -103,6 +102,12 @@
           <dd>{{brands.toString()}}</dd>
           <dt>Id del articulo orignal</dt>
           <dd>{{originalSerial}}</dd>
+          <dt>Imagenes</dt>
+          <div class="d-flex flex-wrap">
+            <div *ngFor="let img of imagePaths" class="images">
+              <img [src]="img.path" alt="imagen de articulo">
+            </div>
+          </div>
         </dl>
       </div>
       <div class="modal-footer">
@@ -117,7 +122,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="create">Nuevo Articulo</h5>
+        <h5 class="modal-title" id="create">{{ editFlag ? 'Editando Articulo' : 'Nuevo Articulo'}}</h5>
         <button (click)="deleteImages()" type="button" class="btn-close" data-bs-dismiss="modal"
                 aria-label="Close"></button>
       </div>
@@ -161,7 +166,7 @@
             <select #originalSelect (change)="addOriginal(originalSelect.value)" name="original" id="originalSerial">
               <option value="">---Sin Original---</option>
               <option *ngFor="let original of originalArticles"
-                      [value]="original.id">{{original.name}}</option>
+                      [value]="original.id" [selected]="form.get('originalSerial')?.value === original.id">{{original.name}}</option>
             </select>
             <small>Si no tiene un original dejar vacio</small>
           </div>
@@ -234,7 +239,7 @@
             <input (change)="loadImage($event)" id="images" type="file" name="myImage" accept="image/*"/>
           </div>
           <div class="d-flex">
-            <div *ngFor="let image of imagePaths" class="images" (click)="removeImagePath(image.path)">
+            <div *ngFor="let image of imagePaths" class="images" (click)="removeImagePath(image)">
               <img [src]="image.path" alt="loading">
               <i *ngIf="image.path !== loadingGif" class="fas fa-trash"></i>
             </div>
@@ -245,12 +250,14 @@
                   (click)="submit()"
                   class="btn btn-primary"
                   [disabled]="form.invalid || blockButton">
-            Guardar
+            {{editFlag ? 'Actualizar' : 'Guardar'}}
           </button>
-          <button (click)="deleteImages()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar
+          <button (click)="deleteImages()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cerrar
           </button>
         </div>
       </div>
     </div>
   </div>
 </div>
+

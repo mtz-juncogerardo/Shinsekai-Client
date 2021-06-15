@@ -37,6 +37,7 @@ export class ArticlesComponent implements OnInit {
   originalSerial: string;
   imagePaths: IImage[];
   blockButton: boolean;
+  editFlag: boolean;
   private creatingTag: boolean;
   @Input() maxPage: number;
   @Input() page: number;
@@ -63,6 +64,7 @@ export class ArticlesComponent implements OnInit {
       id: '',
       name: ''
     };
+    this.editFlag = false;
     this.dateAdded = '';
     this.selectedAnimes = [];
     this.selectedLines = [];
@@ -81,6 +83,7 @@ export class ArticlesComponent implements OnInit {
     this.articleRefresh = new EventEmitter<IResponse>();
     this.searchDetected = new EventEmitter<string>();
     this.form = this.formBuilder.group({
+      id: [null],
       name: [
         null,
         Validators.required
@@ -179,12 +182,14 @@ export class ArticlesComponent implements OnInit {
 
   async delete(id: string): Promise<void> {
     this.loader.beginLoad();
+    this.crud.setEndpoint('articles');
 
     await this.crud.httpDelete(`?id=${id}`).toPromise()
       .then(res => {
         if (res.response) {
           this.alert.pushAlert({type: 'success', message: 'Articulo eliminado con exito'});
           this.articles = this.articles.filter(article => article.id !== id);
+          this.articleRefresh.emit({response: this.articles, page: this.page, maxPage: this.maxPage});
         }
       })
       .finally(() => this.loader.endLoad());
@@ -209,6 +214,7 @@ export class ArticlesComponent implements OnInit {
         this.materials = article.materials?.map(i => i.name) || ['N/A'];
         this.brands = article.brand?.map(i => i.name) || ['N/A'];
         this.originalSerial = article.originalSerial || 'N/A';
+        this.imagePaths = article.images;
       });
 
     this.selectedArticle = {
@@ -222,6 +228,9 @@ export class ArticlesComponent implements OnInit {
       return;
     }
 
+    const originalFlagForm = this.form.get('originalFlag')?.value;
+    const discountPriceForm = this.form.get('discountPrice')?.value;
+
     if (this.imagePaths.length === 0) {
       this.alert.pushAlert({type: 'warning', message: 'Tu articulo necesita al menos una imagen'});
       return;
@@ -233,14 +242,33 @@ export class ArticlesComponent implements OnInit {
       animes: this.selectedAnimes,
       brandId: this.selectedBrands[0].id,
       lines: this.selectedLines,
-      materials: this.selectedMaterials
+      materials: this.selectedMaterials,
+      originalFlag: originalFlagForm ? originalFlagForm : false,
+      discountPrice: discountPriceForm ? discountPriceForm : 0
     });
+
     console.log(this.form.value);
+    if (this.editFlag) {
+      this.crud.setEndpoint('articles/update');
+      await this.crud.httpPut(this.form.value).toPromise()
+        .then(res => {
+          if (res.response) {
+            this.alert.pushAlert({type: 'success', message: 'El articulo se actualizo con exito'});
+            this.articles = this.articles.filter(article => article.id !== res.response.id);
+            this.articles.unshift(res.response);
+            this.articleRefresh.emit({response: this.articles, page: this.page, maxPage: this.maxPage});
+          }
+        }).finally(() => this.loader.endLoad());
+
+      return;
+    }
+
     this.crud.setEndpoint('articles/create');
     await this.crud.httpPost(this.form.value).toPromise()
       .then(res => {
         if (res.response) {
           this.alert.pushAlert({type: 'success', message: 'El articulo se guardo con exito'});
+          this.articles.unshift(res.response);
           this.articleRefresh.emit({response: this.articles, page: this.page, maxPage: this.maxPage});
         }
       }).finally(() => this.loader.endLoad());
@@ -267,21 +295,33 @@ export class ArticlesComponent implements OnInit {
     });
   }
 
-  removeImagePath(path: string | undefined): void {
-    if (path === this.loadingGif) {
+  removeImagePath(image: IImage | undefined): void {
+    if (image?.path === this.loadingGif) {
+      console.log(image);
       return;
     }
 
-    this.imagePaths = this.imagePaths.filter(p => p !== path);
+    this.imagePaths = this.imagePaths.filter(p => p.path !== image?.path);
+    this.imageBlob.deleteImages([image]);
   }
 
   deleteImages(): void {
+    if (this.editFlag) {
+      return;
+    }
     this.form.reset();
     this.imageBlob.deleteImages(this.imagePaths);
     this.imagePaths = [];
   }
 
-  async getArticleCombos(): Promise<void> {
+  async getArticleCombos(articleId: string = ''): Promise<void> {
+    this.form.reset();
+    this.selectedBrands = [];
+    this.selectedMaterials = [];
+    this.selectedAnimes = [];
+    this.selectedLines = [];
+    this.imagePaths = [];
+    this.editFlag = !!articleId;
     this.crud.setEndpoint('articles/originals');
     await this.crud.httpGet().toPromise().then(res => this.originalArticles = res.response);
 
@@ -290,6 +330,36 @@ export class ArticlesComponent implements OnInit {
     this.crud.httpGet('?byMaterial=true').toPromise().then(res => this.materials = res.response);
     this.crud.httpGet('?byLine=true').toPromise().then(res => this.lines = res.response);
     this.crud.httpGet('?byBrand=true').toPromise().then(res => this.brands = res.response);
+
+    if (this.editFlag) {
+      this.crud.setEndpoint('articles/read?id=');
+      this.crud.httpGet(articleId).toPromise().then(res => {
+        const article = res.response;
+        this.selectedBrands = article.brand;
+        this.selectedLines = article.lines;
+        this.selectedAnimes = article.animes;
+        this.selectedMaterials = article.materials;
+        this.imagePaths = article.images;
+        this.form.patchValue({
+          id: article.id,
+          name: article.name,
+          details: article.details,
+          height: article.height,
+          price: article.price,
+          discountPrice: article.discountPrice,
+          stock: article.stock,
+          originalFlag: article.originalFlag,
+          originalSerial: article.originalSerial,
+          images: article.images,
+          brandId: article.brand[0].id,
+          materials: article.materials,
+          lines: article.lines,
+          animes: article.animes,
+        });
+
+        console.log(this.form.value);
+      });
+    }
   }
 
   addTag(tagType: string, tag: any, justAdded = false): void {
