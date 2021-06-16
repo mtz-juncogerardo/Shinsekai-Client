@@ -1,0 +1,29 @@
+table {
+  width: 100%;
+}
+
+td, th {
+  text-align: center;
+}
+
+.header {
+  height: 2rem;
+  align-items: center;
+
+  input {
+    transform: scale(1.5);
+    margin: 0 0.5rem;
+  }
+
+  label {
+    font-weight: bold;
+    font-size: 1.15rem;
+    margin-right: 1rem;
+  }
+}
+
+.options {
+  i {
+    cursor: pointer;
+  }
+}

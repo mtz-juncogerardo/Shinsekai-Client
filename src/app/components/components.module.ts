@@ -15,10 +15,10 @@ import { HeaderComponent } from './header/header.component';
   imports: [
     CommonModule
   ],
-  exports: [
-    AlertComponent,
-    LoaderComponent,
-    HeaderComponent
-  ]
+    exports: [
+        AlertComponent,
+        LoaderComponent,
+        HeaderComponent,
+    ]
 })
 export class ComponentsModule { }

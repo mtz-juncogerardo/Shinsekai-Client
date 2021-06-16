@@ -25,5 +25,7 @@
                 [page]="articleResponse.page ? articleResponse.page : 1"
                 (articleRefresh)="getArticles($event)"
                 (searchDetected)="saveSearch($event)"></app-articles>
+  <app-users *ngSwitchCase="menuItems[1]"></app-users>
+  <app-tags *ngSwitchCase="menuItems[5]"></app-tags>
   <h2 *ngSwitchDefault>null</h2>
 </ng-container>

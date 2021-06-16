@@ -39,6 +39,7 @@ export class AdminPanelComponent implements OnInit {
       'Promociones',
       'Carrusel',
       'Compras',
+      'Tags',
       'Info General'
     ];
     this.currentMenu = this.menuItems[0];
@@ -53,7 +54,11 @@ export class AdminPanelComponent implements OnInit {
     }
 
     await this.validateAdminRol()
-      .then(() => this.authorize = true)
+      .then(res => {
+        if (res.response) {
+          this.authorize = true;
+        }
+      })
       .finally(() => {
         if (!this.authorize) {
           this.negateAccess();

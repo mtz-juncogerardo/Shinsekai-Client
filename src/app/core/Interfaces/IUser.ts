@@ -6,5 +6,6 @@ export interface IUser {
   phone?: string;
   address?: string;
   city?: string;
+  postalCode?: string;
   authParamsId?: string;
 }

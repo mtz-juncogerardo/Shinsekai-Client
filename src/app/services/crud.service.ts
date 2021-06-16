@@ -34,24 +34,46 @@ export class CrudService {
     };
   }
 
-  httpGet(query: string = ''): Observable<any> {
+  httpGet(query: string = '', customErr = ''): Observable<any> {
     return this.httpClient.get(this.path + query, this.httpHeaders)
       .pipe(
         retry(1),
-        catchError((err: any) => {
-          console.log('error', err?.error?.error ?? err);
-          return err?.error?.error ?? err;
+        catchError(err => {
+          this.processError(err, customErr);
+          return err;
         })
       );
   }
 
-  httpPost(data: any): Observable<any> {
+  httpPost(data: any, customErr = ''): Observable<any> {
     return this.httpClient.post(this.path, JSON.stringify(data), this.httpHeaders)
       .pipe(
         retry(1),
-        catchError((err: any) => {
-          console.log('error', err?.error?.error ?? err);
-          return err?.error?.error ?? err;
+        catchError(err => {
+          this.processError(err, customErr);
+          return err;
+        })
+      );
+  }
+
+  httpPut(data: any, customErr = ''): Observable<any> {
+    return this.httpClient.put(this.path, JSON.stringify(data), this.httpHeaders)
+      .pipe(
+        retry(1),
+        catchError(err => {
+          this.processError(err, customErr);
+          return err;
+        })
+      );
+  }
+
+  httpDelete(query: string = '', customErr = ''): Observable<any> {
+    return this.httpClient.delete(this.path + '/delete/' + query, this.httpHeaders)
+      .pipe(
+        retry(1),
+        catchError(err => {
+          this.processError(err, customErr);
+          return err;
         })
       );
   }
@@ -62,28 +84,9 @@ export class CrudService {
       })});
   }
 
-  httpPut(data: any): Observable<any> {
-    return this.httpClient.put(this.path, JSON.stringify(data), this.httpHeaders)
-      .pipe(
-        retry(1),
-        catchError((err: any) => {
-          console.log('error', err?.error?.error ?? err);
-          this.alertService.pushAlert({type: 'danger', message: err?.error?.error ?? 'Ocurrio un Error desconocido'});
-          return err?.error?.error ?? err;
-        })
-      );
+  private processError(error: any, customErr: string): void {
+    console.log(error);
+    const errorMessage = error?.error?.error ? error?.error?.error : 'Ocurrio un error desconocido';
+    this.alertService.pushAlert({type: 'danger', message: customErr ? customErr : errorMessage});
   }
-
-  httpDelete(query: string = ''): Observable<any> {
-    return this.httpClient.delete(this.path + '/delete/' + query, this.httpHeaders)
-      .pipe(
-        retry(1),
-        catchError((err: any) => {
-          console.log('error', err?.error?.error ?? err);
-          this.alertService.pushAlert({type: 'danger', message: err?.error?.error ?? 'Ocurrio un Error desconocido'});
-          return err?.error?.error ?? err;
-        })
-      );
-  }
-
 }

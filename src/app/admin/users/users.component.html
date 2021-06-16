@@ -1,0 +1,49 @@
+<table id="articles" class="table table-striped">
+  <thead class="bg-info">
+  <tr>
+    <th>Nombre</th>
+    <th>Email</th>
+    <th>Telefono</th>
+    <th>Dirección</th>
+    <th>Ciudad</th>
+    <th>Codigo Postal</th>
+    <th>Permisos de Administrador</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users">
+    <td>{{user.name}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.phone}}</td>
+    <td>{{user.address}}</td>
+    <td>{{user.city}}</td>
+    <td>{{user.postalCode}}</td>
+    <td>
+     <div data-bs-toggle="modal" data-bs-target="#confirm">
+       <input type="checkbox" [checked]="user.admin" [value]="user.admin" (click)="setUser(user, $event)">
+     </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirm" tabindex="-1" aria-labelledby="confirmModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModal">{{query}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Autorizas el cambio?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO!</button>
+        <button (click)="toggleAdmin()" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          SI!
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

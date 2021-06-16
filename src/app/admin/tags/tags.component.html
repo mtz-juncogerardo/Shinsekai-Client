@@ -1,0 +1,55 @@
+<div class="header d-flex flex-wrap">
+  <input (change)="getTags()" [(ngModel)]="brand" type="checkbox" id="brand" name="brand" value="brand">
+  <label for="brand">Marca</label><br>
+  <input (change)="getTags()" [(ngModel)]="anime" type="checkbox" id="anime" name="anime" value="anime">
+  <label for="anime">Anime</label><br>
+  <input (change)="getTags()" [(ngModel)]="line" type="checkbox" id="line" name="line" value="line">
+  <label for="line">Linea</label><br>
+  <input (change)="getTags()" [(ngModel)]="material" type="checkbox" id="material" name="material" value="material">
+  <label for="material">Material</label>
+</div>
+
+<table id="articles" class="table table-striped">
+  <thead class="bg-info">
+  <tr>
+    <th>Id</th>
+    <th>Nombre</th>
+    <th>Tipo</th>
+    <th>Eliminar</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let tag of tags">
+    <td>{{tag.id}}}</td>
+    <td>{{tag.name}}</td>
+    <td><strong>{{tag.type}}</strong></td>
+    <td>
+      <div class="options">
+        <i (click)="setTag(tag)" class="fas fa-trash" data-bs-toggle="modal"
+           data-bs-target="#deleteConfirm"></i>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<!--DELETE MODAL-->
+<div class="modal fade" id="deleteConfirm" tabindex="-1" aria-labelledby="delete" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="delete">¿Estas apunto de eliminar el {{this.selectedTag.type}}: {{selectedTag.name}}?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Esta acción no se puede deshacer.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Quiero conservarlo</button>
+        <button (click)="delete()" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          Si, Eliminalo!
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

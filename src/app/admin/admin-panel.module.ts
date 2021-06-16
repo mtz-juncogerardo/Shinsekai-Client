@@ -5,6 +5,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from '../services/auth.guard';
 import { ArticlesComponent } from './articles/articles.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { UsersComponent } from './users/users.component';
+import { TagsComponent } from './tags/tags.component';
 
 const routes: Routes = [
   {
@@ -18,6 +20,8 @@ const routes: Routes = [
   declarations: [
     AdminPanelComponent,
     ArticlesComponent,
+    UsersComponent,
+    TagsComponent,
   ],
     imports: [
         CommonModule,
