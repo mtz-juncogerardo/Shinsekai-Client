@@ -39,7 +39,7 @@ export class InitComponent implements OnInit {
 
     this.crud.setEndpoint('user');
     this.crud.setBearer(token);
-    this.crud.httpGet().toPromise()
+    this.crud.httpGet('', 'La sesión caduco').toPromise()
       .then(res => this.user = res.response)
       .catch(() => this.storage.deleteKey())
       .finally(() => this.loader.endLoad());

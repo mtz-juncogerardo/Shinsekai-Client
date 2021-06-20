@@ -1,7 +1,19 @@
+@import "src/scss/variables/colors-theme-primary";
+
 @import 'src/scss/variables/colors-theme-primary';
 
 .wrapper {
   overflow-x: auto;
+}
+
+.img-container {
+  height: 7rem;
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
 }
 
 select {
@@ -30,21 +42,40 @@ span {
   margin: 0.125rem 0.125rem;
 }
 
-.combo {
-  span {
+.header {
+  display: flex;
+  padding: 1rem;
+
+  input {
+    margin: 0 2rem;
+  }
+
+  .add {
+    margin-left: auto;
+  }
+}
+
+.options {
+  user-select: none;
+
+  i {
+    font-size: 1.25rem;
+    margin: 0 0.5rem;
     cursor: pointer;
 
     &:hover {
-      color: red;
+      color: $dark;
     }
   }
 }
 
 .images {
-  height: 8rem;
-  width: 6rem;
+  height: 12rem;
+  width: 100%;
   margin: 0.5rem;
   position: relative;
+  display: flex;
+  justify-content: center;
   cursor: pointer;
 
   &:hover > i{
@@ -55,7 +86,7 @@ span {
     font-size: 1.5rem;
     color: white;
     position: absolute;
-    margin: 50% auto;
+    margin: 15% auto;
     left: 0;
     right: 0;
     text-align: center;
@@ -100,19 +131,5 @@ span {
 
   .add {
     margin-left: auto;
-  }
-}
-
-.options {
-  user-select: none;
-
-  i {
-    font-size: 1.25rem;
-    margin: 0 0.5rem;
-    cursor: pointer;
-
-    &:hover {
-      color: $dark;
-    }
   }
 }

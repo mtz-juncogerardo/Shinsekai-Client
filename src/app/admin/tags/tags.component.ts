@@ -23,7 +23,7 @@ export class TagsComponent implements OnInit {
               private loader: LoaderService) {
     this.crud.setEndpoint('tags');
     this.tags = [];
-    this.selectedTag = { id: '', name: ''};
+    this.selectedTag = {id: '', name: ''};
     this.material = false;
     this.line = false;
     this.anime = false;
@@ -37,7 +37,10 @@ export class TagsComponent implements OnInit {
   getTags(): void {
     this.loader.beginLoad();
     this.crud.setEndpoint('tags');
-    const query = `?byAnime=${this.anime.toString()}&byMaterial=${this.material.toString()}&byLine=${this.line.toString()}&byBrand=${this.brand.toString()}`;
+    const query = `?byAnime=${this.anime.toString()}
+                   &byMaterial=${this.material.toString()}
+                   &byLine=${this.line.toString()}
+                   &byBrand=${this.brand.toString()}`;
 
     this.crud.httpGet(query).toPromise()
       .then(res => this.tags = res.response)

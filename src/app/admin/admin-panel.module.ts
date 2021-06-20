@@ -7,6 +7,7 @@ import { ArticlesComponent } from './articles/articles.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { UsersComponent } from './users/users.component';
 import { TagsComponent } from './tags/tags.component';
+import { PromotionsComponent } from './promotions/promotions.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
     ArticlesComponent,
     UsersComponent,
     TagsComponent,
+    PromotionsComponent,
   ],
     imports: [
         CommonModule,

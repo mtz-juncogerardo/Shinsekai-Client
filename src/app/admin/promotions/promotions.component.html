@@ -1,0 +1,107 @@
+<div class="wrapper">
+  <div class="header">
+    <button (click)="cleanForms()"
+            data-bs-toggle="modal"
+            data-bs-target="#createModal"
+            class="btn btn-success add">
+      + Agregar NuevaPromocion
+    </button>
+  </div>
+  <table id="articles" class="table table-striped">
+    <thead class="bg-info">
+    <tr>
+      <th>Id</th>
+      <th>Foto</th>
+      <th>Ruta a la cual ir al hacer click</th>
+      <th>Opciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let promotion of promotions">
+      <td>{{promotion.id}}</td>
+      <td>
+        <div class="img-container">
+          <img [src]="promotion.imagePath" alt="promotion">
+        </div>
+      </td>
+      <td>
+        <a [href]="promotion.redirectPath">
+          {{promotion.redirectPath}}
+        </a>
+      </td>
+      <td>
+        <div class="options">
+          <i (click)="update(promotion)" data-bs-toggle="modal" data-bs-target="#createModal" class="fas fa-pen"></i>
+          <i (click)="setPromotion(promotion)" class="fas fa-trash" data-bs-toggle="modal"
+             data-bs-target="#deleteConfirm"></i>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- DELETE Modal -->
+<div class="modal fade" id="deleteConfirm" tabindex="-1" aria-labelledby="delete" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="delete">¿Estas apunto de eliminar la promocion con id: {{selectedPromotion.id}}?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Esta acción no se puede deshacer.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Quiero conservarlo</button>
+        <button (click)="delete()" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          Si, Eliminalo!
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Create Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="create">{{ editFlag ? 'Editando Promoción' : 'Nueva Promoción'}}</h5>
+        <button (click)="deleteImage()" type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form">
+          <div class="form-group">
+            <label for="redirectPath">Ruta a la cual redirigir al hacer click:</label>
+            <input formControlName="redirectPath" type="text" class="form-control" id="redirectPath"
+                   placeholder="https://shinsekai/articulos?id=123-123-123">
+            <small class="text-primary">Si la promocion no redirige a ninguna ruta dejar vacio</small>
+          </div>
+          <div class="pt-3 pb-3 form-group">
+            <label for="images">Imagen:</label>
+            <input (change)="loadImage($event)" id="images" type="file" name="myImage" accept="image/*" [disabled]="imagePath.path"/>
+          </div>
+          <div class="d-flex">
+            <div class="images" *ngIf="imagePath.path" (click)="removeImagePath()">
+              <img [src]="imagePath.path" alt="loading">
+              <i *ngIf="imagePath.path !== loadingGif" class="fas fa-trash"></i>
+            </div>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button data-bs-dismiss="modal"
+                  (click)="submit()"
+                  class="btn btn-primary"
+                  [disabled]="blockButton">
+            {{editFlag ? 'Actualizar' : 'Guardar'}}
+          </button>
+          <button (click)="deleteImage()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

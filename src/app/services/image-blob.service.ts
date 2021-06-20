@@ -24,6 +24,15 @@ export class ImageBlobService {
     return this.crud.httpUpload(formData, this.storage.getKey());
   }
 
+  deletePromotionsImage(imagePath: string): void {
+    this.crud.setEndpoint('images');
+
+    const imgPath = imagePath.split('/')[4];
+    console.log(imgPath);
+    this.crud.httpDelete(`?blob=${imgPath}`).toPromise()
+      .then(res => console.log(res.response));
+  }
+
   deleteImages(images: (IImage | undefined)[]): void {
     if (images === undefined) {
       return;

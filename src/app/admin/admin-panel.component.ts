@@ -36,11 +36,12 @@ export class AdminPanelComponent implements OnInit {
     this.menuItems = [
       'Articulos',
       'Usuarios',
+      'Tags',
       'Promociones',
       'Carrusel',
       'Compras',
-      'Tags',
-      'Info General'
+      'Tabla de Entregas',
+      'Preguntas Frecuentes'
     ];
     this.currentMenu = this.menuItems[0];
   }
