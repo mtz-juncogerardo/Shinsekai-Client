@@ -8,6 +8,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { UsersComponent } from './users/users.component';
 import { TagsComponent } from './tags/tags.component';
 import { PromotionsComponent } from './promotions/promotions.component';
+import {CarouselComponent} from './carousel/carousel.component';
+import { PurchasesComponent } from './purchases/purchases.component';
 
 const routes: Routes = [
   {
@@ -24,6 +26,8 @@ const routes: Routes = [
     UsersComponent,
     TagsComponent,
     PromotionsComponent,
+    CarouselComponent,
+    PurchasesComponent
   ],
     imports: [
         CommonModule,
