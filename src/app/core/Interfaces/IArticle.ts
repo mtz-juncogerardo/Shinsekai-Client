@@ -18,4 +18,5 @@ export interface IArticle {
   images: IImage[];
   timesSold?: number;
   originalSerial?: string;
+  quantity?: number;
 }

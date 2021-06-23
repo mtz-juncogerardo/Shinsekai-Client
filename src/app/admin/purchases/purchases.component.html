@@ -1,1 +1,76 @@
-<p>purchases works!</p>
+<div class="wrapper">
+  <!--  <div class="header">-->
+  <!--    <input (keyup)="searchPurchases($event)" [(ngModel)]="searchPurchase" placeholder="Buscar por id">-->
+  <!--    <button (click)="searchPurchase()" class="btn btn-outline-success">Buscar</button>-->
+  <!--  </div>-->
+  <table id="articles" class="table table-striped">
+    <thead class="bg-info">
+    <tr>
+      <th>Id</th>
+      <th>Fecha de Compra</th>
+      <th>Nombre Comprador</th>
+      <th>Email Comprador</th>
+      <th>Total de Compra</th>
+      <th>Ver Detalles</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let purchase of purchases">
+      <td>{{purchase?.id}}</td>
+      <td>{{purchase?.purchaseDate}}</td>
+      <td>{{purchase?.buyer?.name}}</td>
+      <td>{{purchase?.buyer?.email}}</td>
+      <td>${{purchase?.total}} MXN</td>
+      <td>
+        <div class="options">
+          <i (click)="setPurchase(purchase)" data-bs-toggle="modal" data-bs-target="#readModal"
+             class="far fa-eye"></i>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <!--  <div class="pagination">-->
+  <!--    Pagina:-->
+  <!--    <input name="page"-->
+  <!--           type="number"-->
+  <!--           min="1"-->
+  <!--           [(ngModel)]="inputPage"-->
+  <!--           [max]="maxPage">-->
+  <!--    De: {{maxPage}}-->
+  <!--    <i (click)="nextPage()" class="fas fa-arrow-circle-right"></i>-->
+  <!--  </div>-->
+</div>
+
+<!--READ MODAL-->
+<div class="modal fade" id="readModal" tabindex="-1" aria-labelledby="read" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="read">Compra con id #{{selectedPurchase?.id}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <dl>
+          <dt>ID</dt>
+          <dd>{{selectedPurchase?.id}}</dd>
+          <dt>Persona que recibe</dt>
+          <dd>{{selectedPurchase?.buyer?.name}}</dd>
+          <dt>Datos de Envio</dt>
+          <dd>{{selectedPurchase?.buyer?.address + ', ' + selectedPurchase?.buyer?.city + ', ' + selectedPurchase?.buyer?.postalCode}}</dd>
+          <dt>Articulos a Enviar</dt>
+          <dd>
+            <ol>
+              <li *ngFor="let article of selectedPurchase?.articles">
+                {{article?.name}}
+              </li>
+            </ol>
+          </dd>
+        </dl>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
