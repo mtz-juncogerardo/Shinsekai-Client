@@ -1,0 +1,97 @@
+<div class="wrapper">
+  <div class="header">
+    <button (click)="cleanForms()"
+            data-bs-toggle="modal"
+            data-bs-target="#createModal"
+            class="btn btn-success add">
+      + Agregar Nueva Fecha de Entrega
+    </button>
+  </div>
+  <table id="articles" class="table table-striped">
+    <thead class="bg-info">
+    <tr>
+      <th>Paqueteria</th>
+      <th>Locación</th>
+      <th>Dias estimados de entrega</th>
+      <th>Opciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let delivery of deliveries">
+      <td>{{delivery.parcel}}</td>
+      <td>{{delivery.location}}</td>
+      <td>{{delivery.estimatedDays}}</td>
+      <td>
+        <div class="options">
+          <i (click)="update(delivery)" data-bs-toggle="modal" data-bs-target="#createModal" class="fas fa-pen"></i>
+          <i (click)="setShipping(delivery)" class="fas fa-trash" data-bs-toggle="modal"
+             data-bs-target="#deleteConfirm"></i>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- DELETE Modal -->
+<div class="modal fade" id="deleteConfirm" tabindex="-1" aria-labelledby="delete" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="delete">¿Estas apunto de eliminar la fecha de entrega a la locación: {{selectedDelivery.location}}?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Esta acción no se puede deshacer.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Quiero conservarla</button>
+        <button (click)="delete()" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          Si, Eliminala!
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Create Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="create">{{ editFlag ? 'Editando Promoción' : 'Nueva Promoción'}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form">
+          <div class="form-group">
+            <label for="parcel">Paqueteria:</label>
+            <input formControlName="parcel" type="text" class="form-control" id="parcel"
+                   placeholder="Fedex">
+          </div>
+          <div class="form-group">
+            <label for="location">Locación</label>
+            <input formControlName="location" type="text" class="form-control" id="location" placeholder="Querétaro">
+            <small class="text-primary">La locación se refiere a la ciudad o al lugar</small>
+          </div>
+          <div class="form-group">
+            <label for="estimatedDays">Dias estimados de entrega:</label>
+            <input formControlName="estimatedDays" type="number" class="form-control" id="estimatedDays">
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button data-bs-dismiss="modal"
+                  (click)="submit()"
+                  class="btn btn-primary"
+                  [disabled]="this.form.invalid">
+            {{editFlag ? 'Actualizar' : 'Guardar'}}
+          </button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

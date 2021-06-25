@@ -10,6 +10,8 @@ import { TagsComponent } from './tags/tags.component';
 import { PromotionsComponent } from './promotions/promotions.component';
 import {CarouselComponent} from './carousel/carousel.component';
 import { PurchasesComponent } from './purchases/purchases.component';
+import { ShippingComponent } from './shipping/shipping.component';
+import { QuestionsComponent } from './questions/questions.component';
 
 const routes: Routes = [
   {
@@ -27,7 +29,9 @@ const routes: Routes = [
     TagsComponent,
     PromotionsComponent,
     CarouselComponent,
-    PurchasesComponent
+    PurchasesComponent,
+    ShippingComponent,
+    QuestionsComponent
   ],
     imports: [
         CommonModule,

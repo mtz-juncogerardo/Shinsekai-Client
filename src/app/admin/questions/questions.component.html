@@ -1,0 +1,92 @@
+<div class="wrapper">
+  <div class="header">
+    <button (click)="cleanForms()"
+            data-bs-toggle="modal"
+            data-bs-target="#createModal"
+            class="btn btn-success add">
+      + Agregar Nueva Pregunta
+    </button>
+  </div>
+  <table id="articles" class="table table-striped">
+    <thead class="bg-info">
+    <tr>
+      <th>Id</th>
+      <th>Pregunta</th>
+      <th>Respuesta</th>
+      <th>Opciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let question of questions">
+      <td>{{question?.id}}</td>
+      <td>{{question?.question}}</td>
+      <td>{{question?.answer}}</td>
+      <td>
+        <div class="options">
+          <i (click)="update(question)" data-bs-toggle="modal" data-bs-target="#createModal" class="fas fa-pen"></i>
+          <i (click)="setQuestion(question)" class="fas fa-trash" data-bs-toggle="modal"
+             data-bs-target="#deleteConfirm"></i>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- DELETE Modal -->
+<div class="modal fade" id="deleteConfirm" tabindex="-1" aria-labelledby="delete" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="delete">¿Estas apunto de eliminar la pregunta: {{selectedQuestion.question}}?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Esta acción no se puede deshacer.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Quiero conservarla</button>
+        <button (click)="delete()" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          Si, Eliminala!
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Create Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="create">{{ editFlag ? 'Editando Pregunta' : 'Nueva Pregunta'}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form">
+          <div class="form-group">
+            <label for="question">Pregunta:</label>
+            <input formControlName="question" type="text" class="form-control" id="question"
+                   placeholder="¿En Cuanto tiempo recibire mi producto?">
+          </div>
+          <div class="pt-3 pb-3 form-group">
+            <label for="answer">Respuesta:</label>
+            <textarea formControlName="answer" type="text" class="form-control" id="answer" rows="8"></textarea>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button data-bs-dismiss="modal"
+                  (click)="submit()"
+                  class="btn btn-primary"
+                  [disabled]="form.invalid">
+            {{editFlag ? 'Actualizar' : 'Guardar'}}
+          </button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

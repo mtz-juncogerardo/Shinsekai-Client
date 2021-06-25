@@ -1,0 +1,135 @@
+@import "src/scss/variables/colors-theme-primary";
+
+@import 'src/scss/variables/colors-theme-primary';
+
+.wrapper {
+  overflow-x: auto;
+}
+
+.img-container {
+  height: 7rem;
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+}
+
+select {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
+
+td, th {
+  text-align: center;
+}
+
+label {
+  margin-right: 1rem;
+}
+
+small {
+  color: $color-secondary;
+}
+
+span {
+  font-size: 0.875rem;
+  background: gray;
+  margin: 0.125rem 0.125rem;
+}
+
+.header {
+  display: flex;
+  padding: 1rem;
+
+  input {
+    margin: 0 2rem;
+  }
+
+  .add {
+    margin-left: auto;
+  }
+}
+
+.options {
+  user-select: none;
+
+  i {
+    font-size: 1.25rem;
+    margin: 0 0.5rem;
+    cursor: pointer;
+
+    &:hover {
+      color: $dark;
+    }
+  }
+}
+
+.images {
+  height: 12rem;
+  width: 100%;
+  margin: 0.5rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+
+  &:hover > i{
+    color: $color-secondary;
+  }
+
+  i {
+    font-size: 1.5rem;
+    color: white;
+    position: absolute;
+    margin: 15% auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+
+  img {
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.pagination {
+  user-select: none;
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+
+  input {
+    width: 3rem;
+    margin: 0 0.5rem;
+  }
+
+  i {
+    margin-left: 0.5rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+
+    &:hover {
+      color: $dark;
+    }
+  }
+}
+
+.header {
+  display: flex;
+  padding: 1rem;
+
+  input {
+    margin: 0 2rem;
+  }
+
+  .add {
+    margin-left: auto;
+  }
+}
