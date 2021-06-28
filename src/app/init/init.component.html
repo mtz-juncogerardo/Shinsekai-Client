@@ -1,7 +1,61 @@
-<div class="wrapper">
-  <app-header (cartClick)="toggleCart()"
-              (accountClick)="goToAccount()"
-              (adminClick)="goToAdminPanel()"
-              [showAdmin]="user?.admin || false"
-              [accountText]="user?.id ? 'Mi Cuenta' : 'Inicia Sesión'"></app-header>
+<div class="container">
+  <div class="wrapper">
+    <app-header (cartClick)="toggleCart()"
+                (accountClick)="goToAccount()"
+                (adminClick)="goToAdminPanel()"
+                [showAdmin]="user?.admin || false"
+                [accountText]="user?.id ? 'Mi Cuenta' : 'Inicia Sesión'"></app-header>
+    <div class="row">
+
+      <!--      FIRST COLUMN-->
+      <div class="col-lg-3 col-12 order-lg-0 order-1">
+        <div class="categories">
+          <div class="categories_originals"></div>
+          <div class="categories_replicas"></div>
+        </div>
+        <div class="social">
+          <div class="social_facebook">
+            <i class="fab fa-facebook-f"></i>
+            <span>Shinsekai Facebook</span>
+          </div>
+          <div class="social_instagram">
+            <i class="fab fa-instagram"></i>
+            <span>Shinsekai Instagram</span>
+          </div>
+          <div class="social_youtube">
+            <i class="fab fa-youtube"></i>
+            <span>Shinsekai Youtube</span>
+          </div>
+        </div>
+      </div>
+
+      <!--      Second COLUMN-->
+      <div class="col-lg-6 mb-lg-5 col-12 order-lg-1 order-0 mb-5">
+        <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div *ngFor="let c of carousels; let idx = index"
+                 class="carousel-item"
+                 [class.active]="idx === 0"
+                 data-bs-interval="5000"
+                 (click)="navigateTo(c?.redirectPath)">
+              <img [src]="c.imagePath" class="w-100" alt="promotion">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carousel"
+                  data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carousel"
+                  data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <!--      Third COLUMN-->
+        <div class="col-3"></div>
+      </div>
+    </div>
+  </div>
 </div>
+

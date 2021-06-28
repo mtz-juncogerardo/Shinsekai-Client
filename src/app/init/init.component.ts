@@ -5,6 +5,7 @@ import {StorageService} from '../services/storage.service';
 import {IUser} from '../core/Interfaces/IUser';
 import {Router} from '@angular/router';
 import {LoaderService} from '../services/loader.service';
+import {IPromotions} from '../core/Interfaces/IPromotions';
 
 @Component({
   selector: 'app-init',
@@ -14,6 +15,7 @@ import {LoaderService} from '../services/loader.service';
 export class InitComponent implements OnInit {
 
   user: IUser;
+  carousels: IPromotions[];
 
   constructor(private alertService: AlertService,
               private storage: StorageService,
@@ -21,10 +23,12 @@ export class InitComponent implements OnInit {
               private router: Router,
               private loader: LoaderService) {
     this.user = {};
+    this.carousels = [];
   }
 
   async ngOnInit(): Promise<void> {
     this.loader.beginLoad();
+    this.getCarousels();
     await this.getUser();
   }
 
@@ -65,5 +69,19 @@ export class InitComponent implements OnInit {
 
   async goToAdminPanel(): Promise<void> {
     await this.router.navigate(['/admin']);
+  }
+
+  private getCarousels(): void {
+    this.crud.setEndpoint('carousels/read');
+    this.crud.httpGet().toPromise()
+      .then(res => this.carousels = res.response);
+  }
+
+  navigateTo(path: string = ''): void {
+    if (!path) {
+      return;
+    }
+
+    window.location.href = path;
   }
 }

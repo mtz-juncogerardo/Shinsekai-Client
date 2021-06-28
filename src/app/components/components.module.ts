@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {AlertComponent} from './alert/alert.component';
 import { LoaderComponent } from './loader/loader.component';
 import { HeaderComponent } from './header/header.component';
+import {FormsModule} from '@angular/forms';
 
 
 
@@ -12,9 +13,10 @@ import { HeaderComponent } from './header/header.component';
     LoaderComponent,
     HeaderComponent,
   ],
-  imports: [
-    CommonModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule
+    ],
     exports: [
         AlertComponent,
         LoaderComponent,
