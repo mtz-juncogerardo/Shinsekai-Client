@@ -1,0 +1,87 @@
+<div class="container">
+  <app-header [user]="user"
+              [showAdmin]="user?.admin"
+              [accountText]="user?.id ? 'Mi Cuenta' : 'Inicia Sesión'">
+  </app-header>
+
+  <div class="row">
+    <div class="col-12 col-lg-6">
+      <div class="images">
+        <img [src]="mainImage.path" alt="main-image">
+      </div>
+      <div class="images_sub">
+        <div class="images_sub_item" *ngFor="let image of subImages">
+          <img [src]="image.path" alt="sub-image">
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <h1 class="name">{{article?.name}}</h1>
+      <p class="details">{{article?.details}}</p>
+
+      <div class="original-replica">
+        <div class="original-replica_original">
+          <div (click)="navigateToOriginal()" [class.disabled]="!article.originalFlag" class="bar">
+            Original
+          </div>
+          <span *ngIf="!article.originalFlag" class="disabled">{{original.price !== undefined
+          && original.discountPrice !== undefined
+            ? (original.price - original.discountPrice | currency) : 0}}</span>
+          <span *ngIf="article.originalFlag">
+            {{article.price !== undefined
+          && article.discountPrice !== undefined
+            ? (article.price - article.discountPrice | currency) : 0}}
+          </span>
+        </div>
+        <div class="original-replica_replica">
+          <div (click)="navigateToReplica()" [class.disabled]="article.originalFlag" class="bar">
+            Replica
+          </div>
+          <span *ngIf="article.originalFlag" class="disabled">{{replica.price !== undefined
+          && replica.discountPrice !== undefined
+            ? (replica.price - replica.discountPrice | currency) : 0}}</span>
+
+          <span *ngIf="!article.originalFlag">
+            {{article.price !== undefined
+          && article.discountPrice !== undefined
+            ? (article.price - article.discountPrice | currency) : 0}}
+          </span>
+        </div>
+      </div>
+      <div class="options">
+        <ng-container *ngIf="inStock">
+          <div class="options_quantity">
+            <span>Cantidad</span>
+            <div class="options_quantity_select">
+              <div (click)="modifyQuantity('less')" class="options_quantity_select_btn">
+                -
+              </div>
+              <div class="options_quantity_select_number">
+                {{article?.quantity}}
+              </div>
+              <div (click)="modifyQuantity('more')" class="options_quantity_select_btn">
+                +
+              </div>
+            </div>
+          </div>
+
+          <div class="options_cart">
+            <button class="btn rounded-pill btn-lg options_cart_btn">
+              <i class="fas fa-shopping-cart"></i>
+              Añadir al Carrito
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="!inStock">
+          <p>SIN STOCK *</p>
+        </ng-container>
+      </div>
+      <p>En caso de escasez de existencias del fabricante, los articulos de pedido anticipado se ofreceran por orden de
+        llegada.</p>
+      <button class="favorite">Añadir a favoritos</button>
+      <button class="share">Compartir</button>
+    </div>
+  </div>
+</div>

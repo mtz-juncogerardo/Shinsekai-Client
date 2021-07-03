@@ -38,7 +38,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    if (this.storage.getKey()) {
+      await this.router.navigate(['/']);
+    }
   }
 
   async submit(): Promise<void> {

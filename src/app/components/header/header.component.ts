@@ -1,4 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {IUser} from '../../core/Interfaces/IUser';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,39 +11,42 @@ export class HeaderComponent implements OnInit {
 
   search: string;
 
-  @Input() showAdmin: boolean;
+  @Input() showAdmin: boolean | undefined;
+  @Input() user: IUser;
   @Input() accountText: string;
-  @Output() accountClick: EventEmitter<any>;
-  @Output() cartClick: EventEmitter<any>;
-  @Output() adminClick: EventEmitter<any>;
-  @Output() searchClick: EventEmitter<string>;
 
-  constructor() {
+  constructor(private router: Router) {
     this.showAdmin = false;
-    this.cartClick = new EventEmitter<any>();
-    this.accountClick = new EventEmitter<any>();
-    this.adminClick = new EventEmitter<any>();
-    this.searchClick = new EventEmitter<string>();
-    this.accountText = '';
     this.search = '';
+    this.user = {};
+    this.accountText = '';
   }
 
   ngOnInit(): void {
   }
 
-  emitAccountPress(): void {
-    this.accountClick.emit();
+  toggleCart(): void {
+    console.log('openslide');
   }
 
-  emitCartPress(): void {
-    this.cartClick.emit();
+  async goToAccount(): Promise<void> {
+    if (Object.keys(this.user).length > 0) {
+      await this.router.navigate(['/account']);
+      return;
+    }
+
+    await this.router.navigate(['/login']);
   }
 
-  emitAdminPress(): void {
-    this.adminClick.emit();
+  async goToAdminPanel(): Promise<void> {
+    await this.router.navigate(['/admin']);
   }
 
-  emitSearchPress(): void {
-    this.searchClick.emit(this.search);
+  async navigateSearch(): Promise<void> {
+    await this.router.navigate([`articles?search=${this.search}`]);
+  }
+
+  async goHome(): Promise<void> {
+    await this.router.navigate(['/']);
   }
 }

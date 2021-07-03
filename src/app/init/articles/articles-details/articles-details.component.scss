@@ -1,0 +1,142 @@
+@import 'src/scss/variables/colors-theme-primary';
+
+.images {
+  height: 36rem;
+  margin-bottom: 1.5rem;
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+
+  &_sub {
+    display: flex;
+    flex-wrap: wrap;
+
+    &_item {
+      height: auto;
+      width: 4.5rem;
+      margin: 1rem;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+.original-replica {
+  display: flex;
+  margin-bottom: 2rem;
+
+  &_original, &_replica {
+    .bar {
+      padding: 0.25rem 3.5rem 0.5rem 1rem;
+      background: $yellow;
+      color: $gray;
+      cursor: context-menu;
+      font-weight: 500;
+      margin-bottom: 0.875rem;
+      border-radius: 0.5rem;
+      border: 1px solid $dark;
+      line-height: 1;
+      font-size: 1.25rem;
+      user-select: none;
+
+      &.disabled {
+        background: $light;
+        cursor: pointer;
+      }
+    }
+
+    span {
+      font-size: 2rem;
+      color: $color-primary;
+      font-weight: bold;
+
+      &.disabled {
+        color: $dark;
+      }
+    }
+  }
+
+  &_original {
+    padding-right: 3rem;
+    border-right: 1px solid $gray;
+  }
+
+  &_replica {
+    padding-left: 3rem;
+    border-left: 1px solid $gray;
+  }
+}
+
+.name {
+  margin-bottom: 1.5rem;
+  color: $dark;
+  font-weight: bold;
+}
+
+.details {
+  color: $dark;
+  font-size: 0.9rem;
+  margin-bottom: 3rem;
+}
+
+.options {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  &_quantity {
+    display: flex;
+    align-items: center;
+
+    span {
+      color: $dark;
+      margin-right: 1rem;
+    }
+
+    &_select {
+      display: flex;
+      align-items: center;
+
+      &_btn {
+        margin: 0 1rem;
+        height: 1.75rem;
+        cursor: pointer;
+        line-height: 1;
+        width: 1.75rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        background: $color-primary;
+        color: $color-white;
+        user-select: none;
+        border-radius: 0.5rem;
+      }
+
+      &_number {
+        font-weight: 600;
+        font-size: 1.5rem;
+        color: $gray;
+      }
+    }
+  }
+
+  &_cart {
+    margin-left: 1.5rem;
+
+    button {
+      background: orange;
+      color: white;
+      font-size: 0.875rem;
+    }
+  }
+}
+
+

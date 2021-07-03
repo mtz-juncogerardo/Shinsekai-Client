@@ -71,9 +71,12 @@
 }
 
 .carousel {
+  margin-bottom: 1rem;
+
   &-item {
     height: 15rem;
     width: 100%;
+    cursor: pointer;
 
     img {
       border-radius: 0.25rem;
@@ -83,3 +86,51 @@
   }
 }
 
+.article-box {
+  box-shadow: 1px 4px 10px $dark;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 0.25rem;
+
+  &_tabs {
+    display: flex;
+    color: $dark;
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+
+    &_item {
+      cursor: pointer;
+      padding: 0 3rem 0 0.5rem;
+      height: fit-content;
+      line-height: 1;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &.selected {
+        box-shadow: 1px 4px 10px $dark;
+      }
+    }
+  }
+
+  &_prev {
+    padding: 5rem 3rem 0 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+
+    &_item {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &_btn {
+    margin-bottom: 1rem;
+    align-self: center;
+    margin-top: 1rem;
+  }
+}

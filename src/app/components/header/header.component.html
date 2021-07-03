@@ -1,22 +1,22 @@
 <div class="row mb-5">
   <div class="col-3 logo">
-    <img src="assets/test_logo.png" alt="logo">
+    <img (click)="goHome()" src="assets/test_logo.png" alt="logo">
   </div>
   <div class="col-6 search">
     <input [(ngModel)]="search" type="search">
-    <div (click)="emitSearchPress()" class="search_icon">
+    <div (click)="navigateSearch()" class="search_icon">
       <i class="fas fa-search"></i>
     </div>
   </div>
   <div class="col-3 options">
-    <div (click)="emitAccountPress()" class="options_button">
+    <div (click)="goToAccount()" class="options_button">
       <i class="fas fa-user"></i>
       {{accountText}}
     </div>
-    <div *ngIf="showAdmin" (click)="emitAdminPress()" class="options_button mb-lg-0 mt-lg-0 mb-2 mt-2">
+    <div *ngIf="showAdmin" (click)="goToAdminPanel()" class="options_button mb-lg-0 mt-lg-0 mb-2 mt-2">
       Admin Panel
     </div>
-    <div (click)="emitCartPress()" class="options_shopcart">
+    <div (click)="toggleCart()" class="options_shopcart">
       <i class="fas fa-shopping-cart"></i>
     </div>
   </div>

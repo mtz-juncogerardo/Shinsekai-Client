@@ -38,6 +38,13 @@ export class UsersComponent implements OnInit {
   }
 
   toggleAdmin(): void {
+    const totalAdminUsers = this.users.filter(u => u.admin).length;
+
+    if (totalAdminUsers === 1 && this.selectedUser.admin) {
+      this.alert.pushAlert({type: 'danger', message: 'Debe haber almenos un usuario con permisos de administrador'});
+      return;
+    }
+
     this.selectedUser.admin = !this.selectedUser.admin;
     this.crud.httpPut(this.selectedUser).toPromise()
       .then(res => {

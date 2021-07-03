@@ -1,8 +1,6 @@
 <div class="container">
   <div class="wrapper">
-    <app-header (cartClick)="toggleCart()"
-                (accountClick)="goToAccount()"
-                (adminClick)="goToAdminPanel()"
+    <app-header [user]="user"
                 [showAdmin]="user?.admin || false"
                 [accountText]="user?.id ? 'Mi Cuenta' : 'Inicia Sesión'"></app-header>
     <div class="row">
@@ -31,12 +29,12 @@
 
       <!--      Second COLUMN-->
       <div class="col-lg-6 mb-lg-5 col-12 order-lg-1 order-0 mb-5">
-        <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+        <div *ngIf="carousels.length > 0" id="carousel" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
             <div *ngFor="let c of carousels; let idx = index"
                  class="carousel-item"
                  [class.active]="idx === 0"
-                 data-bs-interval="5000"
+                 data-bs-interval="4000"
                  (click)="navigateTo(c?.redirectPath)">
               <img [src]="c.imagePath" class="w-100" alt="promotion">
             </div>
@@ -52,10 +50,50 @@
             <span class="visually-hidden">Next</span>
           </button>
         </div>
-        <!--      Third COLUMN-->
-        <div class="col-3"></div>
+
+        <div *ngIf="articlesBySales.length > 0" class="carousel_custom">
+          <h4>RANKING</h4>
+          <app-carousel [articles]="articlesBySales"></app-carousel>
+        </div>
+
+        <div class="article-box">
+          <div class="article-box_tabs">
+            <div (click)="changeTab(1)" class="article-box_tabs_item" [class.selected]="selectedTab === 1">Cátalogo
+            </div>
+            <div (click)="changeTab(2)" class="article-box_tabs_item" [class.selected]="selectedTab === 2">New Items
+            </div>
+          </div>
+
+          <div class="article-box_prev">
+            <ng-container *ngIf="selectedTab === 1">
+              <div class="article-box_prev_item" *ngFor="let article of articlesBySales">
+                <app-article-prev [price]="article.price || 0"
+                                  [image]="article.images[0].path || ''"
+                                  [name]="article.name"
+                                  (articleClick)="navigateToArticle(article.id)">
+                </app-article-prev>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="selectedTab === 2">
+              <div class="article-box_prev_item" *ngFor="let article of articlesByNew">
+                <app-article-prev
+                  [price]="article.price !== undefined && article.discountPrice !== undefined ? article.price - article.discountPrice : 0"
+                  [image]="article.images[0].path || ''"
+                  [name]="article.name"
+                  (articleClick)="navigateToArticle(article.id)">
+                </app-article-prev>
+              </div>
+            </ng-container>
+          </div>
+
+          <button class="article-box_btn rounded-pill btn btn-sm btn-primary">
+            Ver Más
+          </button>
+        </div>
       </div>
+
+      <!--      Third COLUMN-->
+      <div class="col-lg-3 col-12 order-3"></div>
     </div>
   </div>
 </div>
-

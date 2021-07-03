@@ -6,6 +6,7 @@ import {IUser} from '../core/Interfaces/IUser';
 import {Router} from '@angular/router';
 import {LoaderService} from '../services/loader.service';
 import {IPromotions} from '../core/Interfaces/IPromotions';
+import {IArticle} from '../core/Interfaces/IArticle';
 
 @Component({
   selector: 'app-init',
@@ -16,6 +17,9 @@ export class InitComponent implements OnInit {
 
   user: IUser;
   carousels: IPromotions[];
+  articlesBySales: IArticle[];
+  articlesByNew: IArticle[];
+  selectedTab: 1 | 2;
 
   constructor(private alertService: AlertService,
               private storage: StorageService,
@@ -23,13 +27,27 @@ export class InitComponent implements OnInit {
               private router: Router,
               private loader: LoaderService) {
     this.user = {};
+    this.selectedTab = 1;
+    this.articlesBySales = [];
+    this.articlesByNew = [];
     this.carousels = [];
   }
 
   async ngOnInit(): Promise<void> {
     this.loader.beginLoad();
     this.getCarousels();
+    this.getArticles();
     await this.getUser();
+  }
+
+  private getArticles(): void {
+    this.crud.setEndpoint('articles');
+
+    this.crud.httpGet(`?orderBySales=true`).toPromise()
+      .then(res => this.articlesBySales = res.response);
+
+    this.crud.httpGet().toPromise()
+      .then(res => this.articlesByNew = res.response);
   }
 
   private async getUser(): Promise<void> {
@@ -46,29 +64,10 @@ export class InitComponent implements OnInit {
     this.crud.httpGet('', 'La sesión caduco').toPromise()
       .then(res => this.user = res.response)
       .catch(() => this.storage.deleteKey())
-      .finally(() => this.loader.endLoad());
-  }
-
-  signOut(): void {
-    this.storage.deleteKey();
-    location.reload();
-  }
-
-  toggleCart(): void {
-    console.log('openslide');
-  }
-
-  async goToAccount(): Promise<void> {
-    if (Object.keys(this.user).length > 0) {
-      await this.router.navigate(['/account']);
-      return;
-    }
-
-    await this.router.navigate(['/login']);
-  }
-
-  async goToAdminPanel(): Promise<void> {
-    await this.router.navigate(['/admin']);
+      .finally(() => {
+        console.log(this.user);
+        this.loader.endLoad();
+      });
   }
 
   private getCarousels(): void {
@@ -83,5 +82,14 @@ export class InitComponent implements OnInit {
     }
 
     window.location.href = path;
+  }
+
+  changeTab(tab: 1 | 2): void {
+    this.selectedTab = tab;
+  }
+
+  async navigateToArticle(id: string): Promise<void> {
+    console.log('article', id);
+    await this.router.navigate([`articles/${id}`]);
   }
 }

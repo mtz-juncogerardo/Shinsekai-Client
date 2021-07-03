@@ -1,0 +1,19 @@
+<div class="wrapper">
+  <div class="arrow">
+    <i (click)="slideCarousel('left')" class="fas fa-caret-left"></i>
+  </div>
+
+  <div class="wrapper_articles" id="c_scroll">
+    <div *ngFor="let item of articles; let idx = index" class="article">
+      <div class="article_position">{{idx + 1}}</div>
+      <div (click)="navigateToArticle(item.id)" class="article_image">
+        <img [src]="item?.images !== [] ? item.images[0]?.path : ''" alt="article">
+      </div>
+      <span class="article_name">{{item.name}}</span>
+    </div>
+  </div>
+
+  <div class="arrow">
+    <i (click)="slideCarousel('right')" class="fas fa-caret-right"></i>
+  </div>
+</div>

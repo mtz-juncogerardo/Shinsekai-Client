@@ -86,11 +86,11 @@ export class ArticlesComponent implements OnInit {
       id: [null],
       name: [
         null,
-        Validators.required
+        Validators.required,
       ],
       details: [
         null,
-        Validators.required
+        Validators.required,
       ],
       height: [
         null,
@@ -315,6 +315,11 @@ export class ArticlesComponent implements OnInit {
   }
 
   async getArticleCombos(articleId: string = ''): Promise<void> {
+
+    if (articleId) {
+      this.editFlag = true;
+    }
+
     this.form.reset();
     this.selectedBrands = [];
     this.selectedMaterials = [];
@@ -334,30 +339,7 @@ export class ArticlesComponent implements OnInit {
     if (this.editFlag) {
       this.crud.setEndpoint('articles/read?id=');
       this.crud.httpGet(articleId).toPromise().then(res => {
-        const article = res.response;
-        this.selectedBrands = article.brand;
-        this.selectedLines = article.lines;
-        this.selectedAnimes = article.animes;
-        this.selectedMaterials = article.materials;
-        this.imagePaths = article.images;
-        this.form.patchValue({
-          id: article.id,
-          name: article.name,
-          details: article.details,
-          height: article.height,
-          price: article.price,
-          discountPrice: article.discountPrice,
-          stock: article.stock,
-          originalFlag: article.originalFlag,
-          originalSerial: article.originalSerial,
-          images: article.images,
-          brandId: article.brand[0].id,
-          materials: article.materials,
-          lines: article.lines,
-          animes: article.animes,
-        });
-
-        console.log(this.form.value);
+        this.populateForm(res.response);
       });
     }
   }
@@ -522,5 +504,29 @@ export class ArticlesComponent implements OnInit {
         this.selectedBrands = this.selectedBrands.filter(r => r.id !== id);
         break;
     }
+  }
+
+  private populateForm(article: any): void {
+    this.selectedBrands = article.brand;
+    this.selectedLines = article.lines;
+    this.selectedAnimes = article.animes;
+    this.selectedMaterials = article.materials;
+    this.imagePaths = article.images;
+    this.form.patchValue({
+      id: article?.id,
+      name: article?.name,
+      details: article?.details,
+      height: article?.height,
+      price: article?.price,
+      discountPrice: article?.discountPrice,
+      stock: article?.stock,
+      originalFlag: article?.originalFlag,
+      originalSerial: article?.originalSerial,
+      images: article?.images,
+      brandId: article?.brand[0].id,
+      materials: article?.materials,
+      lines: article?.lines,
+      animes: article?.animes,
+    });
   }
 }

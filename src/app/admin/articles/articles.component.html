@@ -130,12 +130,12 @@
         <form [formGroup]="form">
           <div class="form-group">
             <label for="name">Nombre:</label>
-            <input formControlName="name" type="text" class="form-control" id="name"
+            <input max="50" formControlName="name" type="text" class="form-control" id="name"
                    placeholder="Naruto Uzumaki Figure">
           </div>
           <div class="form-group">
             <label for="details">Descripción:</label>
-            <textarea formControlName="details" type="text" class="form-control" id="details" rows="8"></textarea>
+            <textarea maxlength="200" formControlName="details" type="text" class="form-control" id="details" rows="8"></textarea>
           </div>
           <div class="form-group">
             <label for="height">Altura en metros:</label>
@@ -238,7 +238,7 @@
             <label for="images">Imagenes:</label>
             <input (change)="loadImage($event)" id="images" type="file" name="myImage" accept="image/*"/>
           </div>
-          <div class="d-flex">
+          <div class="d-flex flex-wrap">
             <div *ngFor="let image of imagePaths" class="images" (click)="removeImagePath(image)">
               <img [src]="image.path" alt="loading">
               <i *ngIf="image.path !== loadingGif" class="fas fa-trash"></i>

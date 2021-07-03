@@ -1,0 +1,60 @@
+@import 'src/scss/variables/colors-theme-primary';
+
+.article-prev {
+  display: flex;
+  flex-direction: column;
+  width: 7rem;
+  max-width: 7rem;
+  min-width: 7rem;
+  cursor: pointer;
+
+  &_image {
+    height: 7rem;
+    width: 7rem;
+    margin-bottom: 0.5rem;
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &_bar {
+    background: $yellow;
+    padding: 0.25rem;
+    margin-bottom: 0.25rem;
+    width: 100%;
+
+    p {
+      color: $gray;
+      line-height: 1;
+      font-weight: bold;
+      font-size: 0.5rem;
+      text-transform: uppercase;
+    }
+  }
+
+  &_name {
+    font-size: 0.6rem;
+    color: $dark;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 1.7rem;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+    position: relative;
+    visibility: visible;
+    margin-bottom: 0.25rem;
+  }
+
+  &_price {
+    text-align: center;
+    color: $color-primary;
+    font-weight: bold;
+    font-size: 0.875rem;
+  }
+}

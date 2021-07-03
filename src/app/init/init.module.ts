@@ -4,6 +4,7 @@ import {InitComponent} from './init.component';
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ComponentsModule} from '../components/components.module';
+import { ArticlePrevComponent } from './article-prev/article-prev.component';
 
 const routes: Routes = [
   {
@@ -25,11 +26,19 @@ const routes: Routes = [
   {
     path: 'account',
     loadChildren: () => import('./account/account.module').then(m => m.AccountModule)
+  },
+  {
+    path: 'articles',
+    loadChildren: () => import('./articles/articles-expo/articles-expo.module').then(m => m.ArticlesExpoModule)
+  },
+  {
+    path: 'articles/:id',
+    loadChildren: () => import('./articles/articles-details/articles-details.module').then(m => m.ArticlesDetailsModule)
   }
 ];
 
 @NgModule({
-  declarations: [InitComponent],
+  declarations: [InitComponent, ArticlePrevComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
