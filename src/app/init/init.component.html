@@ -13,15 +13,15 @@
         </div>
         <div class="social">
           <div class="social_facebook">
-            <i class="fab fa-facebook-f"></i>
+            <img class="sh-icon mr-3" src="assets/icons/facebook.svg" alt="fb">
             <span>Shinsekai Facebook</span>
           </div>
           <div class="social_instagram">
-            <i class="fab fa-instagram"></i>
+            <img class="sh-icon mr-3" src="assets/icons/instagram-2.svg" alt="instagram">
             <span>Shinsekai Instagram</span>
           </div>
           <div class="social_youtube">
-            <i class="fab fa-youtube"></i>
+            <img class="sh-icon mr-3" src="assets/icons/youtube.svg" alt="youtube">
             <span>Shinsekai Youtube</span>
           </div>
         </div>
@@ -60,7 +60,8 @@
           <div class="article-box_tabs">
             <div (click)="changeTab(1)" class="article-box_tabs_item" [class.selected]="selectedTab === 1">Cátalogo
             </div>
-            <div (click)="changeTab(2)" class="article-box_tabs_item" [class.selected]="selectedTab === 2">New Items
+            <div (click)="changeTab(2)" class="article-box_tabs_item" [class.selected]="selectedTab === 2">Nuevas
+              Figuras
             </div>
           </div>
 
@@ -93,7 +94,38 @@
       </div>
 
       <!--      Third COLUMN-->
-      <div class="col-lg-3 col-12 order-3"></div>
+      <div class="col-lg-3 col-12 order-3">
+        <div class="menu">
+          <div class="menu_item">
+            <div class="menu_item_btn menu_item_btn--help">
+              <img class="sh-icon_lg" src="assets/icons/promotions.svg" alt="help">
+            </div>
+            <span>Ayuda</span>
+          </div>
+
+          <div class="menu_item">
+            <div class="menu_item_btn menu_item_btn--promo">
+              <img class="sh-icon_lg" src="assets/icons/promotions.svg" alt="promo">
+            </div>
+            <span>Promos</span>
+          </div>
+        </div>
+
+        <div class="animes">
+          <div class="animes_item">
+            <img src="assets/anime-01.jpg">
+          </div>
+          <div class="animes_item">
+            <img src="assets/anime-02.jpg">
+          </div>
+          <div class="animes_item">
+            <img src="assets/anime-03.jpg">
+          </div>
+          <div class="animes_item">
+            <img src="assets/anime-04.jpg">
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

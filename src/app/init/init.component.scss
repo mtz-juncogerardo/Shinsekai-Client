@@ -134,3 +134,62 @@
     margin-top: 1rem;
   }
 }
+
+.menu {
+  margin-bottom: 1.5rem;
+  width: 100%;
+
+  &_item {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: $light;
+    box-shadow: 1px 4px 2px $dark;
+    width: 100%;
+    border-radius: 0.5rem;
+
+    &_btn {
+      padding: 1rem;
+      box-shadow: 1px 4px 2px $dark;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &--help {
+        background: #8BD91F;
+      }
+
+      &--promo {
+        background: $color-secondary;
+      }
+    }
+
+    span {
+      margin: auto;
+      color: $dark;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    &:last-child {
+      margin-top: 1rem;
+    }
+  }
+}
+
+.animes {
+  width: 100%;
+
+  &_item {
+    width: 100%;
+    padding: 1.25rem 1.25rem 0;
+
+    img {
+      border-radius: 1rem;
+      height: auto;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+}

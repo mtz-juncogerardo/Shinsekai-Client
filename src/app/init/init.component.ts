@@ -35,18 +35,18 @@ export class InitComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.loader.beginLoad();
-    this.getCarousels();
-    this.getArticles();
+    await this.getCarousels();
+    await this.getArticles();
     await this.getUser();
   }
 
-  private getArticles(): void {
+  private async getArticles(): Promise<void> {
     this.crud.setEndpoint('articles');
 
-    this.crud.httpGet(`?orderBySales=true`).toPromise()
+    await this.crud.httpGet(`?orderBySales=true`).toPromise()
       .then(res => this.articlesBySales = res.response);
 
-    this.crud.httpGet().toPromise()
+    await this.crud.httpGet().toPromise()
       .then(res => this.articlesByNew = res.response);
   }
 
@@ -70,9 +70,9 @@ export class InitComponent implements OnInit {
       });
   }
 
-  private getCarousels(): void {
+  private async getCarousels(): Promise <void> {
     this.crud.setEndpoint('carousels/read');
-    this.crud.httpGet().toPromise()
+    await this.crud.httpGet().toPromise()
       .then(res => this.carousels = res.response);
   }
 

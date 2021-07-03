@@ -10,14 +10,14 @@
   </div>
   <div class="col-3 options">
     <div (click)="goToAccount()" class="options_button">
-      <i class="fas fa-user"></i>
+      <img class="sh-icon" src="assets/icons/usuario.svg" alt="user">
       {{accountText}}
     </div>
     <div *ngIf="showAdmin" (click)="goToAdminPanel()" class="options_button mb-lg-0 mt-lg-0 mb-2 mt-2">
       Admin Panel
     </div>
     <div (click)="toggleCart()" class="options_shopcart">
-      <i class="fas fa-shopping-cart"></i>
+      <img class="sh-icon" src="assets/icons/carrito-de-compras.svg" alt="cart">
     </div>
   </div>
 </div>

@@ -3,6 +3,7 @@
 .images {
   height: 36rem;
   margin-bottom: 1.5rem;
+  cursor: pointer;
 
   img {
     height: 100%;
@@ -15,6 +16,7 @@
     flex-wrap: wrap;
 
     &_item {
+      cursor: pointer;
       height: auto;
       width: 4.5rem;
       margin: 1rem;

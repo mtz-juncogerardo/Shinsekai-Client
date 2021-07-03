@@ -27,11 +27,11 @@
           </div>
           <span *ngIf="!article.originalFlag" class="disabled">{{original.price !== undefined
           && original.discountPrice !== undefined
-            ? (original.price - original.discountPrice | currency) : 0}}</span>
+            ? (original.price - original.discountPrice | currency) : '--'}}</span>
           <span *ngIf="article.originalFlag">
             {{article.price !== undefined
           && article.discountPrice !== undefined
-            ? (article.price - article.discountPrice | currency) : 0}}
+            ? (article.price - article.discountPrice | currency) : '--'}}
           </span>
         </div>
         <div class="original-replica_replica">
@@ -40,12 +40,12 @@
           </div>
           <span *ngIf="article.originalFlag" class="disabled">{{replica.price !== undefined
           && replica.discountPrice !== undefined
-            ? (replica.price - replica.discountPrice | currency) : 0}}</span>
+            ? (replica.price - replica.discountPrice | currency) : '--'}}</span>
 
           <span *ngIf="!article.originalFlag">
             {{article.price !== undefined
           && article.discountPrice !== undefined
-            ? (article.price - article.discountPrice | currency) : 0}}
+            ? (article.price - article.discountPrice | currency) : '--'}}
           </span>
         </div>
       </div>
