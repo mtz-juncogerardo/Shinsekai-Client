@@ -78,10 +78,16 @@
           <p>SIN STOCK *</p>
         </ng-container>
       </div>
-      <p>En caso de escasez de existencias del fabricante, los articulos de pedido anticipado se ofreceran por orden de
+      <p class="info">En caso de escasez de existencias del fabricante, los articulos de pedido anticipado se ofreceran por orden de
         llegada.</p>
-      <button class="favorite">Añadir a favoritos</button>
-      <button class="share">Compartir</button>
+      <button (click)="saveToFavorite()" [disabled]="!user?.id" class="btn btn-lg w-100 favorite">
+        <img class="sh-icon_sm" src="assets/icons/estrella.svg" alt="estrella">
+        Añadir a favoritos
+      </button>
+      <button class="btn btn-lg w-50 share">
+        <img class="sh-icon_sm" src="assets/icons/compartir.svg" alt="compartir">
+        Compartir
+      </button>
     </div>
   </div>
 </div>

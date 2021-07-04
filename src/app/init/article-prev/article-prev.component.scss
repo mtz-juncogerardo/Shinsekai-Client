@@ -35,6 +35,17 @@
     }
   }
 
+  &_price-original {
+    text-decoration: line-through;
+    font-size: 0.5rem;
+    color: $dark;
+
+    &.disabled {
+      user-select: none;
+      color: transparent;
+    }
+  }
+
   &_name {
     font-size: 0.6rem;
     color: $dark;

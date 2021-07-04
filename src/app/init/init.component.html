@@ -69,6 +69,7 @@
             <ng-container *ngIf="selectedTab === 1">
               <div class="article-box_prev_item" *ngFor="let article of articlesBySales">
                 <app-article-prev [price]="article.price || 0"
+                                  [discountPrice]="article.discountPrice || 0"
                                   [image]="article.images[0].path || ''"
                                   [name]="article.name"
                                   (articleClick)="navigateToArticle(article.id)">
@@ -78,7 +79,8 @@
             <ng-container *ngIf="selectedTab === 2">
               <div class="article-box_prev_item" *ngFor="let article of articlesByNew">
                 <app-article-prev
-                  [price]="article.price !== undefined && article.discountPrice !== undefined ? article.price - article.discountPrice : 0"
+                  [price]="article.price || 0"
+                  [discountPrice]="article.discountPrice || 0"
                   [image]="article.images[0].path || ''"
                   [name]="article.name"
                   (articleClick)="navigateToArticle(article.id)">
@@ -112,17 +114,8 @@
         </div>
 
         <div class="animes">
-          <div class="animes_item">
-            <img src="assets/anime-01.jpg">
-          </div>
-          <div class="animes_item">
-            <img src="assets/anime-02.jpg">
-          </div>
-          <div class="animes_item">
-            <img src="assets/anime-03.jpg">
-          </div>
-          <div class="animes_item">
-            <img src="assets/anime-04.jpg">
+          <div *ngFor="let promo of promotions" class="animes_item">
+            <img (click)="navigateTo(promo?.redirectPath)" [src]="promo?.imagePath" alt="promocion shinsekai">
           </div>
         </div>
       </div>

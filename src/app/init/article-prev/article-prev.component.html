@@ -8,5 +8,6 @@
   </div>
 
   <p class="article-prev_name">{{name}}</p>
-  <p class="article-prev_price">{{price | currency}}</p>
+  <span [class.disabled]="discountPrice <= 0" class="article-prev_price-original">{{price | currency}}</span>
+  <p class="article-prev_price">{{price - discountPrice | currency}}</p>
 </div>

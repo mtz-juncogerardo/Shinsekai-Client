@@ -20,6 +20,7 @@ export class InitComponent implements OnInit {
   articlesBySales: IArticle[];
   articlesByNew: IArticle[];
   selectedTab: 1 | 2;
+  promotions: IPromotions[];
 
   constructor(private alertService: AlertService,
               private storage: StorageService,
@@ -31,12 +32,14 @@ export class InitComponent implements OnInit {
     this.articlesBySales = [];
     this.articlesByNew = [];
     this.carousels = [];
+    this.promotions = [];
   }
 
   async ngOnInit(): Promise<void> {
     this.loader.beginLoad();
     await this.getCarousels();
     await this.getArticles();
+    await this.getPromotions();
     await this.getUser();
   }
 
@@ -70,7 +73,7 @@ export class InitComponent implements OnInit {
       });
   }
 
-  private async getCarousels(): Promise <void> {
+  private async getCarousels(): Promise<void> {
     this.crud.setEndpoint('carousels/read');
     await this.crud.httpGet().toPromise()
       .then(res => this.carousels = res.response);
@@ -91,5 +94,11 @@ export class InitComponent implements OnInit {
   async navigateToArticle(id: string): Promise<void> {
     console.log('article', id);
     await this.router.navigate([`articles/${id}`]);
+  }
+
+  private async getPromotions(): Promise<void> {
+    this.crud.setEndpoint('promotions/read');
+    await this.crud.httpGet().toPromise()
+      .then(res => this.promotions = res.response);
   }
 }

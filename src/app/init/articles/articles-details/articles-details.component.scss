@@ -141,4 +141,27 @@
   }
 }
 
+.info {
+  font-size: 0.875rem;
+  color: $dark;
+  margin-bottom: 1.5rem;
+}
+
+.share, .favorite {
+  border: 1px solid $gray;
+  background: $light;
+  box-shadow: 1px 4px 2px $dark;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+  color: $dark;
+
+  img {
+    margin-right: 1rem;
+  }
+}
+
 
