@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import {AlertComponent} from './alert/alert.component';
 import { LoaderComponent } from './loader/loader.component';
 import { HeaderComponent } from './header/header.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CarouselComponent } from './carousel/carousel.component';
+import { InputFormComponent } from './input-form/input-form.component';
 
 
 
@@ -14,16 +15,19 @@ import { CarouselComponent } from './carousel/carousel.component';
     LoaderComponent,
     HeaderComponent,
     CarouselComponent,
+    InputFormComponent,
   ],
     imports: [
         CommonModule,
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule
     ],
   exports: [
     AlertComponent,
     LoaderComponent,
     HeaderComponent,
     CarouselComponent,
+    InputFormComponent,
   ]
 })
 export class ComponentsModule { }

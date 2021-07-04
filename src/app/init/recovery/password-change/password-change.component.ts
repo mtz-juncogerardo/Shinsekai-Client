@@ -1,43 +1,30 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {CrudService} from '../../services/crud.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AlertService} from '../../services/alert.service';
-import {LoaderService} from '../../services/loader.service';
-import {StorageService} from '../../services/storage.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {CrudService} from '../../../services/crud.service';
+import {AlertService} from '../../../services/alert.service';
+import {LoaderService} from '../../../services/loader.service';
+import {StorageService} from '../../../services/storage.service';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  selector: 'app-password-change',
+  templateUrl: './password-change.component.html',
+  styleUrls: ['./password-change.component.scss']
 })
-export class SignupComponent implements OnInit {
+export class PasswordChangeComponent implements OnInit {
 
   form: FormGroup;
   passwordMatch: boolean;
-  emailMatch: boolean;
 
-  constructor(private router: Router,
+  constructor(private route: ActivatedRoute,
+              private router: Router,
               private crudService: CrudService,
               private formBuilder: FormBuilder,
               private alertService: AlertService,
               private loader: LoaderService,
               private storage: StorageService) {
-    this.crudService.setEndpoint('auth/signup');
     this.passwordMatch = true;
-    this.emailMatch = true;
     this.form = this.formBuilder.group({
-      email: [
-        null,
-        Validators.compose([
-          Validators.required,
-          Validators.email,
-        ])
-      ],
-      confirmEmail: [
-        null,
-        Validators.required
-      ],
       password: [
         null,
         Validators.compose([
@@ -61,17 +48,9 @@ export class SignupComponent implements OnInit {
   }
 
   async submit(): Promise<void> {
-    this.emailMatch = true;
     this.passwordMatch = true;
 
     if (this.form.invalid) {
-      return;
-    }
-
-    if (this.form.get('email')?.value !== this.form.get('confirmEmail')?.value) {
-      console.log(this.form.get('email')?.value);
-      console.log(this.form.get('confirmEmail')?.value);
-      this.emailMatch = false;
       return;
     }
 
@@ -80,20 +59,20 @@ export class SignupComponent implements OnInit {
       return;
     }
 
+    this.crudService.setBearer(this.route.snapshot.params.token);
+    this.crudService.setEndpoint('auth/security');
     this.loader.beginLoad();
 
-    await this.crudService.httpPost(this.form.value).toPromise()
+    await this.crudService.httpPut(this.form.value, 'El link es invalido o ya expiró').toPromise()
       .then(res => {
         if (res.response) {
-          this.alertService.pushAlert({
-            type: 'success',
-            message: 'Se ha enviado un correo al email proporcionado, abre el link para confirmar tu registro'
-          });
+          this.alertService.pushAlert({type: 'success', message: 'Ya puedes iniciar sesión con tu nueva contraseña'});
         }
       })
       .finally(() => {
         this.form.reset();
         this.loader.endLoad();
+        this.router.navigate(['login']);
       });
 
   }
@@ -104,9 +83,5 @@ export class SignupComponent implements OnInit {
 
   confirmPasswordFocus(): void {
     this.passwordMatch = true;
-  }
-
-  confirmEmailFocus(): void {
-    this.emailMatch = true;
   }
 }

@@ -63,4 +63,8 @@ export class LoginComponent implements OnInit {
       })
       .finally(() => this.loader.endLoad());
   }
+
+  navigateTo(path: string): void {
+    this.router.navigate([path]);
+  }
 }

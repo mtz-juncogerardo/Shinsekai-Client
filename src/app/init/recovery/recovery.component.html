@@ -1,0 +1,49 @@
+<app-alert></app-alert>
+
+<div class="container">
+  <app-header [justLogo]="true"></app-header>
+
+  <div class="row mb-5">
+    <div *ngIf="!done" class="col text-center">
+      <h1>Recupera tu cuenta</h1>
+      <h2>¿Olvidaste tu contraseña? <br> No te preocupes ingresa el email con el que te registraste y te ayudaremos a restablecerla</h2>
+    </div>
+
+    <div *ngIf="done" class="col text-center">
+      <h1>Listo!</h1>
+      <h2>Se envio un correo al email proporcionado con las instrucciones para restablecer la contraseña</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div *ngIf="!done" class="col">
+      <form [formGroup]="form">
+        <div class="group">
+          <input formControlName="email" type="text" required>
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label>Email</label>
+          <small *ngIf="form.controls['email'].invalid && form.controls['email'].dirty" class="text-danger">
+            El email no es valido
+          </small>
+        </div>
+
+        <div class="group">
+          <input (focus)="confirmEmailFocus()" formControlName="confirmEmail" type="text" required>
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label>Ingresa tu email de nuevo</label>
+          <small *ngIf="!emailMatch" class="text-danger">Tus correos no coinciden</small>
+        </div>
+
+        <div class="options">
+          <button (click)="submit()"
+                  class="btn btn-outline-primary btn-lg rounded-pill"
+                  [disabled]="this.form.invalid">
+            Recuperar mi cuenta
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {IUser} from '../../core/Interfaces/IUser';
 import {Router} from '@angular/router';
 
@@ -14,12 +14,14 @@ export class HeaderComponent implements OnInit {
   @Input() showAdmin: boolean | undefined;
   @Input() user: IUser;
   @Input() accountText: string;
+  @Input() justLogo: boolean;
 
   constructor(private router: Router) {
     this.showAdmin = false;
     this.search = '';
     this.user = {};
     this.accountText = '';
+    this.justLogo = false;
   }
 
   ngOnInit(): void {
