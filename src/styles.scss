@@ -29,17 +29,20 @@ h4 {
 }
 
 .sh-icon {
+  user-select: none;
   height: 2rem;
   width: 2rem;
   object-fit: contain;
 
   &_lg {
+    user-select: none;
     height: 3rem;
     width: 3rem;
     object-fit: contain;
   }
 
   &_sm {
+    user-select: none;
     height: 1rem;
     width: 1rem;
     object-fit: contain;

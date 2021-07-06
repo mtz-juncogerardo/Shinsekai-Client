@@ -20,7 +20,8 @@ export class InitComponent implements OnInit {
   articlesBySales: IArticle[];
   articlesByNew: IArticle[];
   selectedTab: 1 | 2;
-  promotions: IPromotions[];
+  rightPromotions: IPromotions[];
+  leftPromotions: IPromotions[];
 
   constructor(private alertService: AlertService,
               private storage: StorageService,
@@ -32,7 +33,8 @@ export class InitComponent implements OnInit {
     this.articlesBySales = [];
     this.articlesByNew = [];
     this.carousels = [];
-    this.promotions = [];
+    this.rightPromotions = [];
+    this.leftPromotions = [];
   }
 
   async ngOnInit(): Promise<void> {
@@ -99,6 +101,11 @@ export class InitComponent implements OnInit {
   private async getPromotions(): Promise<void> {
     this.crud.setEndpoint('promotions/read');
     await this.crud.httpGet().toPromise()
-      .then(res => this.promotions = res.response);
+      .then(res => {
+        if (res.response) {
+          this.rightPromotions = res.response.filter((p: IPromotions) => p.appearsOnRight);
+          this.leftPromotions = res.response.filter((p: IPromotions) => p.appearsOnLeft);
+        }
+      });
   }
 }

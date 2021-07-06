@@ -4,7 +4,7 @@ import {CrudService} from '../../services/crud.service';
 import {ImageBlobService} from '../../services/image-blob.service';
 import {AlertService} from '../../services/alert.service';
 import {IPromotions} from '../../core/Interfaces/IPromotions';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {IImage} from '../../core/Interfaces/IImage';
 import {HttpEventType} from '@angular/common/http';
 
@@ -36,7 +36,10 @@ export class PromotionsComponent implements OnInit {
     this.form = this.formBuilder.group({
       id: [null],
       imagePath: [null],
-      redirectPath: [null]
+      redirectPath: [null],
+      side: [null, Validators.required],
+      appearsOnRight: [true],
+      appearsOnLeft: [false]
     });
   }
 
@@ -103,7 +106,9 @@ export class PromotionsComponent implements OnInit {
 
     this.form.patchValue({
       imagePath: this.imagePath.path,
-      redirectPath
+      redirectPath,
+      appearsOnRight: this.form.value.side === 'right',
+      appearsOnLeft: this.form.value.side === 'left'
     });
 
     if (this.editFlag) {

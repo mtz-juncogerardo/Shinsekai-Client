@@ -20,9 +20,12 @@ export class ArticlesDetailsComponent implements OnInit {
   original: IArticle;
   replica: IArticle;
   user: IUser;
-  mainImage: IImage;
-  subImages: IImage[];
+  // mainImage: IImage;
+  // subImages: IImage[];
+  imageIndex: number;
   inStock: boolean;
+  showModal: boolean;
+  images: IImage[];
   private isFavorite: boolean;
 
   constructor(private route: ActivatedRoute,
@@ -32,12 +35,15 @@ export class ArticlesDetailsComponent implements OnInit {
               private crud: CrudService,
               private storage: StorageService) {
     this.article = {id: '', images: [], name: ''};
+    this.imageIndex = 0;
     this.favorites = [];
     this.user = {};
-    this.mainImage = {};
-    this.subImages = [];
+    this.images = [];
+    // this.mainImage = {};
+    // this.subImages = [];
     this.isFavorite = false;
     this.inStock = false;
+    this.showModal = false;
     this.original = {id: '', images: [], name: ''};
     this.replica = {id: '', images: [], name: ''};
   }
@@ -57,9 +63,10 @@ export class ArticlesDetailsComponent implements OnInit {
         this.article = res.response;
         this.article.quantity = 1;
         this.inStock = this.article?.stock !== undefined && this.article?.stock > 0;
-        this.mainImage = this.article.images[0];
-        this.subImages = this.article.images;
-        this.subImages.shift();
+        this.images = this.article.images;
+        // this.mainImage = this.article.images[0];
+        // this.subImages = this.article.images;
+        // this.subImages.shift();
       })
       .finally(() => {
         console.log(this.article);
@@ -167,5 +174,23 @@ export class ArticlesDetailsComponent implements OnInit {
         }
       })
       .finally(() => this.loader.endLoad());
+  }
+
+  openModal(idx: number): void {
+    this.imageIndex = idx;
+    this.showModal = true;
+  }
+
+  slide(side: 'left' | 'right'): void {
+    if (side === 'left') {
+      this.imageIndex = this.imageIndex <= 0 ? this.images.length - 1 : this.imageIndex - 1;
+      return;
+    }
+
+    this.imageIndex = this.imageIndex >= this.images.length - 1 ? 0 : this.imageIndex + 1;
+  }
+
+  closeModal(): void {
+    this.showModal = false;
   }
 }

@@ -24,7 +24,7 @@
       img {
         height: 100%;
         width: 100%;
-        object-fit: cover;
+        object-fit: contain;
       }
     }
   }
@@ -123,6 +123,7 @@
       }
 
       &_number {
+        user-select: none;
         font-weight: 600;
         font-size: 1.5rem;
         color: $gray;
@@ -164,4 +165,103 @@
   }
 }
 
+.custom-modal {
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  background: white;
+  z-index: 1000;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1.5rem 3rem;
+  transition: 0.5s;
+  box-shadow: 1px 4px 2px $dark;
 
+  &.show {
+    display: flex;
+  }
+
+  &_header {
+    width: 100%;
+    position: fixed;
+    display: flex;
+    padding: 0 1.5rem;
+
+    img {
+      float: left;
+      margin-left: auto;
+      cursor: pointer;
+      height: 3rem;
+      width: 3rem;
+      object-fit: contain;
+    }
+  }
+
+  &_main {
+    width: 100%;
+    margin: 1rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .arrow {
+      margin: 0 1.5rem;
+      font-size: 3rem;
+      cursor: pointer;
+    }
+
+    &_img {
+      display: flex;
+      justify-content: center;
+
+      img {
+        width: 36rem;
+        height: auto;
+        object-fit: cover;
+      }
+    }
+  }
+
+  &_sub {
+    display: flex;
+    flex-wrap: wrap;
+
+    &_item {
+      margin: 1rem;
+      border: 1px solid $light;
+      width: 3rem;
+      height: 3rem;
+      cursor: pointer;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+      }
+
+      &.selected {
+        border: 3px solid $color-primary;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 850px) {
+
+  .custom-modal {
+    &_main {
+      &_img {
+        img {
+          width: 100%;
+          height: auto;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+
+}

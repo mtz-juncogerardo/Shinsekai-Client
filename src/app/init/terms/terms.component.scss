@@ -1,0 +1,29 @@
+@import 'src/scss/variables/colors-theme-primary';
+
+section {
+  border-bottom: 1px solid $dark;
+}
+
+section {
+  padding: 1.5rem;
+
+  h1 {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  h1, ol, ul, li {
+    font-family: sans-serif;
+    line-height: 1.5;
+    color: $dark;
+  }
+
+  li {
+    font-size: 0.875rem;
+  }
+
+  ul {
+    list-style: none;
+  }
+}

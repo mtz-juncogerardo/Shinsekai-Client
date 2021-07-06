@@ -13,14 +13,21 @@
 
   &_originals, &_replicas {
     height: 50%;
-    border-radius: 0.5rem;
-    background: $light;
-    box-shadow: 1px 4px 2px $dark;
+
+    img {
+      cursor: pointer;
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
   }
 }
 
 .social {
-  margin-bottom: 1.5rem;
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 
   &_facebook, &_instagram, &_youtube {
     border-radius: 0.25rem;
@@ -81,7 +88,7 @@
     img {
       border-radius: 0.25rem;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
   }
 }
@@ -182,15 +189,28 @@
   width: 100%;
 
   &_item {
+    display: flex;
     width: 100%;
     padding: 1.25rem 1.25rem 0;
 
     img {
+      margin: 0 auto;
       cursor: pointer;
       border-radius: 1rem;
       height: auto;
+      max-width: 260px;
       width: 100%;
       object-fit: contain;
     }
+
+    &--left {
+      padding: 2.25rem 2.25rem 0;
+
+      img {
+        max-width: 218px;
+      }
+    }
   }
 }
+
+

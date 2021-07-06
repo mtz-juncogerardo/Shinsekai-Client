@@ -1,14 +1,14 @@
 <div class="row mb-5">
-  <div class="col-3 logo">
+  <div class="col-lg-3 col-md-3 col-12 logo">
     <img (click)="goHome()" src="assets/test_logo.png" alt="logo">
   </div>
-  <div *ngIf="!justLogo" class="col-6 search">
+  <div *ngIf="!justLogo" class="col-lg-6 col-md-6 col-12 search">
     <input [(ngModel)]="search" type="search">
     <div (click)="navigateSearch()" class="search_icon">
-      <i class="fas fa-search"></i>
+      <img class="sh-icon" src="assets/icons/busquedad.svg" alt="busqueda icono">
     </div>
   </div>
-  <div *ngIf="!justLogo" class="col-3 options">
+  <div *ngIf="!justLogo" class="col-lg-3 col-md-2 col-12 options">
     <div (click)="goToAccount()" class="options_button">
       <img class="sh-icon" src="assets/icons/usuario.svg" alt="user">
       {{accountText}}

@@ -5,11 +5,13 @@
 
   <div class="wrapper_articles" id="c_scroll">
     <div *ngFor="let item of articles; let idx = index" class="article">
-      <div class="article_position">{{idx + 1}}</div>
-      <div (click)="navigateToArticle(item.id)" class="article_image">
-        <img [src]="item?.images !== [] ? item.images[0]?.path : ''" alt="article">
-      </div>
-      <span class="article_name">{{item.name}}</span>
+      <ng-container *ngIf="idx < 10">
+        <div class="article_position">{{idx + 1}}</div>
+        <div (click)="navigateToArticle(item.id)" class="article_image">
+          <img [src]="item?.images !== [] ? item.images[0]?.path : ''" alt="article">
+        </div>
+        <span class="article_name">{{item.name}}</span>
+      </ng-container>
     </div>
   </div>
 

@@ -1,0 +1,71 @@
+@import 'src/scss/variables/colors-theme-primary';
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  padding: 3rem 10vw 1rem 10vw;
+
+  &_link {
+    font-size: 0.875rem;
+    color: $gray;
+    text-decoration: none;
+
+    &:hover {
+      color: $gray;
+      text-decoration: underline;
+    }
+  }
+
+  &_logo {
+    img {
+      height: auto;
+      width: 5rem;
+      object-fit: contain;
+    }
+  }
+
+  &_wa {
+    display: flex;
+    align-items: center;
+
+    p {
+      font-size: 0.875rem;
+    }
+
+    img {
+      margin-right: 1rem;
+      height: auto;
+      width: 1.5rem;
+      object-fit: contain;
+    }
+  }
+
+  &_social {
+    display: flex;
+    align-items: center;
+
+    img {
+      height: auto;
+      width: 1rem;
+      object-fit: contain;
+      margin-right: 1rem;
+
+      &.last {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .footer {
+    flex-direction: column;
+    padding: 2rem 0.5rem;
+
+    &_logo, &_wa, &_social {
+      margin: 1rem 0;
+    }
+  }
+}

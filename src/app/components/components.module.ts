@@ -6,6 +6,9 @@ import { HeaderComponent } from './header/header.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CarouselComponent } from './carousel/carousel.component';
 import { InputFormComponent } from './input-form/input-form.component';
+import { FooterComponent } from './footer/footer.component';
+import {RouterModule} from '@angular/router';
+import {ArticlePrevComponent} from './article-prev/article-prev.component';
 
 
 
@@ -16,11 +19,14 @@ import { InputFormComponent } from './input-form/input-form.component';
     HeaderComponent,
     CarouselComponent,
     InputFormComponent,
+    FooterComponent,
+    ArticlePrevComponent,
   ],
     imports: [
         CommonModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        RouterModule
     ],
   exports: [
     AlertComponent,
@@ -28,6 +34,8 @@ import { InputFormComponent } from './input-form/input-form.component';
     HeaderComponent,
     CarouselComponent,
     InputFormComponent,
+    FooterComponent,
+    ArticlePrevComponent
   ]
 })
 export class ComponentsModule { }

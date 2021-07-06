@@ -13,6 +13,7 @@
       <th>Id</th>
       <th>Foto</th>
       <th>Ruta a la cual ir al hacer click</th>
+      <th>Lugar en el que se muestra en pagina principal</th>
       <th>Opciones</th>
     </tr>
     </thead>
@@ -28,6 +29,10 @@
         <a [href]="promotion.redirectPath">
           {{promotion.redirectPath}}
         </a>
+      </td>
+      <td>
+        {{promotion.appearsOnLeft ? 'Lado izquierdo' : ''}}
+        {{promotion.appearsOnRight ? 'Lado derecho' : ''}}
       </td>
       <td>
         <div class="options">
@@ -79,6 +84,20 @@
                    placeholder="https://shinsekai/articulos?id=123-123-123">
             <small class="text-primary">Si la promocion no redirige a ninguna ruta dejar vacio</small>
           </div>
+          <div class="form-group">
+            <div class="form-check">
+              <input formControlName="side" class="form-check-input" type="radio" name="side" id="rightSide" value="right">
+              <label class="form-check-label" for="rightSide">
+                La promoción aparecera del lado derecho en la pagina inicial.
+              </label>
+            </div>
+            <div class="form-check">
+              <input formControlName="side" class="form-check-input" type="radio" name="side" id="leftSide" value="left">
+              <label class="form-check-label" for="leftSide">
+                La promoción aparecera del lado izquierdo en la pagina inicial.
+              </label>
+            </div>
+          </div>
           <div class="pt-3 pb-3 form-group">
             <label for="images">Imagen:</label>
             <input (change)="loadImage($event)" id="images" type="file" name="myImage" accept="image/*" [disabled]="imagePath.path"/>
@@ -94,7 +113,7 @@
           <button data-bs-dismiss="modal"
                   (click)="submit()"
                   class="btn btn-primary"
-                  [disabled]="blockButton">
+                  [disabled]="blockButton || form.invalid || !this.imagePath">
             {{editFlag ? 'Actualizar' : 'Guardar'}}
           </button>
           <button (click)="deleteImage()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
