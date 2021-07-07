@@ -250,6 +250,17 @@
   }
 }
 
+.modal-content {
+  button {
+    display: flex;
+    align-items: center;
+
+    i {
+      font-size: 2rem;
+    }
+  }
+}
+
 @media only screen and (max-width: 850px) {
 
   .custom-modal {

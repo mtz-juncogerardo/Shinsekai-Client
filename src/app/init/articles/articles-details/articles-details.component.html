@@ -7,7 +7,7 @@
   <div class="row">
     <div class="col-12 col-lg-6">
       <div class="images">
-        <img (click)="openModal(0)" [src]="images[0].path" alt="main-image">
+        <img (click)="openModal(0)" [src]="images[0]?.path" alt="main-image">
       </div>
       <div class="images_sub">
         <ng-container *ngFor="let image of images; let idx = index">
@@ -87,7 +87,9 @@
         <img class="sh-icon_sm" src="assets/icons/estrella.svg" alt="estrella">
         Añadir a favoritos
       </button>
-      <button class="btn btn-lg w-50 share">
+      <button data-bs-toggle="modal"
+              data-bs-target="#share"
+              class="btn btn-lg w-50 share">
         <img class="sh-icon_sm" src="assets/icons/compartir.svg" alt="compartir">
         Compartir
       </button>
@@ -108,7 +110,7 @@
     </div>
 
     <div class="custom-modal_main_img">
-      <img [src]="images[imageIndex].path" alt="figura shinsekai">
+      <img [src]="images[imageIndex]?.path" alt="figura shinsekai">
     </div>
 
     <div class="arrow">
@@ -120,6 +122,32 @@
     <div (click)="openModal(idx)" [class.selected]="imageIndex === idx" class="custom-modal_sub_item"
          *ngFor="let image of images; let idx = index">
       <img [src]="image.path" alt="figura shinsekai">
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="share" tabindex="-1" aria-labelledby="delete" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body d-flex justify-content-around flex-wrap">
+        <button class="btn btn-sm btn-outline-primary" shareButton="facebook">
+          <i class="fab fa-facebook"></i>
+        </button>
+        <button class="btn btn-sm btn-outline-success" shareButton="whatsapp">
+          <i class="fab fa-whatsapp-square"></i>
+        </button>
+        <button class="btn btn-sm btn-outline-primary" shareButton="twitter">
+          <i class="fab fa-twitter-square"></i>
+        </button>
+        <button class="btn btn-sm btn-outline-danger" shareButton="email">
+          <i class="fas fa-envelope"></i>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+      </div>
     </div>
   </div>
 </div>

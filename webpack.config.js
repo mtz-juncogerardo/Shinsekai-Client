@@ -1,3 +1,3 @@
 JSON.stringify({
-  apiUrl: '/api'
+  apiUrl: '/server'
 })
