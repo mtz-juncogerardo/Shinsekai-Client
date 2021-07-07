@@ -1,3 +1,5 @@
+<app-slide [show]="showSlide" (slideClose)="hideSlide($event)"></app-slide>
+
 <div class="row mb-5">
   <div class="col-lg-3 col-md-3 col-12 logo">
     <img (click)="goHome()" src="assets/test_logo.png" alt="logo">
@@ -17,6 +19,9 @@
       Admin Panel
     </div>
     <div (click)="toggleCart()" class="options_shopcart">
+      <div *ngIf="articleCount > 0" class="options_shopcart_badge">
+        {{articleCount}}
+      </div>
       <img class="sh-icon" src="assets/icons/carrito-de-compras.svg" alt="cart">
     </div>
   </div>

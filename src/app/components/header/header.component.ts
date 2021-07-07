@@ -1,13 +1,15 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {IUser} from '../../core/Interfaces/IUser';
 import {Router} from '@angular/router';
+import {CartService} from '../../services/cart.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   search: string;
 
@@ -15,20 +17,30 @@ export class HeaderComponent implements OnInit {
   @Input() user: IUser;
   @Input() accountText: string;
   @Input() justLogo: boolean;
+  articleCount: number;
+  subscription: Subscription;
+  showSlide: boolean;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private cart: CartService) {
     this.showAdmin = false;
+    this.articleCount = 0;
     this.search = '';
+    this.showSlide = false;
     this.user = {};
+    this.subscription = new Subscription();
     this.accountText = '';
     this.justLogo = false;
   }
 
   ngOnInit(): void {
+    this.subscription = this.cart.cart$.subscribe(res => {
+      this.articleCount = res.length;
+    });
   }
 
-  toggleCart(): void {
-    console.log('openslide');
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   async goToAccount(): Promise<void> {
@@ -50,5 +62,15 @@ export class HeaderComponent implements OnInit {
 
   async goHome(): Promise<void> {
     await this.router.navigate(['/']);
+  }
+
+  hideSlide($event: boolean): void {
+    this.showSlide = $event;
+    document.body.style.overflowY = 'auto';
+  }
+
+  toggleCart(): void {
+    this.showSlide = true;
+    document.body.style.overflowY = 'hidden';
   }
 }

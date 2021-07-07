@@ -1,0 +1,144 @@
+@import 'src/scss/variables/colors-theme-primary';
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 999;
+  background: rgba($dark, 0.5);
+}
+
+.slide {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 1000;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  max-height: 100vh;
+  min-height: 100vh;
+  width: 25rem;
+  padding-bottom: 1.5rem;
+  transform: translateX(200%);
+  transition: 0.5s;
+  background: $color-white;
+  box-shadow: 9px 0 15px 10px $dark;
+
+  &.show {
+    transform: translateX(0);
+  }
+
+  &_buttons {
+    margin-top: auto;
+    padding: 0 1.5rem;
+  }
+
+  &_header {
+    background: $gray;
+
+    &_wrapper {
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      h3 {
+        color: $color-white;
+        font-size: 1.6rem;
+      }
+    }
+
+    &_close {
+      cursor: pointer;
+      color: white;
+      display: flex;
+      align-items: flex-end;
+
+      span {
+        font-size: 0.875rem;
+
+        &:hover {
+          color: $light;
+        }
+      }
+    }
+  }
+
+  &_articles {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: fit-content;
+    margin-top: 0.5rem;
+
+    &_item {
+      padding: 0 1rem 1rem 1rem;
+    }
+
+    &_article {
+      &_img {
+        height: 6rem;
+        width: 6rem;
+        object-fit: contain;
+      }
+
+      &_close {
+        height: 1.5rem;
+        width: 1.5rem;
+        object-fit: contain;
+        cursor: pointer;
+        float: right;
+      }
+
+      p {
+        color: $dark;
+        font-weight: bold;
+        line-height: 1;
+        font-size: 0.9rem;
+      }
+    }
+
+    .price {
+      display: flex;
+      align-items: center;
+      margin-top: 0.5rem;
+
+      span {
+        margin-right: 1rem;
+        color: $dark;
+        font-weight: bold;
+        font-size: 0.9rem;
+      }
+
+      p {
+        font-weight: bold;
+        font-size: 0.9rem;
+        color: $color-primary;
+      }
+    }
+  }
+
+  &_total {
+    border-top: 2px solid $light;
+    border-bottom: 2px solid $light;
+    padding: 1rem 0;
+    display: flex;
+    justify-content: center;
+
+    p {
+      font-size: 1.25rem;
+      font-weight: bold;
+
+      &:first-child {
+        color: $gray;
+        margin-right: 1.5rem;
+      }
+
+      &:last-child {
+        color: $color-primary;
+      }
+    }
+  }
+}

@@ -86,9 +86,26 @@
 
   &_shopcart {
     cursor: pointer;
+    position: relative;
 
     i {
       font-size: 2rem;
+    }
+
+    &_badge {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      border-radius: 50%;
+      height: 1.25rem;
+      width: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: $color-secondary;
+      color: $color-white;
+      font-weight: bold;
+      font-size: 0.75rem;
     }
   }
 }

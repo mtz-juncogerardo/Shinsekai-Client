@@ -1,0 +1,48 @@
+<div (click)="hideSlide()" [class.d-none]="!show" class="overlay"></div>
+
+<div [class.show]="show" class="slide">
+  <div class="slide_header">
+    <div class="slide_header_wrapper">
+      <h3>Carrito</h3>
+      <div (click)="hideSlide()" class="slide_header_close">
+        <span>Cerrar</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide_articles">
+    <div *ngFor="let article of articles" class="slide_articles_item mb-3">
+      <div class="slide_articles_article row align-items-center">
+        <div class="col-4">
+          <img class="slide_articles_article_img" [src]="article.images[0]?.path" alt="imagen de articulo">
+        </div>
+
+        <div class="col-4">
+          <p>{{article.name}}</p>
+        </div>
+
+        <div class="col-4">
+          <img (click)="deleteArticle(article.id)" class="slide_articles_article_close"
+               src="assets/icons/cerrar-simbolo-de-boton-circular.svg" alt="close">
+        </div>
+      </div>
+      <div class="price">
+        <span>
+          {{article.quantity}}
+        </span>
+        <span>x</span>
+        <p>{{article.price !== undefined && article.discountPrice !== undefined && article.quantity !== undefined
+          ? ((article.price - article.discountPrice) * article.quantity | currency) : 0}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide_total">
+    <p>TOTAL:</p>
+    <p>{{total | currency}}</p>
+  </div>
+
+  <div class="slide_buttons">
+    <button [disabled]="this.articles.length < 1" class="w-100 btn btn-outline-success btn-lg">Finalizar Compra</button>
+  </div>
+</div>

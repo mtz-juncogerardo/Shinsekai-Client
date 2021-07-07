@@ -7,6 +7,7 @@ import {IArticle} from '../../../core/Interfaces/IArticle';
 import {StorageService} from '../../../services/storage.service';
 import {IUser} from '../../../core/Interfaces/IUser';
 import {IImage} from '../../../core/Interfaces/IImage';
+import {CartService} from '../../../services/cart.service';
 
 @Component({
   selector: 'app-articles-details',
@@ -33,14 +34,13 @@ export class ArticlesDetailsComponent implements OnInit {
               private loader: LoaderService,
               private alert: AlertService,
               private crud: CrudService,
-              private storage: StorageService) {
+              private storage: StorageService,
+              private cart: CartService) {
     this.article = {id: '', images: [], name: ''};
     this.imageIndex = 0;
     this.favorites = [];
     this.user = {};
     this.images = [];
-    // this.mainImage = {};
-    // this.subImages = [];
     this.isFavorite = false;
     this.inStock = false;
     this.showModal = false;
@@ -64,9 +64,6 @@ export class ArticlesDetailsComponent implements OnInit {
         this.article.quantity = 1;
         this.inStock = this.article?.stock !== undefined && this.article?.stock > 0;
         this.images = this.article.images;
-        // this.mainImage = this.article.images[0];
-        // this.subImages = this.article.images;
-        // this.subImages.shift();
       })
       .finally(() => {
         console.log(this.article);
@@ -192,5 +189,15 @@ export class ArticlesDetailsComponent implements OnInit {
 
   closeModal(): void {
     this.showModal = false;
+  }
+
+  addToCart(): void {
+    if (this.cart.articleExists(this.article.id)) {
+      this.alert.pushAlert({type: 'danger', message: 'El articulo ya esta en tu carrito de compras'});
+      return;
+    }
+
+    this.cart.addToCart(this.article);
+    this.alert.pushAlert({type: 'success', message: 'El articulo se añadio a tu carrito'});
   }
 }

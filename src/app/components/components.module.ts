@@ -9,6 +9,7 @@ import { InputFormComponent } from './input-form/input-form.component';
 import { FooterComponent } from './footer/footer.component';
 import {RouterModule} from '@angular/router';
 import {ArticlePrevComponent} from './article-prev/article-prev.component';
+import { SlideComponent } from './slide/slide.component';
 
 
 
@@ -21,6 +22,7 @@ import {ArticlePrevComponent} from './article-prev/article-prev.component';
     InputFormComponent,
     FooterComponent,
     ArticlePrevComponent,
+    SlideComponent,
   ],
     imports: [
         CommonModule,
