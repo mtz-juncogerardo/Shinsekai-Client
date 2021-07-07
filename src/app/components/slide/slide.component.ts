@@ -14,16 +14,12 @@ export class SlideComponent implements OnInit, OnDestroy {
   @Output() slideClose: EventEmitter<boolean>;
   subscription: Subscription;
   articles: IArticle[];
-  subTotal: number;
-  discount: number;
   total: number;
 
   constructor(private cart: CartService) {
     this.show = false;
     this.articles = [];
     this.total = 0;
-    this.discount = 0;
-    this.subTotal = 0;
     this.slideClose = new EventEmitter<boolean>();
     this.subscription = new Subscription();
   }
@@ -46,19 +42,12 @@ export class SlideComponent implements OnInit, OnDestroy {
   }
 
   private updateTotals(): void {
-    this.subTotal = 0;
     this.total = 0;
-    this.discount = 0;
     this.articles.forEach(a => {
-      if (a.price !== undefined && a.quantity !== undefined) {
-        this.subTotal += (a.price * a.quantity);
-      }
-      if (a.discountPrice !== undefined) {
-        this.discount += a.discountPrice;
+      if (a.price !== undefined && a.quantity !== undefined && a.discountPrice !== undefined) {
+        this.total += (a.price - a.discountPrice) * (a.quantity);
       }
     });
-
-    this.total = this.subTotal - this.discount;
   }
 
   deleteArticle(id: string): void {

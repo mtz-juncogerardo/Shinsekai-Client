@@ -112,10 +112,19 @@
         font-size: 0.9rem;
       }
 
-      p {
-        font-weight: bold;
-        font-size: 0.9rem;
-        color: $color-primary;
+      &_totals {
+        span {
+          font-weight: normal;
+          font-size: 0.7rem;
+          color: $dark;
+          text-decoration: line-through;
+        }
+
+        p {
+          font-weight: bold;
+          font-size: 0.9rem;
+          color: $color-primary;
+        }
       }
     }
   }

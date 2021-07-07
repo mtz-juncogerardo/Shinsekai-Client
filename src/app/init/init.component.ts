@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {LoaderService} from '../services/loader.service';
 import {IPromotions} from '../core/Interfaces/IPromotions';
 import {IArticle} from '../core/Interfaces/IArticle';
+import {ArticleCacheService} from '../services/article-cache.service';
 
 @Component({
   selector: 'app-init',
@@ -27,7 +28,8 @@ export class InitComponent implements OnInit {
               private storage: StorageService,
               private crud: CrudService,
               private router: Router,
-              private loader: LoaderService) {
+              private loader: LoaderService,
+              private cache: ArticleCacheService) {
     this.user = {};
     this.selectedTab = 1;
     this.articlesBySales = [];
@@ -39,23 +41,37 @@ export class InitComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.loader.beginLoad();
+    this.getUser();
+    this.getPromotions();
     await this.getCarousels();
     await this.getArticles();
-    await this.getPromotions();
-    await this.getUser();
+    this.loader.endLoad();
   }
 
   private async getArticles(): Promise<void> {
     this.crud.setEndpoint('articles');
 
+    if (this.cache.articlesSetNew.length > 0 && this.cache.articlesSetSales.length > 0) {
+      this.articlesBySales = this.cache.articlesSetSales;
+      this.articlesByNew = this.cache.articlesSetNew;
+      return;
+    }
+
     await this.crud.httpGet(`?orderBySales=true`).toPromise()
-      .then(res => this.articlesBySales = res.response);
+      .then(res => {
+        this.articlesBySales = res.response;
+        this.cache.articlesSetSales = res.response;
+      });
 
     await this.crud.httpGet().toPromise()
-      .then(res => this.articlesByNew = res.response);
+      .then(res => {
+        this.articlesByNew = res.response;
+        this.cache.articlesSetNew = res.response;
+      });
+
   }
 
-  private async getUser(): Promise<void> {
+  private getUser(): void {
     const token = this.storage.getKey();
 
     if (!token || token.length < 50) {
@@ -68,11 +84,7 @@ export class InitComponent implements OnInit {
     this.crud.setBearer(token);
     this.crud.httpGet('', 'La sesión caduco').toPromise()
       .then(res => this.user = res.response)
-      .catch(() => this.storage.deleteKey())
-      .finally(() => {
-        console.log(this.user);
-        this.loader.endLoad();
-      });
+      .catch(() => this.storage.deleteKey());
   }
 
   private async getCarousels(): Promise<void> {
@@ -98,9 +110,9 @@ export class InitComponent implements OnInit {
     await this.router.navigate([`articles/${id}`]);
   }
 
-  private async getPromotions(): Promise<void> {
+  private getPromotions(): void {
     this.crud.setEndpoint('promotions/read');
-    await this.crud.httpGet().toPromise()
+    this.crud.httpGet().toPromise()
       .then(res => {
         if (res.response) {
           this.rightPromotions = res.response.filter((p: IPromotions) => p.appearsOnRight);

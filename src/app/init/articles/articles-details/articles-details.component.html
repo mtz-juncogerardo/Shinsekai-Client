@@ -27,6 +27,16 @@
           <div (click)="navigateToOriginal()" [class.disabled]="!article.originalFlag" class="bar">
             Original
           </div>
+          <p *ngIf="!article.originalFlag && original.discountPrice !== undefined && original.discountPrice > 1"
+                class="discount-price">
+            {{original.price !== undefined ? (original.price | currency) : ''}}
+          </p>
+
+          <p *ngIf="article.originalFlag && article.discountPrice !== undefined && article.discountPrice > 1"
+                class="discount-price">
+            {{article.price !== undefined ? (article.price | currency) : ''}}
+          </p>
+
           <span *ngIf="!article.originalFlag" class="disabled">{{original.price !== undefined
           && original.discountPrice !== undefined
             ? (original.price - original.discountPrice | currency) : '--'}}</span>
@@ -36,10 +46,19 @@
             ? (article.price - article.discountPrice | currency) : '--'}}
           </span>
         </div>
+
         <div class="original-replica_replica">
           <div (click)="navigateToReplica()" [class.disabled]="article.originalFlag" class="bar">
             Replica
           </div>
+          <p *ngIf="article.originalFlag && replica.discountPrice !== undefined && replica.discountPrice > 1"
+                class="discount-price">
+            {{replica.price !== undefined ? (replica.price | currency) : ''}}</p>
+          <p *ngIf="!article.originalFlag && article.discountPrice !== undefined && article.discountPrice > 1"
+                class="discount-price">
+            {{article.price !== undefined ? (article.price | currency) : ''}}
+          </p>
+
           <span *ngIf="article.originalFlag" class="disabled">{{replica.price !== undefined
           && replica.discountPrice !== undefined
             ? (replica.price - replica.discountPrice | currency) : '--'}}</span>
