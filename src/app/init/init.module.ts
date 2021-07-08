@@ -45,6 +45,10 @@ const routes: Routes = [
   {
     path: 'privacy',
     loadChildren: () => import('./terms/terms.module').then(m => m.TermsModule)
+  },
+  {
+    path: 'help',
+    loadChildren: () => import('./help/help.module').then(m => m.HelpModule)
   }
 ];
 

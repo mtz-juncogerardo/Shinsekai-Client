@@ -19,6 +19,7 @@ export class ArticlesExpoComponent implements OnInit {
   private brandId: string | null;
   private type: string | null;
   private search: string | null;
+  private promotions: string | null;
   maxPage: number;
   private query: string;
   pageNumber: number;
@@ -34,6 +35,7 @@ export class ArticlesExpoComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.query = '';
     this.lineId = null;
+    this.promotions = null;
     this.materialId = null;
     this.animeId = null;
     this.brandId = null;
@@ -48,6 +50,7 @@ export class ArticlesExpoComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.loader.beginLoad();
+    this.promotions = this.route.snapshot.queryParamMap.get('promotions');
     this.lineId = this.route.snapshot.queryParamMap.get('lineId');
     this.materialId = this.route.snapshot.queryParamMap.get('materialId');
     this.animeId = this.route.snapshot.queryParamMap.get('animeId');
@@ -76,6 +79,7 @@ export class ArticlesExpoComponent implements OnInit {
 
   private buildQuery(): void {
     this.query = `?page=${this.pageNumber}`;
+    this.query += this.promotions ? `&promotions=${this.promotions}` : '';
     this.query += this.lineId ? `&lineId=${this.lineId}` : '';
     this.query += this.materialId ? `&materialId=${this.materialId}` : '';
     this.query += this.animeId ? `&animeId=${this.animeId}` : '';

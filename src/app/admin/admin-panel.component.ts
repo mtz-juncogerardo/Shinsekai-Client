@@ -37,7 +37,7 @@ export class AdminPanelComponent implements OnInit {
       'Articulos',
       'Usuarios',
       'Tags',
-      'Promociones',
+      'Promocionales',
       'Carrusel',
       'Compras',
       'Tabla de Entregas',

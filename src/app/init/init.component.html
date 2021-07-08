@@ -72,7 +72,7 @@
             </ng-container>
           </div>
 
-          <button class="article-box_btn rounded-pill btn btn-sm btn-primary">
+          <button (click)="navigateTo('articles')" class="article-box_btn rounded-pill btn btn-sm btn-primary">
             Ver Más
           </button>
         </div>
@@ -81,14 +81,14 @@
       <!--      Third COLUMN-->
       <div class="col-lg-3 col-12 order-3">
         <div class="menu">
-          <div class="menu_item">
+          <div (click)="navigateTo('help')" class="menu_item">
             <div class="menu_item_btn menu_item_btn--help">
               <img class="sh-icon_lg" src="assets/icons/informacion.svg" alt="help">
             </div>
             <span>Ayuda</span>
           </div>
 
-          <div class="menu_item">
+          <div (click)="navigateTo('articles?promotions=true')" class="menu_item">
             <div class="menu_item_btn menu_item_btn--promo">
               <img class="sh-icon_lg" src="assets/icons/promotions.svg" alt="promo">
             </div>

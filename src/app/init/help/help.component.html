@@ -1,0 +1,21 @@
+<div class="container">
+  <app-header [user]="user"
+              [showAdmin]="user?.admin || false"
+              [accountText]="user?.id ? 'Mi Cuenta' : 'Inicia Sesión'"></app-header>
+  <div class="help">
+    <p>Ayuda</p>
+    <span>¿Necesitas ayuda con una compra que realizaste? <a routerLink="help/request">Haz click aquí</a></span>
+  </div>
+  <section *ngFor="let question of questions">
+    <h1>
+      {{question?.question || '--'}}
+    </h1>
+    <ul>
+      <li>
+        {{question?.answer || '--'}}
+      </li>
+    </ul>
+  </section>
+
+  <app-footer></app-footer>
+</div>

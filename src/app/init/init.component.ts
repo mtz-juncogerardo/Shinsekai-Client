@@ -91,6 +91,7 @@ export class InitComponent implements OnInit {
   }
 
   navigateTo(path: string = ''): void {
+    console.log(path);
     if (!path) {
       return;
     }
