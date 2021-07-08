@@ -7,40 +7,7 @@
 
       <!--      FIRST COLUMN-->
       <div class="col-lg-3 col-12 order-lg-0 order-1">
-        <div class="categories">
-          <div class="categories_originals">
-            <img (click)="navigateTo('articles?type=original')" src="assets/original.jpeg" alt="original shinsekai figures">
-          </div>
-          <div (click)="navigateTo('articles?type=replica')" class="categories_replicas">
-            <img src="assets/replica.jpeg" alt="replicas shinsekai figures">
-          </div>
-        </div>
-        <div class="social">
-          <a href="https://www.facebook.com/shinsekaitiendadefiguras/" target="_blank">
-            <div class="social_facebook">
-              <img class="sh-icon mr-3" src="assets/icons/facebook.svg" alt="fb">
-              <span>Shinsekai Facebook</span>
-            </div>
-          </a>
-          <a href="https://www.instagram.com/shinsekaitf/?hl=es-la" target="_blank">
-            <div class="social_instagram">
-              <img class="sh-icon mr-3" src="assets/icons/instagram-2.svg" alt="instagram">
-              <span>Shinsekai Instagram</span>
-            </div>
-          </a>
-          <a href="https://youtube.com/channel/UCY1_hXSRk813NGDc2f9NMwg" target="_blank">
-            <div class="social_youtube">
-              <img class="sh-icon mr-3" src="assets/icons/youtube.svg" alt="youtube">
-              <span>Shinsekai Youtube</span>
-            </div>
-          </a>
-        </div>
-
-        <div class="animes">
-          <div *ngFor="let promo of leftPromotions" class="animes_item animes_item--left">
-            <img (click)="navigateTo(promo?.redirectPath)" [src]="promo?.imagePath" alt="promocion shinsekai">
-          </div>
-        </div>
+        <app-left-bar></app-left-bar>
       </div>
 
       <!--      Second COLUMN-->

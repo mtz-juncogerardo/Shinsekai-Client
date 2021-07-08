@@ -22,7 +22,6 @@ export class InitComponent implements OnInit {
   articlesByNew: IArticle[];
   selectedTab: 1 | 2;
   rightPromotions: IPromotions[];
-  leftPromotions: IPromotions[];
 
   constructor(private alertService: AlertService,
               private storage: StorageService,
@@ -36,7 +35,6 @@ export class InitComponent implements OnInit {
     this.articlesByNew = [];
     this.carousels = [];
     this.rightPromotions = [];
-    this.leftPromotions = [];
   }
 
   async ngOnInit(): Promise<void> {
@@ -114,7 +112,6 @@ export class InitComponent implements OnInit {
       .then(res => {
         if (res.response) {
           this.rightPromotions = res.response.filter((p: IPromotions) => p.appearsOnRight);
-          this.leftPromotions = res.response.filter((p: IPromotions) => p.appearsOnLeft);
         }
       });
   }

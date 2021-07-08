@@ -10,6 +10,7 @@ import { FooterComponent } from './footer/footer.component';
 import {RouterModule} from '@angular/router';
 import {ArticlePrevComponent} from './article-prev/article-prev.component';
 import { SlideComponent } from './slide/slide.component';
+import { LeftBarComponent } from './left-bar/left-bar.component';
 
 
 
@@ -23,6 +24,7 @@ import { SlideComponent } from './slide/slide.component';
     FooterComponent,
     ArticlePrevComponent,
     SlideComponent,
+    LeftBarComponent,
   ],
     imports: [
         CommonModule,
@@ -30,14 +32,15 @@ import { SlideComponent } from './slide/slide.component';
         ReactiveFormsModule,
         RouterModule
     ],
-  exports: [
-    AlertComponent,
-    LoaderComponent,
-    HeaderComponent,
-    CarouselComponent,
-    InputFormComponent,
-    FooterComponent,
-    ArticlePrevComponent
-  ]
+    exports: [
+        AlertComponent,
+        LoaderComponent,
+        HeaderComponent,
+        CarouselComponent,
+        InputFormComponent,
+        FooterComponent,
+        ArticlePrevComponent,
+        LeftBarComponent
+    ]
 })
 export class ComponentsModule { }

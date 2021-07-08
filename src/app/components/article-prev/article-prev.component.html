@@ -4,8 +4,8 @@
       <img [src]="image" alt="articulo">
     </div>
 
-    <div *ngIf="!big" class="article-prev_bar">
-      <p>Pre - Orden</p>
+    <div [class.promo]="discountPrice > 0" class="article-prev_bar">
+      <p [class.big]="big">{{discountPrice > 0 ? 'En Descuento' : 'Pre - Orden'}}</p>
     </div>
 
     <p [class.big]="big" class="article-prev_name">{{name}}</p>

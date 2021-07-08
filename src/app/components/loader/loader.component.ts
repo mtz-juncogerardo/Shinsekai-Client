@@ -23,7 +23,7 @@ export class LoaderComponent implements OnInit, OnDestroy {
       this.loadFlag = loadFlag;
 
       if (this.loadFlag) {
-        setTimeout(() => this.loadFlag = false, 10000);
+        setTimeout(() => this.loadFlag = false, 20000);
       }
     });
   }

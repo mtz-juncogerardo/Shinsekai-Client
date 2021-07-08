@@ -31,6 +31,23 @@
   }
 }
 
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+
+  h1, p {
+    color: $dark;
+  }
+
+  p {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .pagination {
     &_change {

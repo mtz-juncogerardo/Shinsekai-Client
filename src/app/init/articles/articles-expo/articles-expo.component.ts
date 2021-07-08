@@ -19,9 +19,10 @@ export class ArticlesExpoComponent implements OnInit {
   private brandId: string | null;
   private type: string | null;
   private search: string | null;
-  private maxPage: number;
+  maxPage: number;
   private query: string;
   pageNumber: number;
+  count: number;
   articles: IArticle[];
   user: IUser;
 
@@ -42,6 +43,7 @@ export class ArticlesExpoComponent implements OnInit {
     this.user = {};
     this.maxPage = 1;
     this.pageNumber = 1;
+    this.count = 0;
   }
 
   async ngOnInit(): Promise<void> {
@@ -67,6 +69,7 @@ export class ArticlesExpoComponent implements OnInit {
         this.articles = res.response;
         this.pageNumber = res.page;
         this.maxPage = res.maxPage;
+        this.count = res.count;
       })
       .finally(() => this.loader.endLoad());
   }

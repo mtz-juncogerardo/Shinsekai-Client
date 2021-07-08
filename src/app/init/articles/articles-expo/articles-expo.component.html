@@ -3,28 +3,58 @@
               [showAdmin]="user?.admin || false"
               [accountText]="user?.id ? 'Mi Cuenta' : 'Inicia Sesión'"></app-header>
   <div class="row">
-    <div class="col-6 col-md-4 col-lg-3 mb-4" *ngFor="let article of articles">
-      <app-article-prev
-        [big]="true"
-        [price]="article.price || 0"
-        [discountPrice]="article.discountPrice || 0"
-        [image]="article.images[0].path || ''"
-        [name]="article.name"
-        (articleClick)="navigateToArticle(article.id)">
-      </app-article-prev>
+    <div class="col-lg-3 col-12 order-1 order-lg-0">
+      <app-left-bar></app-left-bar>
     </div>
-  </div>
-
-  <div class="row align-items-center justify-content-center">
-    <div class="pagination">
-      <div (click)="previous()" class="pagination_change">
-        <i class="fas fa-arrow-circle-left"></i>
-        <span>Anterior</span>
+    <div class="col-lg-9 col-12 order-0 order-lg-1">
+      <div class="row">
+        <div class="col">
+          <div class="info">
+          <h1>Lista de Articulos</h1>
+          <p>{{pageNumber + ' - ' + maxPage}} de {{count}} Resultados</p>
+          </div>
+        </div>
       </div>
-      <p class="badge bg-secondary">{{this.pageNumber}}</p>
-      <div (click)="next()" class="pagination_change">
-        <span>Siguiente</span>
-        <i class="fas fa-arrow-circle-right"></i>
+
+      <div *ngIf="maxPage > 1" class="row mb-5 align-items-center justify-content-center">
+        <div class="pagination">
+          <div (click)="previous()" class="pagination_change">
+            <i class="fas fa-arrow-circle-left"></i>
+            <span>Anterior</span>
+          </div>
+          <p class="badge bg-secondary">{{this.pageNumber}}</p>
+          <div (click)="next()" class="pagination_change">
+            <span>Siguiente</span>
+            <i class="fas fa-arrow-circle-right"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6 col-md-4 col-lg-3 mb-4 order-lg-0" *ngFor="let article of articles">
+          <app-article-prev
+            [big]="true"
+            [price]="article.price || 0"
+            [discountPrice]="article.discountPrice || 0"
+            [image]="article.images[0].path || ''"
+            [name]="article.name"
+            (articleClick)="navigateToArticle(article.id)">
+          </app-article-prev>
+        </div>
+      </div>
+
+      <div *ngIf="maxPage > 1" class="row align-items-center justify-content-center">
+        <div class="pagination">
+          <div (click)="previous()" class="pagination_change">
+            <i class="fas fa-arrow-circle-left"></i>
+            <span>Anterior</span>
+          </div>
+          <p class="badge bg-secondary">{{this.pageNumber}}</p>
+          <div (click)="next()" class="pagination_change">
+            <span>Siguiente</span>
+            <i class="fas fa-arrow-circle-right"></i>
+          </div>
+        </div>
       </div>
     </div>
   </div>
