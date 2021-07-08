@@ -269,6 +269,39 @@
   }
 }
 
+.about {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  color: $dark;
+  border-bottom: 2px solid $light;
+}
+
+.specs {
+  display: flex;
+  border-bottom: 2px solid $light;
+  padding: 1rem;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  p {
+    margin-right: 1rem;
+    font-weight: bold;
+    font-size: 0.875rem;
+  }
+
+  span:not(.height) {
+    cursor: pointer;
+    background: $gray;
+    margin-right: 0.5rem;
+
+    &:hover {
+      background: $dark;
+    }
+  }
+}
+
 @media only screen and (max-width: 850px) {
 
   .custom-modal {

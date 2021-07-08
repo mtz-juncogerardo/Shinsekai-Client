@@ -68,7 +68,6 @@ export class InitComponent implements OnInit {
         this.articlesByNew = res.response;
         this.cache.articlesSetNew = res.response;
       });
-
   }
 
   private getUser(): void {
@@ -106,7 +105,6 @@ export class InitComponent implements OnInit {
   }
 
   async navigateToArticle(id: string): Promise<void> {
-    console.log('article', id);
     await this.router.navigate([`articles/${id}`]);
   }
 

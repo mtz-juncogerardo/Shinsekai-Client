@@ -200,4 +200,12 @@ export class ArticlesDetailsComponent implements OnInit {
     this.cart.addToCart(this.article);
     this.alert.pushAlert({type: 'success', message: 'El articulo se añadio a tu carrito'});
   }
+
+  async navigateTo(path: string, params: any): Promise<void> {
+    if (params === undefined) {
+      return;
+    }
+
+    await this.router.navigate([path], { queryParams: params });
+  }
 }

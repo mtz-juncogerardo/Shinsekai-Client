@@ -28,12 +28,12 @@
             Original
           </div>
           <p *ngIf="!article.originalFlag && original.discountPrice !== undefined && original.discountPrice > 1"
-                class="discount-price">
+             class="discount-price">
             {{original.price !== undefined ? (original.price | currency) : ''}}
           </p>
 
           <p *ngIf="article.originalFlag && article.discountPrice !== undefined && article.discountPrice > 1"
-                class="discount-price">
+             class="discount-price">
             {{article.price !== undefined ? (article.price | currency) : ''}}
           </p>
 
@@ -52,10 +52,10 @@
             Replica
           </div>
           <p *ngIf="article.originalFlag && replica.discountPrice !== undefined && replica.discountPrice > 1"
-                class="discount-price">
+             class="discount-price">
             {{replica.price !== undefined ? (replica.price | currency) : ''}}</p>
           <p *ngIf="!article.originalFlag && article.discountPrice !== undefined && article.discountPrice > 1"
-                class="discount-price">
+             class="discount-price">
             {{article.price !== undefined ? (article.price | currency) : ''}}
           </p>
 
@@ -112,6 +112,45 @@
         <img class="sh-icon_sm" src="assets/icons/compartir.svg" alt="compartir">
         Compartir
       </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <h2 class="about">Acerca de esta figura</h2>
+    <div class="specs">
+      <p>Altura</p>
+      <span class="height">{{article.height}} mts.</span>
+    </div>
+
+    <div class="specs">
+      <p>Marca</p>
+      <span *ngIf="article.brand !== undefined
+            && article.brand[0].name !== undefined
+            && article.brand[0].id !== undefined"
+            (click)="navigateTo('articles', {brandId: article.brand[0].id})" class="badge">
+        {{article.brand[0].name || '--'}}
+      </span>
+    </div>
+
+    <div class="specs">
+      <p>Linea del producto</p>
+      <span (click)="navigateTo('articles', {lineId: line.id})" class="badge" *ngFor="let line of article?.lines">
+        {{line?.name || '--'}}
+      </span>
+    </div>
+
+    <div class="specs">
+      <p>Animes</p>
+      <span (click)="navigateTo('articles', {animeId: anime.id})" class="badge" *ngFor="let anime of article?.animes">
+        {{anime?.name || '--'}}
+      </span>
+    </div>
+
+    <div class="specs">
+      <p>Materiales</p>
+      <span (click)="navigateTo('articles', {materialId: material.id})" class="badge" *ngFor="let material of article?.materials">
+          {{material?.name || '--'}}
+        </span>
     </div>
   </div>
 

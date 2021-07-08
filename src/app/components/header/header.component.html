@@ -5,7 +5,7 @@
     <img (click)="goHome()" src="assets/test_logo.png" alt="logo">
   </div>
   <div *ngIf="!justLogo" class="col-lg-6 col-md-6 col-12 search">
-    <input [(ngModel)]="search" type="search">
+    <input (keyup)="navigateSearch($event)" [(ngModel)]="search" type="search">
     <div (click)="navigateSearch()" class="search_icon">
       <img class="sh-icon" src="assets/icons/busquedad.svg" alt="busqueda icono">
     </div>

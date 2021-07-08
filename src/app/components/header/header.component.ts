@@ -56,8 +56,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     await this.router.navigate(['/admin']);
   }
 
-  async navigateSearch(): Promise<void> {
-    await this.router.navigate([`articles?search=${this.search}`]);
+  async navigateSearch(event: any = null): Promise<void> {
+    if (!event || event.keyCode === 13 && this.search.length > 1) {
+      await this.router.navigate([`articles`], {queryParams: {search: this.search}});
+    }
   }
 
   async goHome(): Promise<void> {

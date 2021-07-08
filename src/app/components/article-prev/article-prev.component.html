@@ -1,13 +1,16 @@
-<div class="article-prev" (click)="emitArticleClick()">
-  <div class="article-prev_image">
-    <img [src]="image" alt="articulo">
-  </div>
+<div [class.wrapper]="big">
+  <div [class.big]="big" class="article-prev" (click)="emitArticleClick()">
+    <div [class.big]="big" class="article-prev_image">
+      <img [src]="image" alt="articulo">
+    </div>
 
-  <div class="article-prev_bar">
-    <p>Pre - Orden</p>
-  </div>
+    <div *ngIf="!big" class="article-prev_bar">
+      <p>Pre - Orden</p>
+    </div>
 
-  <p class="article-prev_name">{{name}}</p>
-  <span [class.disabled]="discountPrice <= 0" class="article-prev_price-original">{{price | currency}}</span>
-  <p class="article-prev_price">{{price - discountPrice | currency}}</p>
+    <p [class.big]="big" class="article-prev_name">{{name}}</p>
+    <span [class.big]="big" [class.disabled]="discountPrice <= 0"
+          class="article-prev_price-original">{{price | currency}}</span>
+    <p [class.big]=big class="article-prev_price">{{price - discountPrice | currency}}</p>
+  </div>
 </div>

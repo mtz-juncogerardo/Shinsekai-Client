@@ -11,10 +11,12 @@ export class ArticlePrevComponent implements OnInit {
   @Input() price: number;
   @Input() discountPrice: number;
   @Input() name: string;
+  @Input() big: boolean;
   @Output() articleClick: EventEmitter<any>;
 
   constructor() {
     this.image = '';
+    this.big = false;
     this.price = 0;
     this.discountPrice = 0;
     this.name = '';
