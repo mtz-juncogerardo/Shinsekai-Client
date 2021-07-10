@@ -240,7 +240,7 @@ export class ArticlesComponent implements OnInit {
     this.form.patchValue({
       images: this.imagePaths,
       animes: this.selectedAnimes,
-      brandId: this.selectedBrands[0].id,
+      brandId: this.selectedBrands[0]?.id !== undefined ? this.selectedBrands[0]?.id : null,
       lines: this.selectedLines,
       materials: this.selectedMaterials,
       originalFlag: originalFlagForm ? originalFlagForm : false,
@@ -290,7 +290,10 @@ export class ArticlesComponent implements OnInit {
         this.imagePaths.pop();
         this.blockButton = false;
         uploadSubscription.unsubscribe();
-        this.imagePaths.push(e.body.response);
+        const uploadedImage = e.body.response;
+        uploadedImage.order = Date.now();
+        this.imagePaths.push(uploadedImage);
+        console.log(this.imagePaths);
       }
     });
   }

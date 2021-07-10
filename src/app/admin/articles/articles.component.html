@@ -24,7 +24,7 @@
     <tbody>
     <tr *ngFor="let article of articles">
       <td>{{article.name}}</td>
-      <td>{{article.height}} mts</td>
+      <td>{{article.height}} cm</td>
       <td>${{article.price}} MXN</td>
       <td>${{article.discountPrice}} MXN</td>
       <td>{{article.stock}}</td>
@@ -92,11 +92,11 @@
           <dd>{{selectedArticle.id}}</dd>
           <dt>Fecha en que se agrego</dt>
           <dd>{{dateAdded}}</dd>
-          <dt>Animes</dt>
+          <dt>Anime</dt>
           <dd>{{animes.join(' | ')}}</dd>
           <dt>Lineas</dt>
           <dd>{{lines.join(' | ')}}</dd>
-          <dt>Materiales</dt>
+          <dt>Material</dt>
           <dd>{{materials.join(' | ')}}</dd>
           <dt>Marcas</dt>
           <dd>{{brands.join(' | ')}}</dd>
@@ -171,9 +171,9 @@
             <small>Si no tiene un original dejar vacio</small>
           </div>
 
-          <!--Animes-->
+          <!--Anime-->
           <div class="form-group">
-            <label for="animes">Animes:</label>
+            <label for="animes">Anime:</label>
             <input #anime (keyup)="createTag('anime', anime.value, $event)" type="text" autocomplete="off"
                    class="form-control" id="animes">
             <select #animeSelect (change)="addTag('anime', animeSelect.value)" name="anime" id="anime">
@@ -203,7 +203,7 @@
 
           <!--Materials-->
           <div class="form-group">
-            <label for="materials">Materials:</label>
+            <label for="materials">Material:</label>
             <input #material (keyup)="createTag('material', material.value, $event)" type="text" autocomplete="off"
                    class="form-control" id="materials">
             <select #materialSelect (change)="addTag('material', materialSelect.value)" name="material" id="material">

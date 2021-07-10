@@ -61,6 +61,8 @@ export class InitComponent implements OnInit {
         this.cache.articlesSetSales = res.response;
       });
 
+    console.log(this.articlesBySales);
+
     await this.crud.httpGet().toPromise()
       .then(res => {
         this.articlesByNew = res.response;

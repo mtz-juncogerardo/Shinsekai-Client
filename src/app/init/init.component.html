@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <div class="wrapper">
     <app-header [user]="user"
                 [showAdmin]="user?.admin || false"
@@ -35,7 +35,7 @@
         </div>
 
         <div *ngIf="articlesBySales.length > 0" class="carousel_custom">
-          <h4>RANKING</h4>
+          <h4>Las más vendidas</h4>
           <app-carousel [articles]="articlesBySales"></app-carousel>
         </div>
 
@@ -50,24 +50,30 @@
 
           <div class="article-box_prev">
             <ng-container *ngIf="selectedTab === 1">
-              <div class="article-box_prev_item" *ngFor="let article of articlesBySales">
-                <app-article-prev [price]="article.price || 0"
-                                  [discountPrice]="article.discountPrice || 0"
-                                  [image]="article.images[0].path || ''"
-                                  [name]="article.name"
-                                  (articleClick)="navigateToArticle(article.id)">
-                </app-article-prev>
+              <div class="row">
+                <div class="article-box_prev_item col-6 col-md-4 col-lg-3" *ngFor="let article of articlesBySales">
+                  <app-article-prev [price]="article.price || 0"
+                                    [discountPrice]="article.discountPrice || 0"
+                                    [image]="article.images[0].path || ''"
+                                    [name]="article.name"
+                                    [stock]="article.stock"
+                                    (articleClick)="navigateToArticle(article.id)">
+                  </app-article-prev>
+                </div>
               </div>
             </ng-container>
             <ng-container *ngIf="selectedTab === 2">
-              <div class="article-box_prev_item" *ngFor="let article of articlesByNew">
-                <app-article-prev
-                  [price]="article.price || 0"
-                  [discountPrice]="article.discountPrice || 0"
-                  [image]="article.images[0].path || ''"
-                  [name]="article.name"
-                  (articleClick)="navigateToArticle(article.id)">
-                </app-article-prev>
+              <div class="row">
+                <div class="article-box_prev_item col-6 col-md-4 col-lg-3" *ngFor="let article of articlesByNew">
+                  <app-article-prev
+                    [price]="article.price || 0"
+                    [discountPrice]="article.discountPrice || 0"
+                    [image]="article.images[0].path || ''"
+                    [name]="article.name"
+                    [stock]="article.stock"
+                    (articleClick)="navigateToArticle(article.id)">
+                  </app-article-prev>
+                </div>
               </div>
             </ng-container>
           </div>

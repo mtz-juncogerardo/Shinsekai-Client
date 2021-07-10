@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <app-header [user]="user"
               [showAdmin]="user?.admin || false"
               [accountText]="user?.id ? 'Mi Cuenta' : 'Inicia Sesión'"></app-header>
@@ -38,6 +38,7 @@
             [discountPrice]="article.discountPrice || 0"
             [image]="article.images[0].path || ''"
             [name]="article.name"
+            [stock]="article.stock"
             (articleClick)="navigateToArticle(article.id)">
           </app-article-prev>
         </div>

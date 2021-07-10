@@ -39,7 +39,11 @@ export class RegisterComponent implements OnInit {
         });
 
       this.loader.endLoad();
-      await this.router.navigate(['/']);
+      try {
+        await this.router.navigate(['/']);
+      } catch {
+        window.location.href = '/';
+      }
     }
   }
 }

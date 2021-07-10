@@ -5,7 +5,8 @@
     </div>
 
     <div [class.promo]="discountPrice > 0" class="article-prev_bar">
-      <p [class.big]="big">{{discountPrice > 0 ? 'En Descuento' : 'Pre - Orden'}}</p>
+      <p [class.big]="big" *ngIf="discountPrice > 0">En Descuento</p>
+      <p [class.big]="big" *ngIf="discountPrice <= 0">{{stock !== undefined && stock > 0 ? 'En Stock' : 'Sin Stock'}}</p>
     </div>
 
     <p [class.big]="big" class="article-prev_name">{{name}}</p>

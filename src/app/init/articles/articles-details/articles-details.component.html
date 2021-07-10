@@ -1,4 +1,4 @@
-<div *ngIf="!showModal" class="container">
+<div *ngIf="!showModal" class="container-fluid">
   <app-header [user]="user"
               [showAdmin]="user?.admin"
               [accountText]="user?.id ? 'Mi Cuenta' : 'Inicia Sesión'">
@@ -119,7 +119,7 @@
     <h2 class="about">Acerca de esta figura</h2>
     <div class="specs">
       <p>Altura</p>
-      <span class="height">{{article.height}} mts.</span>
+      <span class="height">{{article.height}} cm.</span>
     </div>
 
     <div class="specs">
@@ -140,14 +140,14 @@
     </div>
 
     <div class="specs">
-      <p>Animes</p>
+      <p>Anime</p>
       <span (click)="navigateTo('articles', {animeId: anime.id})" class="badge" *ngFor="let anime of article?.animes">
         {{anime?.name || '--'}}
       </span>
     </div>
 
     <div class="specs">
-      <p>Materiales</p>
+      <p>Material</p>
       <span (click)="navigateTo('articles', {materialId: material.id})" class="badge" *ngFor="let material of article?.materials">
           {{material?.name || '--'}}
         </span>
