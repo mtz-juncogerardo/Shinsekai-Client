@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angula
 import {Subscription} from 'rxjs';
 import {CartService} from '../../services/cart.service';
 import {IArticle} from '../../core/Interfaces/IArticle';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-slide',
@@ -16,7 +17,8 @@ export class SlideComponent implements OnInit, OnDestroy {
   articles: IArticle[];
   total: number;
 
-  constructor(private cart: CartService) {
+  constructor(private cart: CartService,
+              private router: Router) {
     this.show = false;
     this.articles = [];
     this.total = 0;
@@ -52,5 +54,9 @@ export class SlideComponent implements OnInit, OnDestroy {
 
   deleteArticle(id: string): void {
     this.cart.removeProduct(id);
+  }
+
+  async navigateToCheckout(): Promise<void> {
+    await this.router.navigate(['checkout']);
   }
 }

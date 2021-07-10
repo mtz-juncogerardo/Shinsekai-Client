@@ -52,6 +52,6 @@
   </div>
 
   <div class="slide_buttons">
-    <button [disabled]="this.articles.length < 1" class="w-100 btn btn-outline-success btn-lg">Finalizar Compra</button>
+    <button (click)="navigateToCheckout()" [disabled]="this.articles.length < 1" class="w-100 btn btn-outline-success btn-lg">Finalizar Compra</button>
   </div>
 </div>

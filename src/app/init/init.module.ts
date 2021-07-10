@@ -49,6 +49,10 @@ const routes: Routes = [
   {
     path: 'help',
     loadChildren: () => import('./help/help.module').then(m => m.HelpModule)
+  },
+  {
+    path: 'checkout',
+    loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule)
   }
 ];
 

@@ -1,0 +1,98 @@
+@import 'src/scss/variables/colors-theme-primary';
+
+.title {
+  font-weight: bold;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  h1 {
+    color: $dark;
+  }
+
+  a {
+    color: $color-secondary;
+    text-decoration: underline;
+  }
+}
+
+.box {
+  padding: 1rem;
+
+  &_purchase {
+    background: $light;
+
+    &_row {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 1.5rem;
+      color: $dark;
+
+      .edit {
+        text-decoration: underline;
+        font-size: 0.9rem;
+        cursor: pointer;
+
+        &:hover {
+          color: $gray;
+        }
+      }
+
+      &_article {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
+
+        .left {
+          display: flex;
+          align-items: center;
+        }
+
+        img {
+          height: auto;
+          width: 10rem;
+          object-fit: contain;
+          margin-right: 1rem;
+        }
+
+        &_details {
+          p {
+            font-size: 0.875rem;
+            color: $dark;
+          }
+        }
+      }
+
+      .left-col {
+        &_dark {
+          font-weight: bold;
+          color: $gray;
+          font-size: 1.25rem;
+        }
+      }
+
+      .right-col {
+        font-weight: bold;
+        color: $gray;
+        font-size: 1.25rem;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 510px) {
+  .box {
+    &_purchase {
+      &_row {
+        &_article {
+          img {
+            width: 5rem;
+          }
+        }
+      }
+    }
+  }
+}
