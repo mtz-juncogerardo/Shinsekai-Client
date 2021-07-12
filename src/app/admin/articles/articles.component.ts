@@ -208,7 +208,7 @@ export class ArticlesComponent implements OnInit {
       .then(res => {
         const article: IArticle = res.response;
 
-        this.dateAdded = article.dateAdded?.toLocaleString() || '10-09-1992';
+        this.dateAdded = article.dateAdded !== undefined ? new Date(article.dateAdded.toLocaleString()).toString() : '10-09-1992';
         this.animes = article.animes?.map(i => i.name) || ['N/A'];
         this.lines = article.lines?.map(i => i.name) || ['N/A'];
         this.materials = article.materials?.map(i => i.name) || ['N/A'];

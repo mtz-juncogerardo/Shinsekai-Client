@@ -22,7 +22,12 @@ export class PurchasesComponent implements OnInit {
     this.loader.beginLoad();
     this.crud.setEndpoint('purchases/read');
     this.crud.httpGet().toPromise()
-      .then(res => this.purchases = res.response)
+      .then(res => {
+        this.purchases = res.response;
+        this.purchases.forEach(item => {
+          item.purchaseDate = item.purchaseDate !== undefined ? new Date(item.purchaseDate.toLocaleString()).toString() : '10-09-1992';
+        });
+      })
       .finally(() => this.loader.endLoad());
   }
 
