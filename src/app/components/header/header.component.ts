@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {IUser} from '../../core/Interfaces/IUser';
 import {Router} from '@angular/router';
 import {CartService} from '../../services/cart.service';
@@ -9,7 +9,7 @@ import {Subscription} from 'rxjs';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit, OnDestroy, OnChanges {
 
   search: string;
 
@@ -17,13 +17,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Input() user: IUser;
   @Input() accountText: string;
   @Input() justLogo: boolean;
+  @Input() cartEdit: boolean;
+  @Output() cartClosed: EventEmitter<boolean>;
   articleCount: number;
   subscription: Subscription;
   showSlide: boolean;
 
+
   constructor(private router: Router,
               private cart: CartService) {
     this.showAdmin = false;
+    this.cartClosed = new EventEmitter(true);
+    this.cartEdit = false;
     this.articleCount = 0;
     this.search = '';
     this.showSlide = false;
@@ -68,11 +73,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   hideSlide($event: boolean): void {
     this.showSlide = $event;
+    this.cartClosed.emit(true);
     document.body.style.overflowY = 'auto';
   }
 
   toggleCart(): void {
     this.showSlide = true;
     document.body.style.overflowY = 'hidden';
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.cartEdit && changes.cartEdit.currentValue) {
+      this.toggleCart();
+    }
   }
 }

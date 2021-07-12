@@ -50,7 +50,7 @@
 
           <div class="article-box_prev">
             <ng-container *ngIf="selectedTab === 1">
-              <div class="row">
+              <div class="row w-100">
                 <div class="article-box_prev_item col-6 col-md-4 col-lg-3" *ngFor="let article of articlesBySales">
                   <app-article-prev [price]="article.price || 0"
                                     [discountPrice]="article.discountPrice || 0"
@@ -63,7 +63,7 @@
               </div>
             </ng-container>
             <ng-container *ngIf="selectedTab === 2">
-              <div class="row">
+              <div class="row w-100">
                 <div class="article-box_prev_item col-6 col-md-4 col-lg-3" *ngFor="let article of articlesByNew">
                   <app-article-prev
                     [price]="article.price || 0"

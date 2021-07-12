@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {IArticle} from '../core/Interfaces/IArticle';
+import {StorageService} from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,23 +9,32 @@ import {IArticle} from '../core/Interfaces/IArticle';
 export class CartService {
 
   private cart: BehaviorSubject<IArticle[]>;
-  private articles: IArticle[];
+  articles: IArticle[];
   cart$: Observable<IArticle[]>;
 
-  constructor() {
-    this.cart = new BehaviorSubject<IArticle[]>([]);
+  constructor(private storage: StorageService) {
+    this.articles = JSON.parse(this.storage.get('sh-cart')) || [];
+    this.cart = new BehaviorSubject<IArticle[]>(this.articles);
     this.cart$ = this.cart.asObservable();
-    this.articles = [];
+    console.log('storage', this.articles);
   }
 
   addToCart(article: IArticle): void {
     this.articles.push(article);
+    this.storage.delete('sh-cart');
+    this.storage.set('sh-cart', JSON.stringify(this.articles));
     this.cart.next(this.articles);
   }
 
   removeProduct(id: string): void {
     this.articles = this.articles.filter(a => a.id !== id);
+    this.storage.delete('sh-cart');
+    this.storage.set('sh-cart', JSON.stringify(this.articles));
     this.cart.next(this.articles);
+  }
+
+  clearCart(): void {
+    this.cart.next([]);
   }
 
   articleExists(id: string): boolean {

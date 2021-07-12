@@ -60,11 +60,12 @@
           <dd>{{selectedPurchase?.buyer?.address + ', ' + selectedPurchase?.buyer?.city + ', ' + selectedPurchase?.buyer?.postalCode}}</dd>
           <dt>Articulos a Enviar</dt>
           <dd>
-            <ol>
+            <ul>
               <li *ngFor="let article of selectedPurchase?.articles">
-                {{article?.name}}
+                {{article?.name}} --
+                <span>{{article?.quantity}} unidad{{article.quantity !== undefined && article.quantity > 1 ? 'es' : ''}}.</span>
               </li>
-            </ol>
+            </ul>
           </dd>
         </dl>
       </div>

@@ -7,4 +7,5 @@ export interface IPurchase {
   articles?: IArticle[];
   buyer?: IUser;
   total?: number;
+  purchasesArticles?: IArticle[];
 }

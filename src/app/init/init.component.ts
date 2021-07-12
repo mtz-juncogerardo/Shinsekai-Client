@@ -81,9 +81,15 @@ export class InitComponent implements OnInit {
 
     this.crud.setEndpoint('user');
     this.crud.setBearer(token);
-    this.crud.httpGet('', 'La sesión caduco').toPromise()
-      .then(res => this.user = res.response)
-      .catch(() => this.storage.deleteKey());
+    this.crud.httpGet().toPromise()
+      .then(res => {
+        if (res.error) {
+          this.alertService.pushAlert({type: 'danger', message: 'La sesión caduco'});
+          this.storage.deleteKey();
+          return;
+        }
+        this.user = res.response;
+      }).catch(() => this.storage.deleteKey());
   }
 
   private async getCarousels(): Promise<void> {

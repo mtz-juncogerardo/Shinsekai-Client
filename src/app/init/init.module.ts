@@ -53,6 +53,14 @@ const routes: Routes = [
   {
     path: 'checkout',
     loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule)
+  },
+  {
+    path: 'payment',
+    loadChildren: () => import('./payment/payment.module').then(m => m.PaymentModule)
+  },
+  {
+    path: 'pre-checkout',
+    loadChildren: () => import('./pre-checkout/pre-checkout.module').then(m => m.PreCheckoutModule)
   }
 ];
 

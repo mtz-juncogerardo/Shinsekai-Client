@@ -116,3 +116,15 @@ span {
     }
   }
 }
+
+ul {
+  list-style: square;
+
+  li {
+    span {
+      color: $color-primary;
+      background: none;
+      font-size: inherit;
+    }
+  }
+}

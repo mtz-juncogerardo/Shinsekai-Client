@@ -1,0 +1,44 @@
+@import 'src/scss/variables/colors-theme-primary';
+
+span {
+  font-size: 0.5rem;
+  font-weight: bold;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid $light;
+
+  p {
+    color: $dark;
+    font-weight: bold;
+    font-size: 1.75rem;
+  }
+}
+
+label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+input {
+  width: 50%;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+form {
+  margin-bottom: 1.5rem;
+}
+
+@media only screen and (max-width: 800px) {
+  input {
+    width: 100%;
+  }
+}

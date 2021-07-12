@@ -57,6 +57,6 @@ export class SlideComponent implements OnInit, OnDestroy {
   }
 
   async navigateToCheckout(): Promise<void> {
-    await this.router.navigate(['checkout']);
+    await this.router.navigate(['pre-checkout']);
   }
 }
