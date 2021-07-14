@@ -10,6 +10,7 @@ import {IPaymentRequest} from '../../core/Interfaces/IPayment';
 import {environment} from '../../../environments/environment';
 import {StorageService} from '../../services/storage.service';
 import {IUser} from '../../core/Interfaces/IUser';
+import {IPoint} from '../../core/Interfaces/IPoint';
 
 @Component({
   selector: 'app-checkout',
@@ -21,8 +22,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   articles: IArticle[];
   subscription: Subscription;
   payWithPoints: boolean;
+  pendingPoints: number;
   user: IUser;
   total: number;
+  points: IPoint;
   cartEdit: boolean;
 
   constructor(private cart: CartService,
@@ -32,10 +35,12 @@ export class CheckoutComponent implements OnInit, OnDestroy {
               private crud: CrudService,
               private storage: StorageService) {
     this.articles = [];
+    this.points = {totalExpired: 0, totalValid: 0};
     this.user = {};
     this.cartEdit = false;
     this.subscription = new Subscription();
     this.payWithPoints = false;
+    this.pendingPoints = 0;
     this.total = 0;
   }
 
@@ -44,6 +49,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     const anonKey = this.storage.get('sh-anon');
     if (!anonKey) {
       await this.getUser();
+      await this.getPoints();
     } else {
       this.crud.setBearer(anonKey);
     }
@@ -133,5 +139,34 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   cartClosed(): void {
     this.cartEdit = false;
+  }
+
+  private async getPoints(): Promise<void> {
+    this.crud.setEndpoint('user/points');
+    await this.crud.httpGet().toPromise()
+      .then(res => {
+        if (res.response) {
+          this.points = res.response;
+        }
+      });
+  }
+
+  togglePayPoints(): void {
+    if (this.payWithPoints) {
+      const pointsAfterDiscount = this.total - this.points.totalValid;
+      this.pendingPoints = this.points.totalValid;
+
+      if (pointsAfterDiscount < 0) {
+        this.points.totalValid = pointsAfterDiscount * -1;
+        this.total = 0;
+      } else {
+        this.total -= this.points.totalValid;
+        this.points.totalValid = 0;
+      }
+      return;
+    }
+
+    this.updateTotals();
+    this.points.totalValid = this.pendingPoints;
   }
 }

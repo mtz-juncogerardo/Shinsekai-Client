@@ -47,6 +47,16 @@
             {{total | currency}}
           </div>
         </div>
+
+        <div *ngIf="points.totalValid > 0 || pendingPoints > 0" class="row p-3 points form-group">
+          <div class="form-group d-flex align-items-center">
+            <input (change)="togglePayPoints()" id="pp" [(ngModel)]="payWithPoints" name="payWithPoints" class="form-check" type="checkbox">
+            <label for="pp">
+              Pagar con Puntos
+            </label>
+          </div>
+          <span>Se descontaria el equivalente a {{(points.totalValid || pendingPoints) | currency}} MXN</span>
+        </div>
       </div>
     </div>
 

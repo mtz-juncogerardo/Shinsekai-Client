@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CrudService} from '../../services/crud.service';
 import {LoaderService} from '../../services/loader.service';
 import {IPurchase} from '../../core/Interfaces/IPurchase';
+import {AlertService} from '../../services/alert.service';
 
 @Component({
   selector: 'app-purchases',
@@ -11,11 +12,14 @@ import {IPurchase} from '../../core/Interfaces/IPurchase';
 export class PurchasesComponent implements OnInit {
   purchases: IPurchase[];
   selectedPurchase: IPurchase;
+  searchPurchase: string;
 
   constructor(private crud: CrudService,
-              private loader: LoaderService) {
+              private loader: LoaderService,
+              private alert: AlertService) {
     this.purchases = [];
     this.selectedPurchase = {};
+    this.searchPurchase = '';
   }
 
   ngOnInit(): void {
@@ -33,5 +37,26 @@ export class PurchasesComponent implements OnInit {
 
   setPurchase(purchase: IPurchase): void {
     this.selectedPurchase = purchase;
+  }
+
+  searchPurchases(event: any = null): void {
+    if (event && event.keyCode !== 13) {
+      return;
+    }
+
+    if (this.searchPurchase.length !== 36) {
+      this.alert.pushAlert({type: 'danger', message: 'El id que ingresaste no es valido'});
+    }
+
+    this.loader.beginLoad();
+    this.crud.setEndpoint('purchases/read?id=' + this.searchPurchase);
+    this.crud.httpGet().toPromise()
+      .then(res => {
+        if (res.response) {
+          this.purchases = [];
+          this.purchases.push(res.response);
+          console.log(res.response);
+        }
+      }).finally(() => this.loader.endLoad());
   }
 }

@@ -22,8 +22,7 @@
       <ul>
         <li *ngFor="let article of articles">
           <span>{{article.name}}<br>Cant.: {{article.quantity}}</span>
-          <span>{{article.price !== undefined && article.discountPrice !== undefined && article.quantity !== undefined
-            ? ((article.price - article.discountPrice) * article.quantity | currency) : 0}}</span>
+          <span>{{totalAmount}}</span>
         </li>
       </ul>
     </div>

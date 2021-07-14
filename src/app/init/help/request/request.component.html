@@ -1,0 +1,38 @@
+<div class="container">
+  <app-header [justLogo]="true"></app-header>
+  <div class="row m-5">
+    <form [formGroup]="form">
+      <div class="form-group">
+        <label for="purchaseId">Id de compra:</label>
+        <input formControlName="purchaseId" type="text" class="form-control" id="purchaseId">
+        <small class="text-danger" *ngIf="form.get('purchaseId')?.dirty && form.get('purchaseId')?.invalid">
+          *El id de compra no es valido
+        </small>
+      </div>
+      <div class="form-group">
+        <label for="name">Tu Nombre:</label>
+        <input formControlName="name" type="text" class="form-control" id="name">
+      </div>
+      <div class="form-group">
+        <label for="email">Email de contacto:</label>
+        <input formControlName="email" type="text" class="form-control" id="email">
+        <small class="text-danger" *ngIf="form.get('email')?.dirty && form.get('email')?.invalid">
+          *El email no es valido
+        </small>
+      </div>
+      <div class="form-group">
+        <label for="message">Comentarios:</label>
+        <textarea maxlength="200" formControlName="message" type="text" class="form-control" id="message"
+                  rows="8"></textarea>
+      </div>
+    </form>
+
+    <div class="p-3">
+      <button (click)="submit()" class="btn btn-lg btn-danger w-100">
+        Enviar Solicitud
+      </button>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</div>

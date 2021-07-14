@@ -19,6 +19,8 @@ export class SuccessComponent implements OnInit {
   articles: IArticle[];
   paymentValid: boolean;
   purchaseId: string;
+  cashPoints: number;
+  totalAmount: number;
 
   constructor(private crud: CrudService,
               private cart: CartService,
@@ -30,6 +32,8 @@ export class SuccessComponent implements OnInit {
     this.paymentValid = false;
     this.user = {};
     this.articles = [];
+    this.cashPoints = 0;
+    this.totalAmount = 0;
   }
 
   async ngOnInit(): Promise<void> {
@@ -65,6 +69,7 @@ export class SuccessComponent implements OnInit {
 
     this.purchase = {
       purchasesArticles,
+      cashPoints: this.cashPoints
     };
   }
 
@@ -79,6 +84,7 @@ export class SuccessComponent implements OnInit {
     }
 
     this.articles = payment.articles;
+    this.cashPoints = payment.cashPoints;
     this.crud.setEndpoint('purchases/validate');
     await this.crud.httpGet(`?paymentId=${payment.id}`)
       .toPromise()
@@ -101,6 +107,7 @@ export class SuccessComponent implements OnInit {
         this.user.city = res.response.city;
         this.user.postalCode = res.response.postalCode;
         this.purchaseId = res.response.id;
+        this.totalAmount = res.response.totalAmount;
       })
       .finally(() => {
         this.cart.clearCart();

@@ -37,7 +37,6 @@ export class CrudService {
   httpGet(query: string = '', customErr = ''): Observable<any> {
     return this.httpClient.get(this.path + query, this.httpHeaders)
       .pipe(
-        retry(1),
         catchError(err => {
           this.processError(err, customErr);
           return err;
@@ -48,7 +47,6 @@ export class CrudService {
   httpPost(data: any, customErr = ''): Observable<any> {
     return this.httpClient.post(this.path, JSON.stringify(data), this.httpHeaders)
       .pipe(
-        retry(1),
         catchError(err => {
           this.processError(err, customErr);
           return err;
@@ -59,7 +57,6 @@ export class CrudService {
   httpPut(data: any, customErr = ''): Observable<any> {
     return this.httpClient.put(this.path, JSON.stringify(data), this.httpHeaders)
       .pipe(
-        retry(1),
         catchError(err => {
           this.processError(err, customErr);
           return err;
@@ -70,7 +67,6 @@ export class CrudService {
   httpDelete(query: string = '', customErr = ''): Observable<any> {
     return this.httpClient.delete(this.path + '/delete/' + query, this.httpHeaders)
       .pipe(
-        retry(1),
         catchError(err => {
           this.processError(err, customErr);
           return err;
@@ -86,7 +82,7 @@ export class CrudService {
 
   private processError(error: any, customErr: string): void {
     console.log(error);
-    const errorMessage = error?.error?.error ? error?.error?.error : 'Ocurrio un error desconocido';
+    const errorMessage = error.error.error ? error.error.error : 'Ocurrio un error desconocido';
     this.alertService.pushAlert({type: 'danger', message: customErr ? customErr : errorMessage});
   }
 }

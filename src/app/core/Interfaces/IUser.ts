@@ -1,4 +1,3 @@
-import {IArticle} from './IArticle';
 
 export interface IUser {
   id?: string;

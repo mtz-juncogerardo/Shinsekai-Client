@@ -83,6 +83,20 @@
   }
 }
 
+.points {
+  color: $dark;
+
+  label {
+    display: flex;
+    font-size: 1.5rem;
+    margin-left: 1rem;
+  }
+
+  input {
+    transform: scale(1.2);
+  }
+}
+
 @media only screen and (max-width: 510px) {
   .box {
     &_purchase {
