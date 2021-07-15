@@ -1,0 +1,137 @@
+@import 'src/scss/variables/colors-theme-primary';
+
+.group {
+  position: relative;
+  margin-bottom: 1.5rem;
+
+  label {
+    color: #999;
+    font-size: 18px;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+  }
+
+  input {
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    border: none;
+    width: 100%;
+    border-bottom: 1px solid #757575;
+
+    &:focus {
+      outline: none;
+      border-bottom: none;
+    }
+
+    &:valid ~ label,
+    &:focus ~ label {
+      top: -20px;
+      font-size: 14px;
+    }
+
+    &:focus ~ .bar:before,
+    &:focus ~ .bar:after {
+      width: 50%;
+    }
+
+    &:focus ~ .highlight {
+      -webkit-animation: inputHighlighter 0.3s ease;
+      -moz-animation: inputHighlighter 0.3s ease;
+      animation: inputHighlighter 0.3s ease;
+    }
+  }
+
+  .bar {
+    position: relative;
+    display: block;
+
+    &:before,
+    &:after {
+      content: "";
+      height: 2px;
+      width: 0;
+      bottom: 1px;
+      position: absolute;
+      background: #5264ae;
+      transition: 0.2s ease all;
+      -moz-transition: 0.2s ease all;
+      -webkit-transition: 0.2s ease all;
+    }
+
+    &:before {
+      left: 50%;
+    }
+
+    &:after {
+      right: 50%;
+    }
+  }
+
+  .highlight {
+    position: absolute;
+    height: 60%;
+    width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+.logo {
+  width: 18rem;
+  object-fit: contain;
+  margin-bottom: 4rem;
+  cursor: pointer;
+}
+
+.fav {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 2px solid $light;
+  cursor: pointer;
+
+  img {
+    width: 4rem;
+    object-fit: contain;
+    margin-right: 1rem;
+  }
+
+  span {
+    color: $dark;
+  }
+}
+
+h2 {
+  color: $color-secondary;
+  font-size: 1.75rem;
+}
+
+h3 {
+  color: $color-primary;
+  font-size: 1.5rem;
+}
+
+
+.tab {
+  cursor: pointer;
+  padding: 1rem 2rem;
+  background: $blueish;
+  color: $color-white;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: bold;
+  border: 1px solid $color-primary;
+
+  &.selected {
+    background: $color-primary;
+    box-shadow: 4px 0 0 $light;
+  }
+}

@@ -133,14 +133,14 @@
     </div>
 
     <div class="specs">
-      <p>Linea del producto</p>
+      <p>Línea</p>
       <span (click)="navigateTo('articles', {lineId: line.id})" class="badge" *ngFor="let line of article?.lines">
         {{line?.name || '--'}}
       </span>
     </div>
 
     <div class="specs">
-      <p>Anime</p>
+      <p>Anime/Manga</p>
       <span (click)="navigateTo('articles', {animeId: anime.id})" class="badge" *ngFor="let anime of article?.animes">
         {{anime?.name || '--'}}
       </span>

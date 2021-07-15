@@ -1,9 +1,173 @@
-<h1>Welcome:</h1>
-<p><strong>Name:</strong> {{user?.name || 'Sin Nombre'}}</p>
-<p><strong>Email:</strong>{{user?.email}}</p>
-<p><strong>City:</strong>{{user?.city || 'Sin Ciudad'}}</p>
-<p><strong>Address:</strong>{{user?.address || 'Sin Direccion'}}</p>
-<p><strong>Phone:</strong>{{user?.phone || 'Sin Telefono'}}</p>
-<button (click)="logout()" class="btn btn-danger">Cerrar Sesión</button>
+<div class="container">
+  <img class="logo" routerLink="/" src="assets/test_logo.png" alt="logo">
+  <div class="row">
+    <div class="col-lg-3 col-12">
+      <div class="row">
+        <div class="col-12">
+          <div (click)="changeTab('favorite')" [class.selected]="selectedMenu === 'favorite'" class="tab">
+            Favoritos
+          </div>
+        </div>
+        <div class="col-12">
+          <div (click)="changeTab('purchases')" [class.selected]="selectedMenu === 'purchases'" class="tab">
+            Pedidos
+          </div>
+        </div>
+        <div class="col-12">
+          <div (click)="changeTab('config')" [class.selected]="selectedMenu === 'config'" class="tab">
+            Configuración de Cuenta
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="selectedMenu === 'config'">
+      <div class="col-lg-9 col-12">
+        <div class="row mb-5">
+          <div class="col">
+            <h2>Mi Cuenta</h2>
+            <h3>Configuración de Cuenta</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-12">
+            <form [formGroup]="form">
+              <div class="group">
+                <input max="36" formControlName="name" type="text" id="name"
+                       required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Tu Nombre Completo:</label>
+              </div>
+              <div class="group">
+                <input max="150" formControlName="address" type="text" id="address"
+                       required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Dirección:</label>
+              </div>
+              <div class="group">
+                <input max="50" formControlName="city" type="text" id="city"
+                       required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Ciudad:</label>
+              </div>
+              <div class="group">
+                <input max="5" formControlName="postalCode" type="text" id="postalCode"
+                       required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Codigo Postal:</label>
+                <small class="text-danger" *ngIf="form.get('postalCode')?.dirty && form.get('postalCode')?.invalid">
+                  Ingresa un codigo postal valido
+                </small>
+              </div>
+              <div class="group">
+                <input max="12" formControlName="phone" type="text" id="phone"
+                       required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Teléfono:</label>
+                <small class="text-danger" *ngIf="form.get('phone')?.dirty && form.get('phone')?.invalid">
+                  Ingresa un numero telefonico valido
+                </small>
+              </div>
+              <button [disabled]="form.invalid" (click)="submit()"
+                      class="float-end rounded-pill btn btn-sm btn-outline-primary">Guardar
+              </button>
+            </form>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-12">
+            <form [formGroup]="passwordForm">
+              <div class="group">
+                <input [maxLength]="50" max="50" formControlName="previousPassword" type="password" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Contraseña actual</label>
+              </div>
+
+              <div class="group">
+                <input (input)="confirmPasswordFocus()" [maxLength]="50" max="50" formControlName="password"
+                       type="password" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Contraseña nueva</label>
+                <small *ngIf="passwordForm.controls['password'].invalid && passwordForm.controls['password'].dirty"
+                       class="text-danger">
+                  La contraseña tiene que ser de al menos 8 caracteres,
+                  debe contener al menos una mayuscula, un numero, y un simbolo especial.
+                </small>
+              </div>
+
+              <div class="group">
+                <input (input)="confirmPasswordFocus()" formControlName="confirmPassword" type="password" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Vuelve a ingresar la contraseña nueva</label>
+                <small *ngIf="passwordForm.controls['confirmPassword'].dirty && !passwordMatch" class="text-danger">Tus
+                  contraseñas no coinciden</small>
+              </div>
+
+              <button [disabled]="passwordForm.invalid || !passwordMatch" (click)="passwordSubmit()"
+                      class="float-end rounded-pill btn btn-sm btn-outline-primary">Cambiar contraseña
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="selectedMenu === 'favorite'">
+      <div class="col-lg-9 col-12">
+        <div class="row mb-5">
+          <div class="col">
+            <h2>Mi Cuenta</h2>
+            <h3>Mis favoritos</h3>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <div [routerLink]="'/articles/' + favorite.id" *ngFor="let favorite of favorites" class="fav">
+                <img [src]="favorite.images[0].path" alt="mi articulo favorito">
+                <p>{{favorite.name}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="selectedMenu === 'purchases'">
+      <div class="col-lg-9 col-12">
+        <div class="row mb-5">
+          <div class="col">
+            <h2>Mi Cuenta</h2>
+            <h3>Mis pedidos</h3>
+          </div>
+
+          <div class="row">
+            <div *ngFor="let purchase of purchases" class="col-12">
+              <div [routerLink]="'/articles/' + article.article.id" *ngFor="let article of purchase" class="fav">
+                <img [src]="article.image.path" alt="mi articulo favorito">
+                <div>
+                  <p>{{article.article.name}}</p>
+                  <p>(Cantidad: {{article.quantity}})</p>
+                  <span>Id de compra: {{article.purchaseId}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+
+  <div class="p-3 pt-5">
+    <button (click)="logout()" class="w-100 btn btn-danger btn-md">Cerrar Sesión</button>
+  </div>
+</div>
 
 <app-footer></app-footer>

@@ -20,9 +20,9 @@
     <div class="content">
       <h2>Figuras compradas</h2>
       <ul>
-        <li *ngFor="let article of articles">
+        <li *ngFor="let article of articles; let idx = index">
           <span>{{article.name}}<br>Cant.: {{article.quantity}}</span>
-          <span>{{totalAmount}}</span>
+          <span *ngIf="idx === 0">{{totalAmount}}</span>
         </li>
       </ul>
     </div>

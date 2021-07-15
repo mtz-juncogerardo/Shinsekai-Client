@@ -40,7 +40,8 @@ import { LeftBarComponent } from './left-bar/left-bar.component';
         InputFormComponent,
         FooterComponent,
         ArticlePrevComponent,
-        LeftBarComponent
+        LeftBarComponent,
+        SlideComponent
     ]
 })
 export class ComponentsModule { }
