@@ -292,6 +292,9 @@
   }
 
   span:not(.height) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     background: $gray;
     margin-right: 0.5rem;
@@ -303,7 +306,6 @@
 }
 
 @media only screen and (max-width: 850px) {
-
   .custom-modal {
     &_main {
       &_img {
@@ -315,5 +317,34 @@
       }
     }
   }
+}
 
+@media only screen and (max-width: 400px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .options {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      margin-top: 1rem;
+    }
+  }
+
+  .original-replica {
+    &_replica, &_original {
+      span {
+        font-size: 1.5rem;
+      }
+
+      .bar {
+        width: fit-content;
+        font-size: 1rem;
+        padding: 0.25rem 1.5rem 0.25rem 1rem;
+      }
+    }
+  }
 }

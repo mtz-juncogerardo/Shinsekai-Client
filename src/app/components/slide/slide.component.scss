@@ -1,7 +1,7 @@
 @import 'src/scss/variables/colors-theme-primary';
 
 .overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
@@ -13,7 +13,7 @@
 .slide {
   display: flex;
   flex-direction: column;
-  position: absolute;
+  position: fixed;
   z-index: 1000;
   right: 0;
   top: 0;
@@ -149,5 +149,11 @@
         color: $color-primary;
       }
     }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .slide {
+    width: 22rem;
   }
 }

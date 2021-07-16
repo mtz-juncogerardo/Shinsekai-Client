@@ -15,8 +15,8 @@
   }
 
   &_image {
-    height: 7.5rem;
-    width: 7.5rem;
+    height: auto;
+    width: 7rem;
     margin-bottom: 0.5rem;
 
     &.big {
@@ -109,4 +109,32 @@
 .wrapper {
   padding: 0.5rem;
   border-radius: 0.25rem;
+}
+
+@media only screen and (max-width: 500px) {
+  .article-prev {
+    display: flex;
+    flex-direction: column;
+    width: 5rem;
+    max-width: 5rem;
+    min-width: 5rem;
+    cursor: pointer;
+
+    &.big {
+      width: 9rem;
+      max-width: 9rem;
+      min-width: 9rem;
+    }
+
+    &_image {
+      height: auto;
+      width: 5rem;
+      margin-bottom: 0.5rem;
+
+      &.big {
+        height: 9rem;
+        width: 9rem;
+      }
+    }
+  }
 }

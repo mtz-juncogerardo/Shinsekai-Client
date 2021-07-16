@@ -1,7 +1,7 @@
 div {
   bottom: 1rem;
   right: 1rem;
-  position: absolute;
+  position: fixed;
   z-index: 9999;
   transform: translateX(200%);
   transition: transform 0.5s;

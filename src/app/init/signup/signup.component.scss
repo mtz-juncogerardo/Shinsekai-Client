@@ -178,3 +178,14 @@ form {
   }
 }
 
+@media only screen and (max-width: 500px) {
+  form {
+    padding: 0.5rem;
+  }
+
+  .options {
+    button {
+      font-size: 1rem;
+    }
+  }
+}
