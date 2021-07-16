@@ -61,3 +61,74 @@ h4 {
     font-size: 1.25rem;
   }
 }
+
+
+.original-replica {
+  display: flex;
+  margin-bottom: 2rem;
+
+  &_original, &_replica {
+    .bar {
+      padding: 0.25rem 3.5rem 0.5rem 1rem;
+      background: $yellow;
+      color: $gray;
+      cursor: context-menu;
+      font-weight: 500;
+      margin-bottom: 0.875rem;
+      border-radius: 0.5rem;
+      border: 1px solid $dark;
+      line-height: 1;
+      font-size: 1.25rem;
+      user-select: none;
+
+      &.disabled {
+        background: $light;
+        cursor: pointer;
+      }
+    }
+
+    .discount-price {
+      font-size: 1rem;
+      color: $dark;
+      text-decoration: line-through;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    span {
+      font-size: 2rem;
+      color: $color-primary;
+      font-weight: bold;
+
+      &.disabled {
+        color: $dark;
+      }
+    }
+  }
+
+  &_original {
+    padding-right: 3rem;
+    border-right: 1px solid $gray;
+  }
+
+  &_replica {
+    padding-left: 3rem;
+    border-left: 1px solid $gray;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .original-replica {
+    &_replica, &_original {
+      span {
+        font-size: 1.5rem;
+      }
+
+      .bar {
+        width: fit-content;
+        font-size: 1rem;
+        padding: 0.25rem 1.5rem 0.25rem 1rem;
+      }
+    }
+  }
+}
