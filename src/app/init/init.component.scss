@@ -145,4 +145,12 @@
       }
     }
   }
+
+  .carousel {
+    margin-bottom: -2rem;
+
+    &_item {
+      height: 8.5rem;
+    }
+  }
 }

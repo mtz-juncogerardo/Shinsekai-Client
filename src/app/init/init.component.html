@@ -11,7 +11,7 @@
       </div>
 
       <!--      Second COLUMN-->
-      <div class="col-lg-6 mb-lg-5 col-12 order-lg-1 order-0 mb-5">
+      <div class="col-lg-6 mb-lg-5 col-12 order-lg-1 order-0 mb-lg-5">
         <div *ngIf="carousels.length > 0" id="carousel" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
             <div *ngFor="let c of carousels; let idx = index"
@@ -39,7 +39,7 @@
           <app-carousel [articles]="articlesBySales"></app-carousel>
         </div>
 
-        <div class="article-box">
+        <div class="article-box mb-3 mb-lg-0">
           <div class="article-box_tabs">
             <div (click)="changeTab(1)" class="article-box_tabs_item" [class.selected]="selectedTab === 1">Cátalogo
             </div>

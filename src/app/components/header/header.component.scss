@@ -1,5 +1,12 @@
 @import "src/scss/variables/colors-theme-primary";
 
+.disclaimer {
+  background: $dark;
+  color: $color-white;
+  font-size: 0.875rem;
+  padding: 0.25rem 3.5rem;
+}
+
 .logo, .search, .options {
   height: 8rem;
   display: flex;
@@ -110,8 +117,17 @@
   }
 }
 
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 500px) {
   .options {
     flex-wrap: wrap;
+    height: 5rem;
+  }
+
+  .search {
+    height: 6rem;
+  }
+
+  .logo {
+    height: 7rem;
   }
 }
