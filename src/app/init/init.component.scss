@@ -146,11 +146,15 @@
     }
   }
 
-  .carousel {
-    margin-bottom: -2rem;
-
+  .animes {
     &_item {
-      height: 8.5rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .carousel {
+    &-item {
+      height: 10rem;
     }
   }
 }
