@@ -1,5 +1,23 @@
 @import 'src/scss/variables/colors-theme-primary';
 
+.deliveries {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 3rem;
+
+  &_banner {
+    padding: 0.25rem;
+    width: 100%;
+    background: $color-secondary;
+    color: $color-white;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 0.5rem;
+  }
+}
+
 .carousel {
   margin-bottom: 1rem;
 
@@ -156,5 +174,9 @@
     &-item {
       height: 10rem;
     }
+  }
+
+  .deliveries {
+    padding: 0.5rem 0;
   }
 }
