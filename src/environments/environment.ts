@@ -1,7 +1,7 @@
 export const environment = {
-  production: false,
-  endpoint: 'http://147.182.244.81/api/',
-  successUrl: 'http://147.182.244.81/success/',
-  errorUrl: 'http://147.182.244.81/payment/error/'
+  production: true,
+  endpoint: 'https://shinsekai.azurewebsites.net/api/',
+  successUrl: 'https://shinsekai.azurewebsites.net/success/',
+  errorUrl: 'https://shinsekai.azurewebsites.net/payment/error/'
 };
 
