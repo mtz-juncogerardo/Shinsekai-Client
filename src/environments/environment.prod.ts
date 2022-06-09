@@ -1,6 +1,7 @@
 export const environment = {
-  production: true,
-  endpoint: 'https://shinsekai.mx/server/api/',
-  successUrl: 'https://shinsekai.mx/payment/success',
-  errorUrl: 'https://shinsekai.mx/payment/error'
+  production: false,
+  endpoint: 'https://shinsekai.azurewebsites.net/api/',
+  successUrl: 'https://shinsekai.azurewebsites.net/success/',
+  errorUrl: 'https://shinsekai.azurewebsites.net/payment/error/'
 };
+
